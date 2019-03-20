@@ -1,0 +1,103 @@
+<br>
+<br>
+Choose intrinsic function from the list and form "aws function" object to use the in the template
+<br>
+<br> 
+
+<form #funcform="ngForm" (submit)="doFunc(funcform.value)" >
+    <input list="functions" name="funcname" placeholder="Intrisic Function" #funcname ngModel> <br>
+    <datalist id="functions">
+        <option value="Ref"></option>
+        <option value="FnBase64"></option>
+        <option value="FnCidr"></option>
+        <option value="FnFindInMap"></option>
+        <option value="FnGetAtt"></option>
+        <option value="FnGetAZs"></option>
+        <option value="FnImportValue"></option>
+        <option value="FnJoin"></option>
+        <option value="FnSelect"></option>
+        <option value="FnSplit"></option>
+        <option value="FnSub"></option>
+        <option value="FnTransform"></option>
+    </datalist>
+
+    <div *ngIf="funcname.value=='Ref'">
+      <input type="text" ngModel name="refvalue" placeholder="Pick Reference" list="reflist">
+      <div *ngFor="let i of retReflist()">
+        <datalist  id="reflist">
+          <option [value]="i"></option>
+        </datalist>
+      </div>
+
+    </div>
+
+    <div *ngIf="funcname.value=='FnBase64'">
+      <input type="text" ngModel name="b64value" placeholder="Enter String"> 
+    </div>
+
+    <div *ngIf="funcname.value=='FnCidr'">
+      <input type="text" ngModel name="ipblock" placeholder="IP Block" 
+      matTooltip="The user-specified CIDR address block to be split into 
+      smaller CIDR blocks. e.g. 192.168.0.0/24"> <br>
+      <input type="text" ngModel name="count" placeholder="count" 
+      matTooltip="The number of CIDRs to generate. Valid range is between 1 and 256."> <br>
+      <input type="text" ngModel name="cidrbits" placeholder="CidrBits" 
+      matTooltip="The number of subnet bits for the CIDR. For example, specifying a value '8' 
+      for this parameter will create a CIDR with a mask of '/24'. Enter a number e.g. 24" >
+    </div>
+    <div *ngIf="funcname.value=='FnFindInMap'">
+      <input type="text" ngModel name="maps" placeholder="Mapping element" 
+      matTooltip="list of maps from Mappings element" > <br>
+      <input type="text" ngModel name="topkey" placeholder="TopLevelKey"
+      matTooltip="The top-level key name. Its value is a list of key-value pairs."> <br>
+      <input type="text" ngModel name="secondkey" placeholder="SecondLevelkey"
+      matTooltitp="The second-level key name, which is set to one of the keys 
+      from the list assigned to TopLevelKey." >
+    </div>
+    <div *ngIf="funcname.value=='FnGetAtt'">
+      <input type="text" ngModel name="resname" placeholder="Resource"  #resname list="res" >
+      <datalist id="res" *ngFor="let i of (retResources()||[])">
+        <option [value]="i"></option>
+      </datalist>
+      <input *ngIf="resname.value!=''"  ngModel type="text" name="propname" placeholder="Property Name" list="prop">
+      <datalist *ngFor="let j of (retResProps(i)||[])" id="prop">  
+          <option [value]="j"></option>
+      </datalist>
+    </div>
+    <div *ngIf="funcname.value=='FnGetAZs'">
+      <input type="text" ngModel name="zone" placeholder="Zonename or Function" >
+    </div>
+    <div *ngIf="funcname.value=='FnImportValue'">
+      <input type="text" ngModel name="importval" placeholder="ImportValue" 
+      matTooltip="The intrinsic function Fn::ImportValue returns the value of an output exported by 
+      another stack.You can use the following functions in the Fn::ImportValue function. The value 
+      of these functions can't depend on a resource. Fn::Base64, Fn::FindInMap, Fn::If, Fn::Join, 
+      Fn::Select, Fn::Split, Fn::Sub, Ref" >
+    </div>
+    <div *ngIf="funcname.value=='FnJoin'">
+      <input type="text" ngModel name="delim" placeholder="value"><br>
+      <!-- <input type="text" ngModel name="joincount" placeholder="Join count" #joincount ><br>
+      <input ngModel *ngIf="joincount.value!=''" *ngFor="let i of retArray(jointcount.value)" [name]="val{{i}}"  type="text"> -->
+    </div>
+    <div *ngIf="funcname.value=='FnSelect'">
+      <input type="text" ngModel name="sel" placeholder="Select"><br>
+    </div>
+    <div *ngIf="funcname.value=='FnSplit'">
+      <input type="text" ngModel name="split" placeholder="Split"><br>
+    </div>
+    <div *ngIf="funcname.value=='FnSub'">
+        <input type="text" ngModel name="sub" placeholder="Substitute"><br>
+    </div>
+    <div *ngIf="funcname.value=='FnTransform'">
+        <input type="text" ngModel name="traname" placeholder="Name"><br>
+        <input type="text" ngModel name="trapara" placeholder="Parameter"><br>
+    </div>
+    <input type="submit" value="Done">
+    <button mat-button (click)="funcname.value=''" >Reset</button>
+
+</form>
+
+<p>
+  {{funcobj|json}}
+</p>
+

@@ -1,0 +1,28 @@
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+          <mat-select *ngFor="let service of resourcelist" [placeholder]="service.servicename">
+              <mat-option *ngFor="let resource of service.subresource">
+                
+                <button mat-raised-button  [matBadge]="resource.resourcecount" (click)="serviceAddition(resource)">
+                    {{resource.resourcename}}
+                </button>
+              </mat-option>
+          </mat-select>
+        <mat-divider></mat-divider>
+    </mat-drawer>  
+    <div>
+      <div *ngFor="let i of route53_healthcheck">
+        <app-route53-health-check></app-route53-health-check>
+      </div>
+      <div *ngFor="let i of ec2_instance">
+          <app-ec2-instance></app-ec2-instance>
+      </div>
+      <div *ngFor="let i of ec2_volume">
+          <app-ebs-volume></app-ebs-volume>
+      </div>
+      <div *ngFor="let i of ec2_eip">
+          <app-ec2-eip></app-ec2-eip>
+      </div>
+    </div>
+  
+</mat-drawer-container>

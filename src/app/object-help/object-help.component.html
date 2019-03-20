@@ -1,0 +1,43 @@
+
+Please select the resource and property to generate the json object.
+<form id="propform" #propform="ngForm" (submit)="onDone(propform.value)" >
+    <select  #resname name="resname" form="propform" ngModel>
+      <optgroup  *ngFor="let i of mainObj.comProp | keyvalue" [label]="i.key" >
+        <option *ngFor="let j of mainObj.comProp[i.key] | keyvalue" [value]="j.key">{{j.key}}</option>  
+      </optgroup>
+    </select>
+    <button type="submit">Done</button>
+</form> 
+<br>
+<br>
+<br>
+<form *ngIf="propSent"  #jsonform="ngForm" (submit)="onSubmit(jsonform.value)">
+          <div *ngFor="let w of getKeys(selProp)">
+              <input *ngIf="getTypeof(selProp[w])=='string'" 
+              matInput type="text" [name]="w" [placeholder]="w" ngModel>
+              <mat-chip *ngIf="getTypeof(selProp[w])=='object'">
+                {{w}}
+              </mat-chip>
+              <div *ngIf="getDepth(selProp[w]) > 0">
+                <div *ngFor="let x of getKeys(selProp[w])">
+                  <input *ngIf="getTypeof(selProp[w][x])=='string'" 
+                  matInput type="text" [name]="x" [placeholder]="x" ngModel style="margin-left: 20px" >
+                  <mat-chip *ngIf="getTypeof(selProp[w][x])=='object'">
+                    {{x}}
+                  </mat-chip>
+                  <div *ngIf="getDepth(selProp[w][x]) >0 ">
+                    <div *ngFor="let k of getKeys(selProp[w][x])">
+                        <input *ngIf="getTypeof(selProp[w][x][k])=='string'" matInput 
+                        type="text" [name]="k" [placeholder]="k" ngModel style="margin-left: 40px" >         
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>    
+  <button type="submit">Generate</button>
+</form>
+<br>
+
+<p>{{myobj|json}}</p>
+<mat-divider></mat-divider>
+<pre>{{myobj|json}}</pre>

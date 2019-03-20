@@ -1,0 +1,14 @@
+
+<div *ngIf="isPresent" >
+    <mat-card  class="example-card" >Parameters
+      <form #myForm="ngForm" (submit)="onDone(myForm.value)">
+        <input matInput name="resourceName" placeholder="Resource Name" ngModel> <br>
+        <div *ngFor="let j of resPropkeys">
+          <input ngModel type="text" matInput [name]="j" [placeholder]="j" [matTooltip]="resProp[j]" >
+        </div>
+        <input type="submit" value="Done">
+        <button mat-button (click)="onRemove(myForm.value)">Remove</button>
+      </form>
+    </mat-card>
+</div>
+<mat-divider></mat-divider>

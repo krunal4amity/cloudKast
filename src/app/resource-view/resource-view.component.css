@@ -1,0 +1,17 @@
+.example-container {
+    width: 1100px;
+    height: 500px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: left;
+    justify-content: left;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+    width:200px
+  }
