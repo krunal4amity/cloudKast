@@ -10,7 +10,7 @@ export class GenericResource{
 
     serviceSyntax:String=(this.resObject["Type"] as String);
     currentService:String=(this.resObject["Type"] as String).split("::")[1];
-    currentResource:String=(this.resObject["Type"] as String).split("::")[1];
+    currentResource:String=(this.resObject["Type"] as String).split("::")[2];
     tagCount=0;
     tagArray=[];
     isPresent=true;
@@ -60,10 +60,12 @@ export class GenericResource{
         this.result.jsonresult.Resources[value.resourceName].Type=this.resObject["Type"];
         Object.keys(this.resObject["Properties"]).forEach((prop)=>{
             if(typeof(this.resObject["Properties"][prop])=="object"){
-                if(Array.isArray(prop)){
-                    this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getProperJson(value[prop]).split("|");                    
+                if(Array.isArray(this.resObject["Properties"][prop])){
+                  //console.log("in array block")
+                  this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getArray(value[prop]);
                 }
                 else {
+                    //console.log("in object block")
                     this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getProperJson(value[prop]);
                 }            
             }else{

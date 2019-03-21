@@ -3,13 +3,16 @@
       <form #myForm="ngForm" (submit)="onDone(myForm.value)">
         <input matInput name="resourceName" placeholder="Resource Name" ngModel> <br>
         <div *ngFor="let j of curRes.resPropkeys">
-          <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])=='string'" type="text" matInput [name]="j" [placeholder]="j">
-          <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])!='string'" type="text" matInput [name]="j" [placeholder]="j" 
-          matTooltip="Expecting an array/object/array of object . Please use the Intrinsic Functions tab 
-          to create. In case of arrays, please enter string or objects separated by '|'">
-          <!--button mat-icon-button-->
-              <mat-icon matTooltip="Provide Info for this Resource">info</mat-icon>
-          <!--/button-->
+          <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])=='string'" type="text" 
+          matInput [name]="j" [placeholder]="j">
+          <input ngModel *ngIf="isArray(curRes.resObj.Properties[j])" type="text" matInput [name]="j" [placeholder]="j" 
+          matTooltip="Expecting an Array. Array of Strings= comma separated values. Array of 
+          Objects = in square brackets enter comma seperated objects.">
+          <input ngModel *ngIf="!isArray(curRes.resObj.Properties[j]) && getTypeOf(curRes.resObj.Properties[j])=='object'" type="text" matInput [name]="j" [placeholder]="j" 
+          matTooltip="Expecting an object">          
+          <mat-icon *ngIf="getTypeOf(curRes.resObj.Properties[j])=='string'" [matTooltip]="curRes.resObj.Properties[j]">info</mat-icon>
+          <mat-icon *ngIf="isArray(curRes.resObj.Properties[j])" [matTooltip]="curRes.resObj.Properties[j][0]">info</mat-icon>
+          <mat-icon *ngIf="!isArray(curRes.resObj.Properties[j]) && getTypeOf(curRes.resObj.Properties[j])=='object'" [matTooltip]="curRes.resObj.Properties[j]['info']">info</mat-icon> 
         </div>
         Tags:
         <button mat-button (click)="addTag()">Add Tag</button><br>
@@ -17,10 +20,11 @@
             <input matInput name="tagKey{{i}}" placeholder="Key" ngModel>
             <input matInput name="tagValue{{i}}" placeholder="Value" ngModel>
         </div>
-  
-        <input type="submit" value="Done">
-        <button mat-button (click)="onRemove(myForm.value)">Remove</button>
+        
+        <button mat-raised-button type="submit" color="primary" >Done</button>
+        <button mat-raised-button color="warn" (click)="onRemove(myForm.value)">Remove</button>
       </form>
+      <p>info icon guide: * Required. **Conditional </p>
     </mat-card>
   </div>
   <mat-divider></mat-divider>

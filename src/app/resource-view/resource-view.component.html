@@ -1,3 +1,4 @@
+<div style="float:left" >
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side" opened>
           <mat-select *ngFor="let service of resourcelist" [placeholder]="service.servicename">
@@ -24,5 +25,8 @@
           <app-ec2-eip></app-ec2-eip>
       </div>
     </div>
-  
 </mat-drawer-container>
+</div>
+<div style="float:left" >
+    <app-object-help></app-object-help>
+</div>
