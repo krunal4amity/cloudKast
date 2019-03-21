@@ -1,9 +1,4 @@
-<br>
-<br>
-Choose intrinsic function from the list and form "aws function" object to use the in the template
-<br>
-<br> 
-
+<mat-card> Function Manager
 <form #funcform="ngForm" (submit)="doFunc(funcform.value)" >
     <input list="functions" name="funcname" placeholder="Intrisic Function" #funcname ngModel> <br>
     <datalist id="functions">
@@ -97,7 +92,8 @@ Choose intrinsic function from the list and form "aws function" object to use th
 
 </form>
 
-<p>
+<pre>
   {{funcobj|json}}
-</p>
-
+</pre>
+</mat-card>
+<mat-divider></mat-divider>

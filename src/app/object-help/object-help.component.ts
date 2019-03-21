@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResourceDataService } from '../resource-data.service'
+import { UsefulUtilsService } from '../useful-utils.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class ObjectHelpComponent implements OnInit {
   propSent=false;
   selProp:Object;
 
-  constructor(public mainObj:ResourceDataService){
+  constructor(public mainObj:ResourceDataService, public util:UsefulUtilsService){
     //this.resKeys=Object.keys(this.mainObj.comProp);
     //this.propKeys=Object.keys(Object.values(this.mainObj.comProp)[0])
   }
@@ -52,11 +53,13 @@ onSubmit(value){
 getLooper(loopval,formval,myobj){
   this.getKeys(loopval).forEach((j)=>{
     if(typeof(loopval[j])=="string"){
-      myobj[j]=formval[j];
+      //myobj[j]=formval[j];
+      myobj[j]=this.util.getProperJson(formval[j]);
     }
     else{
       if(Array.isArray(loopval[j])){
-        myobj[j]=(formval[j] as String).split("|");
+        //myobj[j]=(formval[j] as String).split("|");
+        myobj[j]=this.util.getArray(formval[j]);
       }
       else{
         myobj[j]={}
@@ -67,6 +70,9 @@ getLooper(loopval,formval,myobj){
   })
 }
 
+isArray(value){
+  return Array.isArray(value);
+}
 
 getTypeof(val){
   return typeof(val);

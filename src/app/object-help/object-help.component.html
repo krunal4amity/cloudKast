@@ -9,21 +9,21 @@
 </form> 
 <form *ngIf="propSent"  #jsonform="ngForm" (submit)="onSubmit(jsonform.value)">
           <div *ngFor="let w of getKeys(selProp)">
-              <input *ngIf="getTypeof(selProp[w])=='string'" 
+              <input *ngIf="getTypeof(selProp[w])=='string' || isArray(selProp[w]) " 
               matInput type="text" [name]="w" [placeholder]="w" ngModel>
-              <mat-chip *ngIf="getTypeof(selProp[w])=='object'">
+              <mat-chip *ngIf="getTypeof(selProp[w])=='object' && !isArray(selProp[w])">
                 {{w}}
               </mat-chip>
               <div *ngIf="getDepth(selProp[w]) > 0">
                 <div *ngFor="let x of getKeys(selProp[w])">
-                  <input *ngIf="getTypeof(selProp[w][x])=='string'" 
+                  <input *ngIf="getTypeof(selProp[w][x])=='string' || isArray(selProp[w][x]) " 
                   matInput type="text" [name]="x" [placeholder]="x" ngModel style="margin-left: 20px" >
-                  <mat-chip *ngIf="getTypeof(selProp[w][x])=='object'">
+                  <mat-chip *ngIf="getTypeof(selProp[w][x])=='object' && !isArray(selProp[w][x])">
                     {{x}}
                   </mat-chip>
                   <div *ngIf="getDepth(selProp[w][x]) >0 ">
                     <div *ngFor="let k of getKeys(selProp[w][x])">
-                        <input *ngIf="getTypeof(selProp[w][x][k])=='string'" matInput 
+                        <input *ngIf="getTypeof(selProp[w][x][k])=='string' || isArray(selProp[w][x][k])" matInput 
                         type="text" [name]="k" [placeholder]="k" ngModel style="margin-left: 40px" >         
                     </div>
                   </div>
@@ -34,5 +34,5 @@
 </form>
 <br>
 <pre>{{myobj|json}}</pre>
-<mat-divider></mat-divider>
 </mat-card>
+<mat-divider></mat-divider>

@@ -17,8 +17,8 @@ export class ResultComponent implements OnInit {
 
   cloudformation = new AWS.CloudFormation({
     region:"us-west-2",
-    accessKeyId:"AKIAIWSUDFU23LIII5YA",
-    secretAccessKey:"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"
+    accessKeyId:"",
+    secretAccessKey:""
   });
 
   params={
