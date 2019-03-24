@@ -1,2 +1,17 @@
-<button matButton (click)="validateTemplate()">Validate</button>
+<form #loginform="ngForm" (submit)="validateTemplate(loginform.value)">
+    <input type="text" name="access_key" placeholder="Access Key" required ngModel>
+    <input type="password" name="secret_access_key" placeholder="Secret Access Key" required ngModel
+    matTooltip="secret access key never leaves your machine">
+    <input type="text" name="region" placeholder="Region" required ngModel>
+    <input type="text" name="bucket" placeholder="Bucket" required ngModel 
+    matTooltip="Make sure your bucket has CORS enabled" >
+    <input type="text" name="filename" placeholder="Filename on S3" required ngModel 
+    matTooltip="File will be created with authenticated-read access">
+    <button mat-stroked-button color="primary" [disabled]="loginform.invalid" type="submit" >Validate Template</button>
+</form>
+
+<a href="#" (click)="getDownloadHref()">Save</a>
+
+<span *ngIf="s3message.length!=0"> {{s3message}} </span> <br>
+<span *ngIf="message.length!=0"> {{message}} </span> <br>
 <pre>{{jsonresult.jsonresult | json}}</pre>

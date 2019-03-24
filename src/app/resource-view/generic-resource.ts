@@ -38,6 +38,35 @@ export class GenericResource{
         return Object.keys(obj).length === 0 && obj.constructor === Object?true:false;
     }
 
+    getTypeOf(value){
+      return typeof(value);
+    }
+  
+    isArray(value){
+      return Array.isArray(value);
+    }
+
+    isRequired(value){
+      if(this.getTypeOf(value)=='object'){
+        if(this.isArray(value)){
+          if(value[0].includes("*")){
+            return "warn";
+          }
+        }
+        else{
+          if(value['info'].includes("*")){
+            return "warn";
+          }
+        }
+      }
+      else{
+        if(value.includes("*")){
+          return "warn";
+        }
+      }
+      return "";
+    }
+
     onRemove(value){
         this.isPresent=false;
         for(var i=0;i<RESOURCE_DATA.length;i++){
@@ -74,6 +103,6 @@ export class GenericResource{
 
             //this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getProperJson(value[prop]);
         })
-        this.result.jsonresult.Resources[value.resourceName]["Tags"]=this.getTagArray(value);
+        this.result.jsonresult.Resources[value.resourceName]["Properties"]["Tags"]=this.getTagArray(value);
      }
 }

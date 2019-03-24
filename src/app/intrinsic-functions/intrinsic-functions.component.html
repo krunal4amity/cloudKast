@@ -1,6 +1,6 @@
 <mat-card> Function Manager
 <form #funcform="ngForm" (submit)="doFunc(funcform.value)" >
-    <input list="functions" name="funcname" placeholder="Intrisic Function" #funcname ngModel> <br>
+    <input list="functions" name="funcname" placeholder="Pick a function" #funcname ngModel> <br>
     <datalist id="functions">
         <option value="Ref"></option>
         <option value="FnBase64"></option>
@@ -87,8 +87,8 @@
         <input type="text" ngModel name="traname" placeholder="Name"><br>
         <input type="text" ngModel name="trapara" placeholder="Parameter"><br>
     </div>
-    <input type="submit" value="Done">
-    <button mat-button (click)="funcname.value=''" >Reset</button>
+    <button mat-stroked-button color="primary" type="submit">Generate</button>
+    <button mat-stroked-button color="warn" (click)="funcname.value=''" >Reset</button>
 
 </form>
 

@@ -57,6 +57,12 @@ import { EC2EIPComponent } from './ec2-eip/ec2-eip.component';
 import { EC2InstanceComponent } from './ec2-instance/ec2-instance.component';
 import { ObjectHelpComponent } from './object-help/object-help.component';
 import { ResourceDataService } from './resource-data.service';
+import { EC2SecurityGroupComponent } from './ec2-security-group/ec2-security-group.component';
+import { MappingsComponent } from './mappings/mappings.component';
+import { ConditionsComponent } from './conditions/conditions.component';
+import { OutputsComponent } from './outputs/outputs.component';
+import { TransformComponent } from './transform/transform.component';
+import { AboutPageComponent } from './about-page/about-page.component';
 
 
 
@@ -75,7 +81,13 @@ import { ResourceDataService } from './resource-data.service';
     KeysPipePipe,
     EC2EIPComponent,
     EC2InstanceComponent,
-    ObjectHelpComponent
+    ObjectHelpComponent,
+    EC2SecurityGroupComponent,
+    MappingsComponent,
+    ConditionsComponent,
+    OutputsComponent,
+    TransformComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,

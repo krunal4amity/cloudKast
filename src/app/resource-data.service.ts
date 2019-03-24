@@ -67,11 +67,27 @@ export class ResourceDataService {
         "DocumentName":""
       }
     },
-    "Krunal":{
-      "Name":"",
-      "Skills":{
-        "IT":"",
-        "Arg":""
+    "AWS::EC2::SecurityGroup":{
+      "SecurityGroupEgress":{
+        "CidrIp" : "",
+        "CidrIpv6" : "",
+        "Description" : "",
+        "DestinationPrefixListId" : "",
+        "DestinationSecurityGroupId" : "",
+        "FromPort" : "",
+        "IpProtocol" : "",
+        "ToPort" : ""
+      },
+      "SecurityGroupIngress":{
+        "CidrIp" : "",
+        "CidrIpv6" : "",
+        "Description" : "",
+        "FromPort" : "",
+        "IpProtocol" : "",
+        "SourceSecurityGroupId" : "",
+        "SourceSecurityGroupName" : "",
+        "SourceSecurityGroupOwnerId" : "",
+        "ToPort" : ""
       }
     }
   }    

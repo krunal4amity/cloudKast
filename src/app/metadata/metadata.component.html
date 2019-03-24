@@ -1,10 +1,14 @@
-<div>
-    <label for="">Template Version:</label>
-     <br>
-    <input matInput [(ngModel)]="result.jsonresult.AWSTemplateFormatVersion" type="text" 
-    name="cfnversion"  disabled> <br> <br>
-    <label for="">Template Description:</label>
-     <br>
-    <textarea matInput [(ngModel)]="result.jsonresult.Description" name="cfndescription" 
-    id="" cols="30" rows="10"  ></textarea>
+
+<br>
+<br>
+<div class="example-meta-container">
+    <mat-form-field>
+      <input matInput [(ngModel)]="result.jsonresult.AWSTemplateFormatVersion" type="text" 
+        name="cfnversion" placeholder="Template Version"  disabled>
+      </mat-form-field> 
+      <mat-form-field>
+        <textarea matInput [(ngModel)]="result.jsonresult.Description" 
+        name="cfndescription" placeholder="Template Description" >
+        </textarea>
+      </mat-form-field>
 </div>

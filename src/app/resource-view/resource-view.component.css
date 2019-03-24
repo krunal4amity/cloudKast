@@ -1,9 +1,10 @@
 .example-container {
-    width: 850px;
+    width: 800px;
     height: 700px;
     border: 1px solid rgba(0, 0, 0, 0.5);
   }
 
+  
   .main-container{
     display: inline-block;
   }

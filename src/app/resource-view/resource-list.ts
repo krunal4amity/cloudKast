@@ -17,31 +17,6 @@ export interface ResourceSyntax{
 
 export var RESOURCE_DATA:AWSResource[]=[
     {
-        servicename:"Route53",
-        subresource:[
-            {
-                resourcename:"health-check",
-                resourcesyntax:"AWS::Route53::HealthCheck",
-                resourcecount:0
-            },
-            {
-                resourcename:"hosted-zone",
-                resourcesyntax:"AWS::Route53::HostedZone",
-                resourcecount:0
-            },
-            {
-                resourcename:"record-set",
-                resourcesyntax:"AWS::Route53::RecordSet",
-                resourcecount:0
-            },
-            {
-                resourcename:"record-set-group",
-                resourcesyntax:"AWS::Route53::RecordSetGroup",
-                resourcecount:0
-            }
-        ]
-    },
-    {
         servicename:"EC2",
         subresource:[
             {
@@ -285,5 +260,31 @@ export var RESOURCE_DATA:AWSResource[]=[
                 resourcecount:0
             }
         ]
-    }
+    },
+    {
+        servicename:"Route53",
+        subresource:[
+            {
+                resourcename:"HealthCheck",
+                resourcesyntax:"AWS::Route53::HealthCheck",
+                resourcecount:0
+            },
+            {
+                resourcename:"HostedZone",
+                resourcesyntax:"AWS::Route53::HostedZone",
+                resourcecount:0
+            },
+            {
+                resourcename:"RecordSet",
+                resourcesyntax:"AWS::Route53::RecordSet",
+                resourcecount:0
+            },
+            {
+                resourcename:"RecordSetGroup",
+                resourcesyntax:"AWS::Route53::RecordSetGroup",
+                resourcecount:0
+            }
+        ]
+    },
+
 ]

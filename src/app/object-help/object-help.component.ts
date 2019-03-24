@@ -38,11 +38,24 @@ getKeys(value){
 }
 
 onDone(value){
-  this.selProp=(Object.values(this.mainObj.comProp)[0])[value.resname];
-  console.log(value);
-  console.log(this.selProp)
+  //this.selProp=(Object.values(this.mainObj.comProp)[0])[value.resname];
+  this.selProp=this.getSelProp(value.resname);
+  //console.log(value);
+  //console.log(this.selProp)
   this.propSent=true;
 
+}
+
+getSelProp(value){
+  var a1=Object.values(this.mainObj.comProp);
+  var a2:Object;
+  a1.forEach((i)=>{
+    if(i.hasOwnProperty(value)){
+      a2=i[value];
+    }
+  })
+  console.log(a2);
+  return a2;
 }
 
 onSubmit(value){

@@ -23,7 +23,7 @@
 
         </div>
         Tags:
-        <button mat-raised-button (click)="addTag()">Add Tag</button><br>
+        <button type="button" mat-raised-button (click)="addTag()">Add Tag</button><br>
         <div *ngFor="let i of tagArray" >
             <input name="tagKey{{i}}" placeholder="Key" ngModel>
             <input name="tagValue{{i}}" placeholder="Value" ngModel>

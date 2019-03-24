@@ -14,7 +14,7 @@ export class ParametersTabComponent implements OnInit {
   ngOnInit() {
   }
 
-  addTag(){
+  addParam(){
     this.tagCount+=1;
     this.tagArray.push(this.tagCount);
   }

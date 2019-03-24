@@ -74,6 +74,10 @@ export class EC2InstanceComponent implements OnInit {
     return Array.isArray(value);
   }
 
+  isRequired(value){
+    return this.curRes.isRequired(value);
+  }
+
   addTag(){
     this.curRes.addTag();
   }

@@ -1,0 +1,28 @@
+<button mat-raised-button color="primary" (click)="addMapping()">Add Mapping</button><br>
+<div *ngFor="let i of tagArray">
+    <div *ngIf="isPresent" >
+        <mat-card  class="example-card">Mapping
+          <form #myForm="ngForm" (submit)="onDone(myForm.value)">
+            <input name="resourceName" placeholder="Mapping Name" ngModel> <br>
+            <button type="button" mat-stroked-button (click)="addKeying()" >Add keys</button>
+            <mat-divider></mat-divider>
+            <div *ngFor="let i of keyArray" >
+                <input type="text" name="key{{i}}" placeholder="Key" matTooltip="Key identifier" 
+                 style="margin-left: 20px" ngModel> <br>
+                <button type="button" mat-stroked-button (click)="addValue()" 
+                style="margin-left:20px" > Add Values </button> 
+                <div *ngFor="let j of valueArray">
+                    <input type="text" name="name{{i}}{{j}}" placeholder="KeyName" ngModel 
+                    style="margin-left: 40px" matTooltip="key in String" >
+                    <input type="text" name="value{{i}}{{j}}" placeholder="KeyValue" matTooltip="
+                    value in String or List. For a list, provide comma separated values" ngModel> <br>
+                </div>
+                <mat-divider></mat-divider>
+            </div>
+            <button type="submit" mat-stroked-button>Done</button>
+            <button mat-raised-button (click)="onRemove(myForm.value)">Remove</button>
+          </form>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+</div>

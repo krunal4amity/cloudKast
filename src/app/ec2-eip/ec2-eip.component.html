@@ -3,8 +3,10 @@
       <form #myForm="ngForm" (submit)="onDone(myForm.value)">
         <input matInput name="resourceName" placeholder="Resource Name" ngModel> <br>
         <div *ngFor="let j of curRes.resPropkeys">
-          <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])=='string'" type="text" matInput [name]="j" [placeholder]="j">
-          <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])!='string'" type="text" matInput [name]="j" [placeholder]="j" 
+          <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])=='string'" type="text"
+           matInput [name]="j" [placeholder]="j">
+          <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])!='string'" type="text"
+           matInput [name]="j" [placeholder]="j" 
           matTooltip="Expecting an array/object/array of object . Please use the Intrinsic Functions tab 
           to create. In case of arrays, please enter string or objects separated by '|'">
         </div>

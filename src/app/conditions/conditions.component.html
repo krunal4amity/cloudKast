@@ -1,0 +1,20 @@
+<button mat-raised-button color="primary" (click)="addCondition()">Add Conditions</button><br>
+
+<div *ngFor="let i of tagArray;index as i">
+    <div *ngIf="isPresent">
+        <mat-card class="example-card">Conditions
+            <form action="" #conform="ngForm" [id]="i" (submit)="onDone(conform.value)" >
+                <input type="hidden" ngModel name="index" [ngModel]="i" ><br>
+                <input type="text" name="resourceName" placeholder="Logical ID" ngModel
+                matTooltip="Logical ID of the condition, a String value" >
+                <input #func type="text" name="func" placeholder="Intrinsic Function" ngModel
+                matTooltip="Use any of these functions = Fn::And, Fn::Equals, Fn::If, 
+                Fn::Not, Fn::Or"><br>
+                <button mat-stroked-button type="submit">Done</button>
+                <button mat-raised-button type="button" (click)="onRemove(conform.value)">Remove</button>
+              </form>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+</div>
+

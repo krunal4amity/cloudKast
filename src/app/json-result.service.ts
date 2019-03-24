@@ -18,13 +18,13 @@ export class JsonResultService {
 
   jsonresult:CloudFormation={
     AWSTemplateFormatVersion:"2010-09-09",
-    Description:"please provide description of the template",
+    Description:"Template created by Cloudfurner",
     Parameters:{},
-    Mappings:undefined,
-    Conditions:undefined,
-    Transform:undefined,
+    Mappings:{},
+    Conditions:{},
+    Transform:{},
     Resources:{},
-    Outputs:undefined
+    Outputs:{}
   }
 
 }

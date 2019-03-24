@@ -1,0 +1,8 @@
+.example-meta-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-meta-container > * {
+    width: 40%;
+  }

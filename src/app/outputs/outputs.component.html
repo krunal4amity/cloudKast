@@ -1,0 +1,19 @@
+<button mat-raised-button color="primary" (click)="addOutput()">Add Output</button><br>
+<div *ngFor="let i of tagArray">
+    <div *ngIf="isPresent" >
+        <mat-card  class="example-card">Outputs
+          <form #myForm="ngForm" (submit)="onDone(myForm.value)">
+            <input name="resourceName" placeholder="Output Name" ngModel> <br>
+            <input type="text" name="desc" placeholder="Description" ngModel> <br>
+            <input type="text" name="value" placeholder="Value" matTooltip="
+            Value to be returned" ngModel> <br>
+            <mat-chip>Export</mat-chip> <br>
+            <input type="text" name="export" placeholder="Name" ngModel style="margin-left:20px"
+            matTooltip="Value to be exported">
+            <button type="submit" mat-stroked-button>Done</button>
+            <button mat-raised-button (click)="onRemove(myForm.value)">Remove</button>
+          </form>
+        </mat-card>
+    </div>
+    <mat-divider></mat-divider>
+</div>
