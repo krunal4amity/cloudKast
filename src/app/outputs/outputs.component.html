@@ -1,5 +1,5 @@
-<button mat-raised-button color="primary" (click)="addOutput()">Add Output</button><br>
-<div *ngFor="let i of tagArray">
+<!-- <button mat-raised-button color="primary" (click)="addOutput()">Add Output</button><br>
+<div *ngFor="let i of tagArray"> -->
     <div *ngIf="isPresent" >
         <mat-card  class="example-card">Outputs
           <form #myForm="ngForm" (submit)="onDone(myForm.value)">
@@ -16,4 +16,3 @@
         </mat-card>
     </div>
     <mat-divider></mat-divider>
-</div>

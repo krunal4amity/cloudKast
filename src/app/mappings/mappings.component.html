@@ -1,5 +1,5 @@
-<button mat-raised-button color="primary" (click)="addMapping()">Add Mapping</button><br>
-<div *ngFor="let i of tagArray">
+<!-- <button mat-raised-button color="primary" (click)="addMapping()">Add Mapping</button><br>
+<div *ngFor="let i of tagArray"> -->
     <div *ngIf="isPresent" >
         <mat-card  class="example-card">Mapping
           <form #myForm="ngForm" (submit)="onDone(myForm.value)">
@@ -25,4 +25,3 @@
         </mat-card>
     </div>
     <mat-divider></mat-divider>
-</div>

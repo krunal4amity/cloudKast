@@ -10,7 +10,7 @@
 <form *ngIf="propSent"  #jsonform="ngForm" (submit)="onSubmit(jsonform.value)">
           <div *ngFor="let w of getKeys(selProp)">
               <input *ngIf="getTypeof(selProp[w])=='string' || isArray(selProp[w]) " 
-               type="text" [name]="w" placeholder="w" ngModel>
+               type="text" [name]="w" [placeholder]="w" ngModel>
               <mat-chip *ngIf="getTypeof(selProp[w])=='object' && !isArray(selProp[w])">
                 {{w}}
               </mat-chip>

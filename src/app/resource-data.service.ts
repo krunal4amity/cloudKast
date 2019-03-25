@@ -10,6 +10,19 @@ export class ResourceDataService {
 
   comProp:Object={
     "AWS::EC2::Instance":{
+      "Metadata":{
+        "AWS::CloudFormation::Init" : {
+          "configset":"",
+          "config" : "",
+          "packages" : "",
+          "groups" : "",
+          "users" : "",
+          "sources" : "",
+          "files" : "",
+          "commands" : "",
+          "services" : "",
+        }
+      },
       "AssociationParameters":{
         "Key":"",
         "Value":[]

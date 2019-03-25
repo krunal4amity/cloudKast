@@ -1,14 +1,16 @@
-
+<!-- <button mat-raised-button color="primary" (click)="addParam()">Add Parameter</button><br>
+<div *ngFor="let i of tagArray"> -->
 <div *ngIf="isPresent" >
-    <mat-card  class="example-card" >Parameters
+    <mat-card  class="example-card" >Parameters #{{i}}
       <form #myForm="ngForm" (submit)="onDone(myForm.value)">
         <input name="resourceName" placeholder="Resource Name" ngModel> <br>
         <div *ngFor="let j of resPropkeys">
           <input ngModel type="text" [name]="j" [placeholder]="j" [matTooltip]="resProp[j]" >
         </div>
         <button type="submit" mat-stroked-button>Done</button>
-        <button mat-raised-button (click)="onRemove(myForm.value)">Remove</button>
+        <button mat-raised-button type="button" (click)="onRemove(myForm.value)">Remove</button>
       </form>
     </mat-card>
 </div>
+<!-- </div> -->
 <mat-divider></mat-divider>

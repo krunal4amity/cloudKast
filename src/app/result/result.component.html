@@ -10,7 +10,9 @@
     <button mat-stroked-button color="primary" [disabled]="loginform.invalid" type="submit" >Validate Template</button>
 </form>
 
-<a href="#" (click)="getDownloadHref()">Save</a>
+<a href="#" (click)="getDownloadHref()">
+    Save
+</a>
 
 <span *ngIf="s3message.length!=0"> {{s3message}} </span> <br>
 <span *ngIf="message.length!=0"> {{message}} </span> <br>

@@ -63,6 +63,9 @@ import { ConditionsComponent } from './conditions/conditions.component';
 import { OutputsComponent } from './outputs/outputs.component';
 import { TransformComponent } from './transform/transform.component';
 import { AboutPageComponent } from './about-page/about-page.component';
+import { OutputsTabComponent } from './outputs-tab/outputs-tab.component';
+import { ConditionsTabComponent } from './conditions-tab/conditions-tab.component';
+import { MappingsTabComponent } from './mappings-tab/mappings-tab.component';
 
 
 
@@ -87,7 +90,10 @@ import { AboutPageComponent } from './about-page/about-page.component';
     ConditionsComponent,
     OutputsComponent,
     TransformComponent,
-    AboutPageComponent
+    AboutPageComponent,
+    OutputsTabComponent,
+    ConditionsTabComponent,
+    MappingsTabComponent
   ],
   imports: [
     BrowserModule,

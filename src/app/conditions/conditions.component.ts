@@ -19,17 +19,27 @@ export class ConditionsComponent implements OnInit {
   addCondition(){
     this.tagCount+=1;
     this.tagArray.push(this.tagCount);
+    console.log(this.tagCount);
+    console.log(this.tagArray);
   }
 
   onRemove(value){
-    this.tagCount-=1;
-    this.tagArray.splice(value.index-1, 1)
+    this.isPresent=false;
+    //this.tagCount-=1;
+    //this.tagArray.splice(value.index-1, 1)
     if(value.resourceName)    this.result.jsonresult.Conditions[value.resourceName]=undefined;
   }
 
   onDone(value){
     console.log(value);
     this.result.jsonresult.Conditions[value.resourceName]=this.util.getProperJson(value.func)
+  }
+
+  onReset(){
+    this.isPresent=false;
+    this.tagCount=0;
+    this.tagArray=[];
+    this.result.jsonresult.Conditions={}
   }
 
 
