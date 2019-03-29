@@ -35,12 +35,12 @@ export class IntrinsicFunctionsComponent implements OnInit {
 
   retResource(){
     //console.log(Object.keys(this.jsonresult.jsonresult.Resources))
-    return (Object.keys(this.jsonresult.jsonresult.Resources).length!=0)?Object.keys(this.jsonresult.jsonresult.Resources).length!=0:[];
+    return (Object.keys(this.jsonresult.jsonresult.Resources).length!=0)?Object.keys(this.jsonresult.jsonresult.Resources):[];
   }
 
   retResProps(rname){
     //return Object.keys(this.jsonresult.jsonresult.Resources[rname]);
-    return (Object.keys(this.jsonresult.jsonresult.Resources[rname]).length!=0)?Object.keys(this.jsonresult.jsonresult.Resources[rname]).length!=0:[];
+    return (Object.keys(this.jsonresult.jsonresult.Resources[rname]["Properties"]).length!=0)?Object.keys(this.jsonresult.jsonresult.Resources[rname]["Properties"]):[];
   }
 
   retArray(num){

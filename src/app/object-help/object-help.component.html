@@ -10,21 +10,21 @@
 <form *ngIf="propSent"  #jsonform="ngForm" (submit)="onSubmit(jsonform.value)">
           <div *ngFor="let w of getKeys(selProp)">
               <input *ngIf="getTypeof(selProp[w])=='string' || isArray(selProp[w]) " 
-               type="text" [name]="w" [placeholder]="w" ngModel>
+               type="text" [name]="w" [placeholder]="w" [matTooltip]="isArray(selProp[w])?selProp[w][0]:selProp[w]" ngModel>
               <mat-chip *ngIf="getTypeof(selProp[w])=='object' && !isArray(selProp[w])">
                 {{w}}
               </mat-chip>
-              <div *ngIf="getDepth(selProp[w]) > 0">
-                <div *ngFor="let x of getKeys(selProp[w])">
+              <div *ngIf="getDepth(selProp[w]) > 0 && getTypeof(selProp[w])=='object' ">
+                <div *ngFor="let x of getKeys(isArray(selProp[w])?[]:selProp[w])">
                   <input *ngIf="getTypeof(selProp[w][x])=='string' || isArray(selProp[w][x]) " 
-                   type="text" [name]="x" [placeholder]="x" ngModel style="margin-left: 20px" >
+                   type="text" [name]="x" [placeholder]="x" ngModel [matTooltip]="isArray(selProp[w][x])?selProp[w][x][0]:selProp[w][x]" style="margin-left: 20px" >
                   <mat-chip *ngIf="getTypeof(selProp[w][x])=='object' && !isArray(selProp[w][x])">
                     {{x}}
                   </mat-chip>
-                  <div *ngIf="getDepth(selProp[w][x]) >0 ">
-                    <div *ngFor="let k of getKeys(selProp[w][x])">
+                  <div *ngIf="getDepth(selProp[w][x]) >0  && getTypeof(selProp[w][x])=='object'">
+                    <div *ngFor="let k of getKeys(isArray(selProp[w][x])?[]:selProp[w][x])">
                         <input *ngIf="getTypeof(selProp[w][x][k])=='string' || isArray(selProp[w][x][k])" 
-                        type="text" [name]="k" [placeholder]="k" ngModel style="margin-left: 40px" >         
+                        type="text" [name]="k" [placeholder]="k" ngModel [matTooltip]="isArray(selProp[w][x][k])?selProp[w][x][k][0]:selProp[w][x][k]" style="margin-left: 40px" >         
                     </div>
                   </div>
                 </div>

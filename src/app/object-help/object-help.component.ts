@@ -15,6 +15,7 @@ export class ObjectHelpComponent implements OnInit {
   propKeys:String[];
   propSent=false;
   selProp:Object;
+  itsArray:String="Expecting an Array Object"
 
   constructor(public mainObj:ResourceDataService, public util:UsefulUtilsService){
     //this.resKeys=Object.keys(this.mainObj.comProp);

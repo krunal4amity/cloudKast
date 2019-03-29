@@ -17,12 +17,12 @@
     </datalist>
 
     <div *ngIf="funcname.value=='Ref'">
-      <input type="text" ngModel name="refvalue" placeholder="Pick Reference" list="reflist">
-      <div *ngFor="let i of retReflist()">
+      <input type="text" ngModel name="refvalue" placeholder="Pick Reference">
+      <!-- <div *ngFor="let i of retReflist()">
         <datalist  id="reflist">
           <option [value]="i"></option>
         </datalist>
-      </div>
+      </div> -->
 
     </div>
 
@@ -50,14 +50,15 @@
       from the list assigned to TopLevelKey." >
     </div>
     <div *ngIf="funcname.value=='FnGetAtt'">
-      <input type="text" ngModel name="resname" placeholder="Resource"  #resname list="res" >
-      <datalist id="res" *ngFor="let i of (retResources()||[])">
+      <input type="text" ngModel name="resname" placeholder="Resource"  #resname >
+      <!-- <datalist id="res" *ngFor="let i of retResource()">
         <option [value]="i"></option>
-      </datalist>
-      <input *ngIf="resname.value!=''"  ngModel type="text" name="propname" placeholder="Property Name" list="prop">
-      <datalist *ngFor="let j of (retResProps(i)||[])" id="prop">  
+      </datalist> -->
+      <input *ngIf="resname.value!=''"  ngModel type="text" name="propname" 
+      placeholder="Property Name">
+      <!-- <datalist *ngFor="let j of retResProps(i)" id="prop">  
           <option [value]="j"></option>
-      </datalist>
+      </datalist> -->
     </div>
     <div *ngIf="funcname.value=='FnGetAZs'">
       <input type="text" ngModel name="zone" placeholder="Zonename or Function" >

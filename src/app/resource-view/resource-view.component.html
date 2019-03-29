@@ -27,6 +27,141 @@
       <div *ngFor="let i of ec2_securitygroup">
           <app-ec2-security-group></app-ec2-security-group>
       </div>
+      <div *ngFor="let i of ec2_customergateway" >
+          <app-ec2-customer-gateway></app-ec2-customer-gateway>
+      </div>
+      <div *ngFor="let i of ec2_dhcpoptions">
+          <app-ec2-dhcpoptions></app-ec2-dhcpoptions>
+      </div>
+      <div *ngFor="let i of ec2_egressonlyinternetgateway" >
+        <app-ec2-egress-only-internet-gateway></app-ec2-egress-only-internet-gateway>
+      </div>
+      <div *ngFor="let i of ec2_ec2fleet">
+          <app-ec2-fleet></app-ec2-fleet>
+      </div>
+      <div *ngFor="let i of ec2_eipassociation">
+          <app-ec2-eipassociation></app-ec2-eipassociation>
+      </div>
+      <div *ngFor="let i of ec2_flowlog">
+          <app-ec2-flow-log></app-ec2-flow-log>
+      </div>
+      <div *ngFor="let i of ec2_host" >
+          <app-ec2-host></app-ec2-host>
+      </div>
+      <div *ngFor="let i of ec2_internetgateway" >
+          <app-ec2-internet-gateway></app-ec2-internet-gateway>
+      </div>
+      <div *ngFor="let i of ec2_launchtemplate" >
+          <app-ec2-launch-template></app-ec2-launch-template>
+      </div>
+      <div *ngFor="let i of ec2_natgateway">
+          <app-ec2-nat-gateway></app-ec2-nat-gateway>
+      </div>
+      <div *ngFor="let i of ec2_networkacl" >
+          <app-ec2-network-acl></app-ec2-network-acl>
+      </div>
+      <div *ngFor="let i of ec2_networkaclentry" >
+          <app-ec2-network-acl-entry></app-ec2-network-acl-entry>
+      </div>
+      <div *ngFor="let i of ec2_networkinterface" >
+          <app-ec2-network-interface></app-ec2-network-interface>
+      </div>
+      <div *ngFor="let i of ec2_networkinterfaceattachment" >
+          <app-ec2-network-interface-attachment></app-ec2-network-interface-attachment>
+      </div>
+      <div *ngFor="let i of ec2_networkinterfacepermission" >
+          <app-ec2-network-interface-permission></app-ec2-network-interface-permission>
+      </div>
+      <div *ngFor="let i of ec2_placementgroup" >
+          <app-ec2-placement-group></app-ec2-placement-group>
+      </div>
+      <div *ngFor="let i of ec2_route" >
+          <app-ec2-route></app-ec2-route>
+      </div>
+      <div *ngFor="let i of ec2_routetable" >
+          <app-ec2-route-table></app-ec2-route-table>
+      </div>
+      <div *ngFor="let i of ec2_securitygroupegress" >
+          <app-ec2-security-group-egress></app-ec2-security-group-egress>
+      </div>
+      <div *ngFor="let i of ec2_securitygroupingress" >
+          <app-ec2-security-group-ingress></app-ec2-security-group-ingress>
+      </div>
+      <div *ngFor="let i of ec2_spotfleet" >
+          <app-ec2-spot-fleet></app-ec2-spot-fleet>
+      </div>
+      <div *ngFor="let i of ec2_subnet" >
+          <app-ec2-subnet></app-ec2-subnet>
+      </div>
+      <div *ngFor="let i of ec2_subnetcidrblock" >
+          <app-ec2-subnet-cidr-block></app-ec2-subnet-cidr-block>
+      </div>
+      <div *ngFor="let i of ec2_subnetnetworkaclassociation" >
+          <app-ec2-subnet-network-acl-association></app-ec2-subnet-network-acl-association>
+      </div>
+      <div *ngFor="let i of ec2_subnetroutetableassociation" >
+          <app-ec2-subnet-route-table-association></app-ec2-subnet-route-table-association>
+      </div>
+      <div *ngFor="let i of ec2_transitgateway" >
+          <app-ec2-transit-gateway></app-ec2-transit-gateway>
+      </div>
+      <div *ngFor="let i of ec2_transitgatewayattachment ">
+          <app-ec2-transit-gateway-attachment></app-ec2-transit-gateway-attachment>
+      </div>
+      <div *ngFor="let i of ec2_transitgatewayroute">
+          <app-ec2-transit-gateway-route></app-ec2-transit-gateway-route>
+      </div>
+      <div *ngFor="let i of ec2_transitgatewayroutetable ">
+          <app-ec2-transit-gateway-route-table></app-ec2-transit-gateway-route-table>
+      </div>
+      <div *ngFor="let i of ec2_transitgatewayroutetableassociation" >
+          <app-ec2-transit-gateway-route-table-association></app-ec2-transit-gateway-route-table-association>
+      </div>
+      <div *ngFor="let i of ec2_transitgatewayroutetablepropagation">
+          <app-ec2-transit-gateway-route-table-propagation></app-ec2-transit-gateway-route-table-propagation>
+      </div>
+      <div *ngFor="let i of ec2_volumeattachment">
+          <app-ec2-volume-attachment></app-ec2-volume-attachment>
+      </div>
+      <div *ngFor="let i of ec2_vpc">
+          <app-ec2-vpc></app-ec2-vpc>
+      </div>
+      <div *ngFor="let i of ec2_vpccidrblock" >
+          <app-ec2-vpccidr-block></app-ec2-vpccidr-block>
+      </div>
+      <div *ngFor="let i of ec2_vpcdhcpoptionsassociation" >
+          <app-ec2-vpcdhcpoptions-association></app-ec2-vpcdhcpoptions-association>
+      </div>
+      <div *ngFor="let i of ec2_vpcendpoint" >
+          <app-ec2-vpcendpoint></app-ec2-vpcendpoint>
+      </div>
+      <div *ngFor="let i of ec2_vpcendpointconnectionnotification">
+          <app-ec2-vpcendpoint-connection-notification></app-ec2-vpcendpoint-connection-notification>
+      </div>
+      <div *ngFor="let i of ec2_vpcendpointservice" >
+          <app-ec2-vpcendpoint-service></app-ec2-vpcendpoint-service>
+      </div>
+      <div *ngFor="let i of ec2_vpcendpointservicepermissions">  
+          <app-ec2-vpcendpoint-service-permissions></app-ec2-vpcendpoint-service-permissions>
+      </div>
+      <div *ngFor="let i of ec2_vpcgatewayattachment" >
+          <app-ec2-vpcgateway-attachment></app-ec2-vpcgateway-attachment>
+      </div>
+      <div *ngFor="let i of ec2_vpcpeeringconnection" >
+          <app-ec2-vpcpeering-connection></app-ec2-vpcpeering-connection>
+      </div>
+      <div *ngFor="let i of ec2_vpnconnection">
+          <app-ec2-vpn-connection></app-ec2-vpn-connection>
+      </div>
+      <div *ngFor="let i of ec2_vpnconnectionroute">
+          <app-ec2-vpnconnection-route></app-ec2-vpnconnection-route>
+      </div>
+      <div *ngFor="let i of ec2_vpngateway">
+          <app-ec2-vpngateway></app-ec2-vpngateway>
+      </div>
+      <div *ngFor="let i of ec2_vpngatewayroutepropagation" >
+          <app-ec2-vpngateway-route-propagation></app-ec2-vpngateway-route-propagation>
+      </div>
     </div>
 </mat-drawer-container>
 </div>

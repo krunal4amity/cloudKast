@@ -7,7 +7,8 @@ export class UsefulUtilsService {
 
   constructor() { }
   getProperJson(val){
-    //any function, any object, not for array of strings or arrays of objects.
+    try{
+          //any function, any object, not for array of strings or arrays of objects.
     if((val as String).includes("{") && !(val as String).includes("{{") ){
       return JSON.parse(val);
     }
@@ -18,9 +19,11 @@ export class UsefulUtilsService {
       else{
         return (val as String).length!=0?val:undefined
       }
-
+      }
     }
-    
+    catch(e){
+      alert("Oops! An error occurred. Please check the input field type.");
+    }
   };
 
   getArray(val){
