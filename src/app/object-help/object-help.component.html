@@ -31,9 +31,10 @@
               </div>
             </div>    
   <button mat-stroked-button color="primary" type="submit">Generate</button>
-  <button mat-stroked-button color="warn" (click)="resname.value=''; propSent=false;myobj={}">Reset</button>
+  <button mat-stroked-button color="warn" (click)="resname.value=''; onReset()">Reset</button>
 </form>
 <br>
 <pre>{{myobj|json}}</pre>
+<button [disabled]="!isCopyReady" mat-icon-button (click)="copyToClipboard()"> <mat-icon>file_copy</mat-icon> </button>
 </mat-card>
 <mat-divider></mat-divider>

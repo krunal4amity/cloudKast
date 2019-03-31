@@ -29,11 +29,14 @@ export class Ec2SecurityGroupEgressComponent implements OnInit {
         "GroupId" : "*ID of the Amazon VPC security group to modify. This value can be a reference to an AWS::EC2::SecurityGroup resource that has a valid VpcId property or the ID of an existing Amazon VPC security group.",
         "IpProtocol" : "*IP protocol name or number.se -1 to specify all protocols. If you specify -1, or a protocol number other than tcp, udp, icmp, or 58 (ICMPv6), traffic on all ports is allowed, regardless of any ports you specify. ",
         "ToPort" : "*Integer. End of port range for the TCP and UDP protocols, or an ICMP code. If you specify icmp for the IpProtocol property, you can specify -1 as a wildcard (i.e., any ICMP code)."
+        // "DeletionPolicy":"With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted.Possible values : 'Delete', 'Retain','Snapshot'. Snapshot applies to ec2volume, elasticcache-cachecluster and replication group, rds-dbcluster and dbinstance, redshift-cluster, neptune-dbcluster",
+        // "DependsOn":["List of strings. When you add a DependsOn attribute to a resource, that resource is created only after the creation of the resource specified in the DependsOn attribute."],
+        // "UpdateReplacePolicy":"If you update a resource property that requires that the resource be replaced, AWS CloudFormation recreates the resource during the update. By default, AWS CloudFormation then deletes the old resource. Using the UpdateReplacePolicy, you can specify that AWS CloudFormation retain or (in some cases) create a snapshot of the old resource. Acceptable values : Retain, Delete, Snapshot"
       }
     }
     this.serviceSyntax=resProp.Type;
-    this.curRes = new GenericResource(resProp, result, utility);
-    this.curRes.resObject=resProp;
+    this.curRes = new GenericResource(this.utility.addCommonProperties(resProp), result, utility);
+    this.curRes.resObject=this.utility.addCommonProperties(resProp);
     this.tagCount=this.curRes.tagCount;
     this.tagArray=this.curRes.tagArray;
     this.isPresent=this.curRes.isPresent;

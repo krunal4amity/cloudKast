@@ -13,8 +13,9 @@ export class EC2InstanceComponent implements OnInit {
   tagCount:number;
   tagArray;
   isPresent:boolean;
-  serviceSyntax:String="AWS::EC2::Instance"
+  serviceSyntax:String;
   curRes:GenericResource;
+  metadataTip:String="Use the AWS::CloudFormation::Init type to include metadata on an Amazon EC2 instance for the cfn-init helper script. If your template calls the cfn-init script, the script looks for resource metadata rooted in the AWS::CloudFormation::Init metadata key."
 
   constructor(public result:JsonResultService, public utility:UsefulUtilsService) {
     var resProp:ResourceSyntax=
@@ -54,15 +55,12 @@ export class EC2InstanceComponent implements OnInit {
           "UserData" : "Base64-encoded MIME user data that is made available to the instances.",
           "Volumes" : ["A list of EC2 MountPoints."],
           "AdditionalInfo" : "",
-          "CreationPolicy":{"info":"Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured."},
-          "DeletionPolicy":"With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted.Possible values : 'Delete', 'Retain','Snapshot'. Snapshot applies to ec2volume, elasticcache-cachecluster and replication group, rds-dbcluster and dbinstance, redshift-cluster, neptune-dbcluster",
-          "DependsOn":["List of strings. When you add a DependsOn attribute to a resource, that resource is created only after the creation of the resource specified in the DependsOn attribute."],
-          "UpdateReplacePolicy":"If you update a resource property that requires that the resource be replaced, AWS CloudFormation recreates the resource during the update. By default, AWS CloudFormation then deletes the old resource. Using the UpdateReplacePolicy, you can specify that AWS CloudFormation retain or (in some cases) create a snapshot of the old resource. Acceptable values : Retain, Delete, Snapshot"
+          "CreationPolicy":{"info":"Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured."}
        }
     };
-    this.curRes = new GenericResource(resProp, result, utility);
-    this.curRes.resObject=resProp;
-    this.tagCount=this.curRes.tagCount;
+    this.serviceSyntax=resProp.Type;
+    this.curRes = new GenericResource(this.utility.addCommonProperties(resProp), result, utility);
+    this.curRes.resObject=this.utility.addCommonProperties(resProp);
     this.tagArray=this.curRes.tagArray;
     this.isPresent=this.curRes.isPresent;
    }
@@ -94,5 +92,14 @@ export class EC2InstanceComponent implements OnInit {
   onRemove(value){
     this.isPresent=false;
     this.curRes.onRemove(value);
+  }
+
+  copyToClipboard(value){
+    var textArea= document.createElement("textarea");
+    textArea.value = JSON.stringify(this.result.jsonresult.Resources[value.resourceName]);
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
   }
 }

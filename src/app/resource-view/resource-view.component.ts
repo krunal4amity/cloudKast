@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {RESOURCE_DATA} from './resource-list';
+import {RESOURCE_DATA, ResourceSyntax} from './resource-list';
 import {AWSResource} from './resource-list';
 import {SubResource} from './resource-list';
+import { AwsResourcesService } from '../aws-resources.service';
 
 @Component({
   selector: 'app-resource-view',
@@ -9,6 +10,12 @@ import {SubResource} from './resource-list';
   styleUrls: ['./resource-view.component.css']
 })
 export class ResourceViewComponent implements OnInit {
+
+  constructor(public awsresource:AwsResourcesService) {
+  }
+
+  ngOnInit() {
+  }
 
   resourcelist=RESOURCE_DATA;
   resource_detail=[]
@@ -18,6 +25,22 @@ export class ResourceViewComponent implements OnInit {
   route53_hostedzone=[];
   route53_recordset=[];
   route53_recordsetgroup=[];
+
+  //Route53 Resolver resources
+  r53_resolver_resolverendpoint=[]
+  r53_resolver_resolverrule=[]
+  r53_resolver_resolverruleassociation=[]
+
+  //IAM resources
+  iam_accesskey=[]
+  iam_group=[]
+  iam_instanceprofile=[]
+  iam_managedpolicy=[]
+  iam_policy=[]
+  iam_role=[]
+  iam_servicelinkedrole=[]
+  iam_user=[]
+  iam_usertogroupaddition=[]
 
   //EC2 resources
   ec2_volume=[];
@@ -70,14 +93,6 @@ export class ResourceViewComponent implements OnInit {
   ec2_vpngateway=[];
   ec2_vpngatewayroutepropagation=[];
 
-
-  constructor() {
-   }
-
-
-  ngOnInit() {
-  }
-
   serviceAddition(subresource:SubResource){
     //console.log(`${subresource.resourcename} ${subresource.resourcecount} ${subresource.resourcesyntax}`);
     subresource.resourcecount = subresource.resourcecount + 1;
@@ -89,6 +104,11 @@ export class ResourceViewComponent implements OnInit {
         if(this.resource_detail[2]=="HostedZone") this.route53_hostedzone.push(subresource.resourcecount);
         if(this.resource_detail[2]=="RecordSet") this.route53_recordset.push(subresource.resourcecount);
         if(this.resource_detail[2]=="RecordSetGroup") this.route53_recordsetgroup.push(subresource.resourcecount);        
+        break;
+      case "Route53Resolver":
+        if(this.resource_detail[2]=="ResolverEndpoint") this.r53_resolver_resolverendpoint.push(subresource.resourcecount);
+        if(this.resource_detail[2]=="ResolverRule") this.r53_resolver_resolverrule.push(subresource.resourcecount);
+        if(this.resource_detail[2]=="ResolverRuleAssociation") this.r53_resolver_resolverruleassociation.push(subresource.resourcecount);
         break;
       case "EC2":
         if(this.resource_detail[2]=="Volume") this.ec2_volume.push(subresource.resourcecount);
@@ -140,6 +160,17 @@ export class ResourceViewComponent implements OnInit {
         if(this.resource_detail[2]=="VPNConnectionRoute") this.ec2_vpnconnectionroute.push(subresource.resourcecount);
         if(this.resource_detail[2]=="VPNGateway") this.ec2_vpngateway.push(subresource.resourcecount);
         if(this.resource_detail[2]=="VPNGatewayRoutePropagation") this.ec2_vpngatewayroutepropagation.push(subresource.resourcecount);
+        break;
+      case "IAM":
+      if(this.resource_detail[2]=="AccessKey") this.iam_accesskey.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="Group") this.iam_group.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="InstanceProfile") this.iam_instanceprofile.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="ManagedPolicy") this.iam_managedpolicy.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="Policy") this.iam_policy.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="Role") this.iam_role.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="ServiceLinkedRole") this.iam_servicelinkedrole.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="User") this.iam_user.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="UserToGroupAddition") this.iam_usertogroupaddition.push(subresource.resourcecount);
         break;
       default:
         break;

@@ -12,15 +12,15 @@ export class ResourceDataService {
     "AWS::EC2::Instance":{
       "Metadata":{
         "AWS::CloudFormation::Init" : {
-          "configset":"",
-          "config" : "",
-          "packages" : "",
-          "groups" : "",
-          "users" : "",
-          "sources" : "",
-          "files" : "",
-          "commands" : "",
-          "services" : "",
+          "config" : {
+            "packages" : "",
+            "groups" : "",
+            "users" : "",
+            "sources" : "",
+            "files" : "",
+            "commands" : "",
+            "services" : ""
+          }
         }
       },
       "AssociationParameters":{
@@ -251,6 +251,232 @@ export class ResourceDataService {
         "Type" : "The type of request, which indicates whether the fleet will only request the target capacity or also attempt to maintain it.",
         "ValidFrom" : "The start date and time of the request, in UTC format (YYYY-MM-DDTHH:MM:SSZ). By default, Amazon Elastic Compute Cloud (Amazon EC2 ) starts fulfilling the request immediately.",
         "ValidUntil" : "The end date and time of the request, in UTC format (YYYY-MM-DDTHH:MM:SSZ). After the end date and time, Amazon EC2 doesn't request new Spot instances or enable them to fulfill the request."
+      },
+      "LaunchSpecifications":{
+        "BlockDeviceMappings" : [ "BlockDeviceMapping, ... "],
+        "EbsOptimized" : "Boolean",
+        "IamInstanceProfile" : {
+          "Arn":"String"
+        },
+        "ImageId" : "String",
+        "InstanceType" : "String",
+        "KernelId" : "String",
+        "KeyName" : "String",
+        "Monitoring" : "Boolean",
+        "NetworkInterfaces" : [" NetworkInterface, ... "],
+        "Placement" : {
+          "AvailabilityZone" : "String",
+          "GroupName" : "String",
+          "Tenancy" : "String"
+        },
+        "RamdiskId" : "String",
+        "SecurityGroups" : [ "SecurityGroup, ..." ],
+        "SpotPrice" : "String",
+        "SubnetId" : "String",
+        "TagSpecifications" : [ "SpotFleetTagSpecification, ... "],     
+        "UserData" : "String",
+        "WeightedCapacity" : "Number"
+      },
+      "BlockDeviceMappings":{
+        "DeviceName" : "String",
+        "Ebs" : {
+          "DeleteOnTermination" : "Boolean",
+          "Encrypted" : "Boolean",
+          "Iops" : "Integer",
+          "SnapshotId" : "String",
+          "VolumeSize" : "Integer",
+          "VolumeType" : "String"
+        },
+        "NoDevice" : "Boolean",
+        "VirtualName" : "String"
+      },
+      "LaunchTemplateConfig":{
+        "LaunchTemplateSpecification" : {
+          "LaunchTemplateId" : "String",
+          "LaunchTemplateName" : "String",
+          "Version" : "String"
+        },
+        "Overrides" : [" LaunchTemplateOverrides, ... "]
+      },
+      "LaunchTemplateOverrides":{
+        "AvailabilityZone" : "String",
+        "InstanceType" : "String",
+        "SpotPrice" : "String",
+        "SubnetId" : "String",
+        "WeightedCapacity" : "Double"
+      },
+      "SpotFleetTagSpecification":{
+        "ResourceType" : "String",
+        "Tags" : [ "Resource Tag, ... "]
+      },
+      "SecurityGroups":{
+        "GroupId" : "String"
+      },
+      "NetworkInterfaces":{
+        "AssociatePublicIpAddress" : "Boolean",
+        "DeleteOnTermination" : "Boolean",
+        "Description" : "String",
+        "DeviceIndex" : "Integer",
+        "Groups" : [" String, ... "],
+        "Ipv6AddressCount" : "Integer",
+        "Ipv6Addresses" : [" IPv6 Address Type, ... "],
+        "NetworkInterfaceId" : "String",
+        "PrivateIpAddresses" : [ "PrivateIpAddresses, ..." ],
+        "SecondaryPrivateIpAddressCount" : "Integer",
+        "SubnetId" : "String"
+      },
+      "PrivateIpAddresses":{
+        "Primary" : "Boolean",
+        "PrivateIpAddress" : "String"
+      },
+      "TargetGroup":{
+        "Arn" : "String"
+      },
+      "TargetGroupsConfig":{
+        "TargetGroups" : [ "TargetGroup, ..." ]
+      },
+      "Monitoring":{
+        "Enabled" : "Boolean"
+      }
+    },
+    "AWS::CloudFormation::Init Config":{
+      "commands":{
+        "commands":"*Required. Either an array or a string specifying the command to run. If you use an array, you do not need to escape space characters or enclose command parameters in quotes. Don't use the array to specify multiple commands.",
+        "env":"Sets environment variables for the command. This property overwrites, rather than appends, the existing environment.",
+        "cwd":"current working directory",
+        "test":"A test command that determines whether cfn-init runs commands that are specified in the command key. If the test passes, cfn-init runs the commands. The cfn-init script runs the test in a command interpreter, such as Bash or cmd.exe. Whether a test passes depends on the exit code that the interpreter returns. For Linux, the test command must return an exit code of 0 for the test to pass. For Windows, the test command must return an ERRORLEVEL of 0.",
+        "ignoreErrors":"Boolean, A Boolean value that determines whether cfn-init continues to run if the command in contained in the command key fails (returns a non-zero value). Set to true if you want cfn-init to continue running even if the command fails. Set to false if you want cfn-init to stop running if the command fails. The default value is false.",
+        "waitAfterCompletion":"For Windows systems only. Specifies how long to wait (in seconds) after a command has finished in case the command causes a reboot. The default value is 60 seconds and a value of 'forever' directs cfn-init to exit and resume only after the reboot is complete. Set this value to 0 if you do not want to wait for every command."
+      },
+      "files":{
+        "content":"Either a string or a properly formatted JSON object. If you use a JSON object as your content, the JSON will be written to a file on disk. Any intrinsic functions such as Fn::GetAtt or Ref are evaluated before the JSON object is written to disk. When you create a symlink, specify the symlink target as the content.",
+        "source":"A URL to load the file from. This option cannot be specified with the content key.",
+        "encoding":"The encoding format. Only used if the content is a string. Encoding is not applied if you are using a source. Valid values: plain | base64",
+        "group":"The name of the owning group for this file. Not supported for Windows systems.",
+        "owner":"The name of the owning user for this file. Not supported for Windows systems.",
+        "mode":"A six-digit octal value representing the mode for this file. Not supported for Windows systems. Use the first three digits for symlinks and the last three digits for setting permissions. To create a symlink, specify 120xxx, where xxx defines the permissions of the target file. To specify permissions for a file, use the last three digits, such as 000644.",
+        "authentication":"The name of an authentication method to use. This overrides any default authentication.",
+        "context":"Specifies a context for files that are to be processed as Mustache templates. To use this key, you must have installed aws-cfn-bootstrap 1.3-11 or later as well as pystache."
+      },
+      "groups":{
+        "gid":"If a group ID is specified, and the group already exists by name, the group creation will fail. If another group has the specified group ID, the OS may reject the group creation."
+      },
+      "packages":{
+        "apt":"apt packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL. ",
+        "msi":"msi packages as a json object. On Windows systems, the packages key supports only the MSI installer.",
+        "python":"msi packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL.",
+        "rpm":"rpm packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL.",
+        "rubygems":"rubygems as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL.",
+        "yum":"yum packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL."
+      },
+      "users":{
+        "groups":["A list of group names. The user will be added to each group in the list."],
+        "uid":"A user ID. The creation process fails if the user name exists with a different user ID. If the user ID is already assigned to an existing user the operating system may reject the creation request.",
+        "homeDir":"The user's home directory."
+      },
+      "services":{
+        "ensureRunning":"Set to true to ensure that the service is running after cfn-init finishes. Set to false to ensure that the service is not running after cfn-init finishes. Omit this key to make no changes to the service state.",
+        "enabled":"Set to true to ensure that the service will be started automatically upon boot. Set to false to ensure that the service will not be started automatically upon boot. ",
+        "files":["A list of files. If cfn-init changes one directly via the files block, this service will be restarted"],
+        "sources":["A list of directories. If cfn-init expands an archive into one of these directories, this service will be restarted."],
+        "packages":"A map of package manager to list of package names. If cfn-init installs or updates one of these packages, this service will be restarted.",
+        "commands":["A list of command names. If cfn-init runs the specified command, this service will be restarted."]
+      }
+    },
+    "AWS::EC2::NetworkAclEntry":{
+      "Icmp":{
+        "Code" : "** The Internet Control Message Protocol (ICMP) code. You can use -1 to specify all ICMP codes for the given ICMP type. Required if you specify 1 (ICMP) for the CreateNetworkAclEntry protocol parameter.",
+        "Type" : "**Integer. The Internet Control Message Protocol (ICMP) type. You can use -1 to specify all ICMP types. Required if you specify 1 (ICMP) for the CreateNetworkAclEntry protocol parameter."
+     },
+     "PortRange":{
+      "From" : "**Integer. The first port in the range. Required if you specify 6 (TCP) or 17 (UDP) for the protocol parameter. ",
+      "To" : "**Integer. The last port in the range. Required if you specify 6 (TCP) or 17 (UDP) for the protocol parameter. "
+     },
+    },
+    "AWS::EC2::NetworkInterface":{
+      "Ipv6Addresses":{
+        "Ipv6Address" : "*The IPv6 address to associate with the network interface."
+     },
+     "PrivateIpAddressSpecification":{
+      "PrivateIpAddress" : "*String. The private IP address of the network interface.",
+      "Primary" : "*Boolean. Sets the private IP address as the primary private address. You can set only one primary private IP address. If you don't specify a primary private IP address, Amazon EC2 automatically assigns a primary private IP address. "
+      }
+    },
+    "AWS::Route53::HealthCheck":{
+      "AlarmIdentifier":{
+        "Name" : "*The name of the Amazon CloudWatch alarm that you want Route 53 health checkers to use to determine whether this health check is healthy.",
+        "Region" : "*A complex type that identifies the CloudWatch alarm that you want Route 53 health checkers to use to determine whether this health check is healthy. For example, us-west-2."
+      },
+      "HealthCheckConfig":{
+        "AlarmIdentifier" : {
+          "Name" : "The name of the Amazon CloudWatch alarm that you want Route 53 health checkers to use to determine whether this health check is healthy.",
+          "Region" : "A complex type that identifies the CloudWatch alarm that you want Route 53 health checkers to use to determine whether this health check is healthy. For example, us-west-2."
+        },
+        "ChildHealthChecks" : ["Type: List of String values. (CALCULATED Health Checks Only) A complex type that contains one ChildHealthCheck element for each health check that you want to associate with a CALCULATED health check."],
+        "EnableSNI" : "Boolean. Specifies whether you want Route 53 to send the value of FullyQualifiedDomainName to the endpoint in the client_hello message during TLS negotiation. This allows the endpoint to respond to HTTPS health check requests with the applicable SSL/TLS certificate.",
+        "FailureThreshold" : "Integer. The number of consecutive health checks that an endpoint must pass or fail for Route 53 to change the current status of the endpoint from unhealthy to healthy or healthy to unhealthy.",
+        "FullyQualifiedDomainName" : "**If you specified the IPAddress property, the value that you want Route 53 to pass in the host header in all health checks except for TCP health checks. If you don't specify an IP address, the domain that Route 53 sends a DNS request to. Route 53 uses the IP address that the DNS returns to check the health of the endpoint.",
+        "HealthThreshold" : "Integer. The number of child health checks that are associated with a CALCULATED health that Route 53 must consider healthy for the CALCULATED health check to be considered healthy.",
+        "InsufficientDataHealthStatus" : "When Amazon CloudWatch has insufficient data about the metric to determine the alarm state, the status that you want Route 53 to assign to the health check (Healthy, Unhealthy, or LastKnownStatus).",
+        "Inverted" : "Specifies whether you want Route 53 to invert the status of a health check, for example, to consider a health check unhealthy when it otherwise would be considered healthy.",
+        "IPAddress" : "The IPv4 IP address of the endpoint on which you want Route 53 to perform health checks. If you don't specify an IP address, Route 53 sends a DNS request to resolve the domain name that you specify in the FullyQualifiedDomainName property.",
+        "MeasureLatency" : "Boolean. Specifies whether you want Route 53 to measure the latency between health checkers in multiple AWS regions and your endpoint and display CloudWatch latency graphs on the Health Checks page in the Route 53 console.",
+        "Port" : "**Integer. Required when you specify TCP for the Type property.",
+        "Regions" : ["Type: List of String values. The regions from which you want Amazon Route 53 health checkers to check the specified endpoint. Duplicates are not allowed."],
+        "RequestInterval" : "Integer. The number of seconds between the time that Route 53 gets a response from your endpoint and the time that it sends the next health check request.",
+        "ResourcePath" : "The path that you want Route 53 to request when performing health checks. The path can be any value for which your endpoint returns an HTTP status code of 2xx or 3xx when the endpoint is healthy, such as /docs/route53-health-check.html.",
+        "SearchString" : "If the value of the Type property is HTTP_STR_MATCH or HTTPS_STR_MATCH, the string that you want Route 53 to search for in the response body from the specified resource. If the string appears in the response body, Route 53 considers the resource healthy.",
+        "Type" : "*The type of health check that you want to create. This indicates how Route 53 determines whether an endpoint is healthy. You can specify HTTP, HTTPS, HTTP_STR_MATCH, HTTPS_STR_MATCH, TCP, CLOUDWATCH_METRIC, or CALCULATED."
+      },
+      "HealthCheckTags":{
+        "Key" : "String",
+        "Value" : "String"
+      }
+    },
+    "AWS::Route53::HostedZone":{
+      "HostedZoneConfig":{
+        "Comment" : "String"
+      },
+      "HostedZoneTags":{
+        "Key" : "String",
+        "Value" : "String"
+      },
+      "HostedZoneVPCs":{
+        "VPCId" : "String",
+        "VPCRegion" : "String"
+      },
+      "QueryLoggingConfig":{
+        "CloudWatchLogsLogGroupArn" : "String"
+      }
+    },
+    "AWS::Route53::RecordSet":{
+      "AliasTarget":{
+        "DNSName" : "*The DNS name of the load balancer, the domain name of the CloudFront distribution, the website endpoint of the Amazon S3 bucket, or another record set in the same hosted zone that is the target of the alias.",
+        "EvaluateTargetHealth" : "Boolean. Whether Route 53 checks the health of the resource record sets in the alias target when responding to DNS queries",
+        "HostedZoneId" : "*The hosted zone ID. For load balancers, use the canonical hosted zone ID of the load balancer. For Amazon S3, use the hosted zone ID for your bucket's website endpoint. For CloudFront, use Z2FDTNDATAQYW2. "
+      },
+      "GeoLocation":{
+        "ContinentCode" : "All DNS queries from the continent that you specified are routed to this resource record set. If you specify this property, omit the CountryCode and SubdivisionCode properties.",
+        "CountryCode" : "All DNS queries from the country that you specified are routed to this resource record set. If you specify this property, omit the ContinentCode property. To specify the default location, use * for this property.",
+        "SubdivisionCode" : "If you specified US for the country code, you can specify a state in the United States. All DNS queries from the state that you specified are routed to this resource record set. If you specify this property, you must specify US for the CountryCode and omit the ContinentCode property."
+      }
+    },
+    "AWS::Route53Resolver::ResolverEndpoint":{
+      "IpAddressRequest":{
+        "Ip" : "String",
+        "SubnetId" : "*The subnet that contains the IP address."
+      }
+    },
+    "AWS::Route53Resolver::ResolverRule":{
+      "TargetAddress":{
+        "Ip" : "*One IP address that you want to forward DNS queries to. You can specify only IPv4 addresses.",
+        "Port" : "*The port at Ip that you want to forward DNS queries to."
+      }
+    },
+    "AWS::IAM::User":{
+      "LoginProfile":{
+        "Password" : "*The password for the user.",
+        "PasswordResetRequired" : "Boolean. Specifies whether the user is required to set a new password the next time the user logs in to the AWS Management Console."
       }
     }
   }    

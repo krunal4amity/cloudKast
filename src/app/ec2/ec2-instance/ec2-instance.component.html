@@ -3,8 +3,8 @@
       <form #myForm="ngForm" (submit)="onDone(myForm.value)">
         <input name="resourceName" placeholder="Resource Name" ngModel required>
         <mat-icon color="warn" >info</mat-icon> <br>
-        <input name="metadata" placeholder="Metadata" ngModel>
-        <mat-icon matTooltip="" >info</mat-icon> <br>
+        <input name="metadata" placeholder="Metadata" matTooltip="Expecting an object" ngModel>
+        <mat-icon [matTooltip]="metadataTip" >info</mat-icon> <br>
         <div *ngFor="let j of curRes.resPropkeys">
 
           <input ngModel *ngIf="getTypeOf(curRes.resObj.Properties[j])=='string'" type="text" 
@@ -34,6 +34,7 @@
         
         <button [disabled]="myForm.invalid" mat-stroked-button type="submit" color="primary" >Done</button>
         <button mat-raised-button type="button" color="warn" (click)="onRemove(myForm.value)">Remove</button>
+        <button [disabled]="!isCopyReady" mat-icon-button (click)="copyToClipboard(myForm.value)"> <mat-icon>file_copy</mat-icon> </button>
       </form>
     </mat-card>
   </div>

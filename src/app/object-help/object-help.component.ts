@@ -15,7 +15,7 @@ export class ObjectHelpComponent implements OnInit {
   propKeys:String[];
   propSent=false;
   selProp:Object;
-  itsArray:String="Expecting an Array Object"
+  isCopyReady:Boolean=false;
 
   constructor(public mainObj:ResourceDataService, public util:UsefulUtilsService){
     //this.resKeys=Object.keys(this.mainObj.comProp);
@@ -44,7 +44,6 @@ onDone(value){
   //console.log(value);
   //console.log(this.selProp)
   this.propSent=true;
-
 }
 
 getSelProp(value){
@@ -62,6 +61,7 @@ getSelProp(value){
 onSubmit(value){
   console.log(value);
   this.getLooper(this.selProp,value,this.myobj);
+  this.isCopyReady=true;
 }
 
 getLooper(loopval,formval,myobj){
@@ -84,6 +84,12 @@ getLooper(loopval,formval,myobj){
   })
 }
 
+onReset(){
+  this.propSent=false;
+  this.isCopyReady=false;
+  this.myobj={};
+}
+
 isArray(value){
   return Array.isArray(value);
 }
@@ -104,6 +110,16 @@ getDepth(obj){
       }
   }
   return level;
+}
+
+copyToClipboard(){
+  var textArea= document.createElement("textarea");
+  textArea.value = JSON.stringify(this.myobj);
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
+  this.myobj={};
 }
 
 }

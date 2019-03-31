@@ -23,7 +23,7 @@ export class ResultComponent implements OnInit {
     var data =  str + encodeURI(JSON.stringify(this.jsonresult.jsonresult));
     var link = document.createElement('a');
     link.setAttribute('href', data);
-    link.setAttribute('download',"cloudfurner.json")
+    link.setAttribute('download',"cloudferry.json")
     link.click();
     //var blob = new Blob([JSON.stringify(this.jsonresult.jsonresult)], {type: "text/plain;charset=utf-8"});
     //FileSaver.saveAs(blob, "cloudfurner.json");

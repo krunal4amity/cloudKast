@@ -44,7 +44,6 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { EbsVolumeComponent } from './ec2/ebs-volume/ebs-volume.component';
 import { SectionViewComponent } from './section-view/section-view.component';
 import { ResourceViewComponent } from './resource-view/resource-view.component';
-import { Route53HealthCheckComponent } from './route53-health-check/route53-health-check.component';
 import { ResultComponent } from './result/result.component';
 import { MetadataComponent } from './metadata/metadata.component';
 import { JsonResultService } from './json-result.service';
@@ -111,6 +110,7 @@ import { Ec2NetworkAclEntryComponent } from './ec2/ec2-network-acl-entry/ec2-net
 import { Ec2NetworkInterfaceComponent } from './ec2/ec2-network-interface/ec2-network-interface.component';
 import { Ec2SpotFleetComponent } from './ec2/ec2-spot-fleet/ec2-spot-fleet.component';
 import { Ec2VpnConnectionComponent } from './ec2/ec2-vpn-connection/ec2-vpn-connection.component';
+import { CommonResourceComponent } from './common-resource/common-resource.component';
 
 
 
@@ -120,7 +120,6 @@ import { Ec2VpnConnectionComponent } from './ec2/ec2-vpn-connection/ec2-vpn-conn
     EbsVolumeComponent,
     SectionViewComponent,
     ResourceViewComponent,
-    Route53HealthCheckComponent,
     ResultComponent,
     MetadataComponent,
     ParametersComponent,
@@ -183,7 +182,8 @@ import { Ec2VpnConnectionComponent } from './ec2/ec2-vpn-connection/ec2-vpn-conn
     Ec2NetworkAclEntryComponent,
     Ec2NetworkInterfaceComponent,
     Ec2SpotFleetComponent,
-    Ec2VpnConnectionComponent
+    Ec2VpnConnectionComponent,
+    CommonResourceComponent
   ],
   imports: [
     BrowserModule,

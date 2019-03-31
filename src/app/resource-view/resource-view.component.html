@@ -12,156 +12,204 @@
         <mat-divider></mat-divider>
     </mat-drawer>  
     <div>
-      <div *ngFor="let i of route53_healthcheck">
-        <app-route53-health-check></app-route53-health-check>
-      </div>
       <div *ngFor="let i of ec2_instance">
-          <app-ec2-instance></app-ec2-instance>
+            <app-ec2-instance></app-ec2-instance>
       </div>
       <div *ngFor="let i of ec2_volume">
-          <app-ebs-volume></app-ebs-volume>
+        <app-common-resource [myresource]="awsresource.ec2_volume" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_eip">
-          <app-ec2-eip></app-ec2-eip>
+            <app-common-resource [myresource]="awsresource.ec2_eip" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_securitygroup">
-          <app-ec2-security-group></app-ec2-security-group>
+            <app-common-resource [myresource]="awsresource.ec2_securitygroup" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_customergateway" >
-          <app-ec2-customer-gateway></app-ec2-customer-gateway>
+            <app-common-resource [myresource]="awsresource.ec2_customergateway" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_dhcpoptions">
-          <app-ec2-dhcpoptions></app-ec2-dhcpoptions>
+            <app-common-resource [myresource]="awsresource.ec2_dhcpoptions" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_egressonlyinternetgateway" >
-        <app-ec2-egress-only-internet-gateway></app-ec2-egress-only-internet-gateway>
+            <app-common-resource [myresource]="awsresource.ec2_egressonlyinternetgateway" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_ec2fleet">
-          <app-ec2-fleet></app-ec2-fleet>
+            <app-common-resource [myresource]="awsresource.ec2_ec2fleet" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_eipassociation">
-          <app-ec2-eipassociation></app-ec2-eipassociation>
+            <app-common-resource [myresource]="awsresource.ec2_eipassociation" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_flowlog">
-          <app-ec2-flow-log></app-ec2-flow-log>
+            <app-common-resource [myresource]="awsresource.ec2_flowlog" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_host" >
-          <app-ec2-host></app-ec2-host>
+            <app-common-resource [myresource]="awsresource.ec2_host" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_internetgateway" >
-          <app-ec2-internet-gateway></app-ec2-internet-gateway>
+            <app-common-resource [myresource]="awsresource.ec2_internetgateway" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_launchtemplate" >
-          <app-ec2-launch-template></app-ec2-launch-template>
+            <app-common-resource [myresource]="awsresource.ec2_launchtemplate" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_natgateway">
-          <app-ec2-nat-gateway></app-ec2-nat-gateway>
+            <app-common-resource [myresource]="awsresource.ec2_natgateway" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_networkacl" >
-          <app-ec2-network-acl></app-ec2-network-acl>
+            <app-common-resource [myresource]="awsresource.ec2_networkacl" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_networkaclentry" >
-          <app-ec2-network-acl-entry></app-ec2-network-acl-entry>
+            <app-common-resource [myresource]="awsresource.ec2_networkaclentry" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_networkinterface" >
-          <app-ec2-network-interface></app-ec2-network-interface>
+            <app-common-resource [myresource]="awsresource.ec2_networkinterface" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_networkinterfaceattachment" >
-          <app-ec2-network-interface-attachment></app-ec2-network-interface-attachment>
+            <app-common-resource [myresource]="awsresource.ec2_networkinterfaceattachment" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_networkinterfacepermission" >
-          <app-ec2-network-interface-permission></app-ec2-network-interface-permission>
+            <app-common-resource [myresource]="awsresource.ec2_networkinterfacepermission" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_placementgroup" >
-          <app-ec2-placement-group></app-ec2-placement-group>
+            <app-common-resource [myresource]="awsresource.ec2_placementgroup" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_route" >
-          <app-ec2-route></app-ec2-route>
+            <app-common-resource [myresource]="awsresource.ec2_route" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_routetable" >
-          <app-ec2-route-table></app-ec2-route-table>
+            <app-common-resource [myresource]="awsresource.ec2_routetable" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_securitygroupegress" >
-          <app-ec2-security-group-egress></app-ec2-security-group-egress>
+            <app-common-resource [myresource]="awsresource.ec2_securitygroupegress" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_securitygroupingress" >
-          <app-ec2-security-group-ingress></app-ec2-security-group-ingress>
+            <app-common-resource [myresource]="awsresource.ec2_securitygroupingress" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_spotfleet" >
-          <app-ec2-spot-fleet></app-ec2-spot-fleet>
+            <app-common-resource [myresource]="awsresource.ec2_spotfleet" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_subnet" >
-          <app-ec2-subnet></app-ec2-subnet>
+            <app-common-resource [myresource]="awsresource.ec2_subnet" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_subnetcidrblock" >
-          <app-ec2-subnet-cidr-block></app-ec2-subnet-cidr-block>
+            <app-common-resource [myresource]="awsresource.ec2_subnetcidrblock" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_subnetnetworkaclassociation" >
-          <app-ec2-subnet-network-acl-association></app-ec2-subnet-network-acl-association>
+            <app-common-resource [myresource]="awsresource.ec2_subnetnetworkaclassociation" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_subnetroutetableassociation" >
-          <app-ec2-subnet-route-table-association></app-ec2-subnet-route-table-association>
+            <app-common-resource [myresource]="awsresource.ec2_subnetroutetableassociation" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_transitgateway" >
-          <app-ec2-transit-gateway></app-ec2-transit-gateway>
+            <app-common-resource [myresource]="awsresource.ec2_transitgateway" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_transitgatewayattachment ">
-          <app-ec2-transit-gateway-attachment></app-ec2-transit-gateway-attachment>
+            <app-common-resource [myresource]="awsresource.ec2_transitgatewayattachment" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_transitgatewayroute">
-          <app-ec2-transit-gateway-route></app-ec2-transit-gateway-route>
+            <app-common-resource [myresource]="awsresource.ec2_transitgatewayroute" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_transitgatewayroutetable ">
-          <app-ec2-transit-gateway-route-table></app-ec2-transit-gateway-route-table>
+            <app-common-resource [myresource]="awsresource.ec2_transitgatewayroutetable" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_transitgatewayroutetableassociation" >
-          <app-ec2-transit-gateway-route-table-association></app-ec2-transit-gateway-route-table-association>
+            <app-common-resource [myresource]="awsresource.ec2_transitgatewayroutetableassociation" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_transitgatewayroutetablepropagation">
-          <app-ec2-transit-gateway-route-table-propagation></app-ec2-transit-gateway-route-table-propagation>
+            <app-common-resource [myresource]="awsresource.ec2_transitgatewayroutetablepropagation" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_volumeattachment">
-          <app-ec2-volume-attachment></app-ec2-volume-attachment>
+            <app-common-resource [myresource]="awsresource.ec2_volumeattachment" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpc">
-          <app-ec2-vpc></app-ec2-vpc>
+            <app-common-resource [myresource]="awsresource.ec2_vpc" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpccidrblock" >
-          <app-ec2-vpccidr-block></app-ec2-vpccidr-block>
+            <app-common-resource [myresource]="awsresource.ec2_vpccidrblock" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpcdhcpoptionsassociation" >
-          <app-ec2-vpcdhcpoptions-association></app-ec2-vpcdhcpoptions-association>
+            <app-common-resource [myresource]="awsresource.ec2_vpcdhcpoptionsassociation" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpcendpoint" >
-          <app-ec2-vpcendpoint></app-ec2-vpcendpoint>
+            <app-common-resource [myresource]="awsresource.ec2_vpcendpoint" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpcendpointconnectionnotification">
-          <app-ec2-vpcendpoint-connection-notification></app-ec2-vpcendpoint-connection-notification>
+            <app-common-resource [myresource]="awsresource.ec2_vpcendpointconnectionnotification" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpcendpointservice" >
-          <app-ec2-vpcendpoint-service></app-ec2-vpcendpoint-service>
+            <app-common-resource [myresource]="awsresource.ec2_vpcendpointservice" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpcendpointservicepermissions">  
-          <app-ec2-vpcendpoint-service-permissions></app-ec2-vpcendpoint-service-permissions>
+            <app-common-resource [myresource]="awsresource.ec2_vpcendpointservicepermissions" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpcgatewayattachment" >
-          <app-ec2-vpcgateway-attachment></app-ec2-vpcgateway-attachment>
+            <app-common-resource [myresource]="awsresource.ec2_vpcgatewayattachment" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpcpeeringconnection" >
-          <app-ec2-vpcpeering-connection></app-ec2-vpcpeering-connection>
+            <app-common-resource [myresource]="awsresource.ec2_vpcpeeringconnection" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpnconnection">
-          <app-ec2-vpn-connection></app-ec2-vpn-connection>
+            <app-common-resource [myresource]="awsresource.ec2_vpnconnection" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpnconnectionroute">
-          <app-ec2-vpnconnection-route></app-ec2-vpnconnection-route>
+            <app-common-resource [myresource]="awsresource.ec2_vpnconnectionroute" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpngateway">
-          <app-ec2-vpngateway></app-ec2-vpngateway>
+            <app-common-resource [myresource]="awsresource.ec2_vpngateway" [isTagged]="false" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_vpngatewayroutepropagation" >
-          <app-ec2-vpngateway-route-propagation></app-ec2-vpngateway-route-propagation>
+            <app-common-resource [myresource]="awsresource.ec2_vpngatewayroutepropagation" [isTagged]="false" ></app-common-resource>
       </div>
+
+      <div *ngFor="let i of route53_healthcheck">
+            <app-common-resource [myresource]="awsresource.route53_healthcheck" [isTagged]="false" ></app-common-resource>
+      </div>
+      <div *ngFor="let i of route53_hostedzone" >
+            <app-common-resource [myresource]="awsresource.route53_hostedzone" [isTagged]="false" ></app-common-resource>
+      </div>
+      <div *ngFor="let i of route53_recordset" >
+            <app-common-resource [myresource]="awsresource.route53_recordset" [isTagged]="false" ></app-common-resource>
+      </div>
+      <div *ngFor="let i of route53_recordsetgroup" >
+            <app-common-resource [myresource]="awsresource.route53_recordsetgroup" [isTagged]="false" ></app-common-resource>
+      </div>      
+
+      <div *ngFor="let i of r53_resolver_resolverendpoint" >
+            <app-common-resource [myresource]="awsresource.r53_resolver_resolverendpoint" [isTagged]="true" ></app-common-resource>
+      </div>      
+      <div *ngFor="let i of r53_resolver_resolverrule" >
+            <app-common-resource [myresource]="awsresource.r53_resolver_resolverrule" [isTagged]="true" ></app-common-resource>
+      </div>  
+      <div *ngFor="let i of r53_resolver_resolverruleassociation" >
+            <app-common-resource [myresource]="awsresource.r53_resolver_resolverruleassociation" [isTagged]="false" ></app-common-resource>
+      </div>      
+      
+      <div *ngFor="let i of iam_accesskey" >
+            <app-common-resource [myresource]="awsresource.iam_accesskey" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of iam_group" >
+            <app-common-resource [myresource]="awsresource.iam_group" [isTagged]="false" ></app-common-resource>
+      </div>      
+      <div *ngFor="let i of iam_instanceprofile" >
+            <app-common-resource [myresource]="awsresource.iam_instanceprofile" [isTagged]="false" ></app-common-resource>
+      </div>      
+      <div *ngFor="let i of iam_managedpolicy" >
+            <app-common-resource [myresource]="awsresource.iam_managedpolicy" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of iam_policy" >
+            <app-common-resource [myresource]="awsresource.iam_policy" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of iam_role" >
+            <app-common-resource [myresource]="awsresource.iam_role" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of iam_servicelinkedrole" >
+            <app-common-resource [myresource]="awsresource.iam_servicelinkedrole" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of iam_user" >
+            <app-common-resource [myresource]="awsresource.iam_user" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of iam_usertogroupaddition" >
+            <app-common-resource [myresource]="awsresource.iam_usertogroupaddition" [isTagged]="false" ></app-common-resource>
+      </div>            
     </div>
 </mat-drawer-container>
 </div>

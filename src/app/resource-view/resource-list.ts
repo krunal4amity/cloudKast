@@ -230,6 +230,11 @@ export var RESOURCE_DATA:AWSResource[]=[
                 resourcecount:0
             },
             {
+                resourcename:"VPCEndpointServicePermissions",
+                resourcesyntax:"AWS::EC2::VPCEndpointServicePermissions",
+                resourcecount: 0
+            },
+            {
                 resourcename:"VPCGatewayAttachment",
                 resourcesyntax:"AWS::EC2::VPCGatewayAttachment",
                 resourcecount:0
@@ -286,5 +291,75 @@ export var RESOURCE_DATA:AWSResource[]=[
             }
         ]
     },
+    {
+        servicename:"Route53Resolver",
+        subresource:[
+            {
+                resourcename:"ResolverEndpoint",
+                resourcesyntax:"AWS::Route53Resolver::ResolverEndpoint",
+                resourcecount:0
+            },
+            {
+                resourcename:"ResolverRule",
+                resourcesyntax:"AWS::Route53Resolver::ResolverRule",
+                resourcecount:0
+            },
+            {
+                resourcename:"ResolverRuleAssociation",
+                resourcesyntax:"AWS::Route53Resolver::ResolverRuleAssociation",
+                resourcecount:0
+            }
+        ]
+    },
+    {
+        servicename:"IAM",
+        subresource:[
+            {
+                resourcename:"AccessKey",
+                resourcesyntax:"AWS::IAM::AccessKey",
+                resourcecount:0
+            },
+            {
+                resourcename:"Group",
+                resourcesyntax:"AWS::IAM::Group",
+                resourcecount:0
+            },
+            {
+                resourcename:"InstanceProfile",
+                resourcesyntax:"AWS::IAM::InstanceProfile",
+                resourcecount:0
+            },
+            {
+                resourcename:"ManagedPolicy",
+                resourcesyntax:"AWS::IAM::ManagedPolicy",
+                resourcecount:0
+            },
+            {
+                resourcename:"Policy",
+                resourcesyntax:"AWS::IAM::Policy",
+                resourcecount:0
+            },
+            {
+                resourcename:"Role",
+                resourcesyntax:"AWS::IAM::Role",
+                resourcecount:0
+            },
+            {
+                resourcename:"ServiceLinkedRole",
+                resourcesyntax:"AWS::IAM::ServiceLinkedRole",
+                resourcecount:0
+            },
+            {
+                resourcename:"User",
+                resourcesyntax:"AWS::IAM::User",
+                resourcecount:0
+            },
+            {
+                resourcename:"UserToGroupAddition",
+                resourcesyntax:"AWS::IAM::UserToGroupAddition",
+                resourcecount:0
+            }
+        ]
+    }
 
 ]

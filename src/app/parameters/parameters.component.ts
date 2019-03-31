@@ -12,6 +12,7 @@ export class ParametersComponent implements OnInit {
   tagArray=[];
   isPresent=true;
 
+
   resProp={
     "Type":"String | Number | List<Number> | CommaDelimitedList | AWS-Specific Parameter Types| SSM Parameter Types.",
     "AllowedPattern":"A regular expression that represents the patterns to allow for String types.",
@@ -41,6 +42,10 @@ export class ParametersComponent implements OnInit {
   onRemove(value){
     this.isPresent=false;
     if(value.resourceName)    this.result.jsonresult.Parameters[value.resourceName]=undefined;
+  }
+
+  fixRegex(value){
+    return decodeURI(value);
   }
 
   

@@ -24,11 +24,14 @@ export class Ec2VPCGatewayAttachmentComponent implements OnInit {
           "InternetGatewayId" : "**Id of the internet gateway. You must specify either InternetGatewayId or VpnGatewayId, but not both.",
           "VpcId" : "*The ID of the VPC to associate with this gateway.",
           "VpnGatewayId" : "**The ID of the virtual private network (VPN) gateway to attach to the VPC. You must specify either InternetGatewayId or VpnGatewayId, but not both."
+          // "DeletionPolicy":"With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted.Possible values : 'Delete', 'Retain','Snapshot'. Snapshot applies to ec2volume, elasticcache-cachecluster and replication group, rds-dbcluster and dbinstance, redshift-cluster, neptune-dbcluster",
+          // "DependsOn":["List of strings. When you add a DependsOn attribute to a resource, that resource is created only after the creation of the resource specified in the DependsOn attribute."],
+          // "UpdateReplacePolicy":"If you update a resource property that requires that the resource be replaced, AWS CloudFormation recreates the resource during the update. By default, AWS CloudFormation then deletes the old resource. Using the UpdateReplacePolicy, you can specify that AWS CloudFormation retain or (in some cases) create a snapshot of the old resource. Acceptable values : Retain, Delete, Snapshot"
        }
     }     
     this.serviceSyntax=resProp.Type;
-    this.curRes = new GenericResource(resProp, result, utility);
-    this.curRes.resObject=resProp;
+    this.curRes = new GenericResource(this.utility.addCommonProperties(resProp), result, utility);
+    this.curRes.resObject=this.utility.addCommonProperties(resProp);
     this.tagCount=this.curRes.tagCount;
     this.tagArray=this.curRes.tagArray;
     this.isPresent=this.curRes.isPresent;

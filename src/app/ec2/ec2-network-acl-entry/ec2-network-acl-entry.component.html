@@ -23,13 +23,7 @@
           [matTooltip]="curRes.resObj.Properties[j]['info']" [color]="isRequired(curRes.resObj.Properties[j])" >info</mat-icon>
 
         </div>
-        Tags:
-        <button type="button" mat-raised-button (click)="addTag()">Add Tag</button><br>
-        <div *ngFor="let i of tagArray" >
-            <input name="tagKey{{i}}" placeholder="Key" ngModel>
-            <input name="tagValue{{i}}" placeholder="Value" ngModel>
-        </div>
-        
+
         <button [disabled]="myForm.invalid" mat-stroked-button type="submit" color="primary" >Done</button>
         <button mat-raised-button type="button" color="warn" (click)="onRemove(myForm.value)">Remove</button>
       </form>

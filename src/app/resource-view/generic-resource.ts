@@ -50,18 +50,30 @@ export class GenericResource{
       if(this.getTypeOf(value)=='object'){
         if(this.isArray(value)){
           if(value[0].includes("*")){
-            return "warn";
+            if(value[0].startsWith("**")){
+              return "accent";
+            }else{
+              return "warn";
+            }
           }
         }
         else{
           if(value['info'].includes("*")){
-            return "warn";
+            if(value['info'].startsWith("**")){
+              return "accent";
+            }else{
+              return "warn";
+            }
           }
         }
       }
       else{
         if(value.includes("*")){
-          return "warn";
+          if(value.startsWith("**")){
+            return "accent";
+          }else{
+            return "warn";
+          }
         }
       }
       return "";
