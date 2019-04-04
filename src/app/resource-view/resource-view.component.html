@@ -13,7 +13,8 @@
     </mat-drawer>  
     <div>
       <div *ngFor="let i of ec2_instance">
-            <app-ec2-instance></app-ec2-instance>
+            <!-- <app-ec2-instance></app-ec2-instance> -->
+            <app-common-resource [myresource]="awsresource.ec2_instance" [isTagged]="true" ></app-common-resource>
       </div>
       <div *ngFor="let i of ec2_volume">
         <app-common-resource [myresource]="awsresource.ec2_volume" [isTagged]="true" ></app-common-resource>

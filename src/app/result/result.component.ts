@@ -16,6 +16,9 @@ export class ResultComponent implements OnInit {
 
   s3message:String="";
   message:String="";
+  showSpinner=false;
+  uploadColor="";
+  validateColor="";
   
 
   getDownloadHref(){
@@ -32,6 +35,7 @@ export class ResultComponent implements OnInit {
   }
 
    validateTemplate(value){
+     this.showSpinner=true;
     var s3params={
       Body: JSON.stringify(this.jsonresult.jsonresult),
       ACL: "authenticated-read",
@@ -48,9 +52,11 @@ export class ResultComponent implements OnInit {
       if(err){
         console.log(err, err.stack);
         this.s3message=err;
+        this.uploadColor="red";
       }
       else{
         this.s3message="object uploaded successfully on S3";
+        this.uploadColor="green"
         var url="https://s3-" + value.region + ".amazonaws.com/" + value.bucket + "/"+value.filename;
         var cloudformation = new AWS.CloudFormation({
           region:value.region,
@@ -64,9 +70,11 @@ export class ResultComponent implements OnInit {
           if(err){
             console.log(err,err.stack);
             this.message=err;
+            this.validateColor="red"
           }
           else{
-            this.message="Validation successful"
+            this.message="Validation successful";
+            this.validateColor="green"
           }
         })
       }

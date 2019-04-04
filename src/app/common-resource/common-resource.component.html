@@ -1,41 +1,64 @@
-<div *ngIf="isPresent">
-    <mat-card  class="example-card" >{{serviceSyntax}}
+<div *ngIf="isPresent" >
+
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{serviceSyntax}} </mat-panel-title>
+        <mat-panel-description> {{resname.value}} </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
       <form #myForm="ngForm" (submit)="onDone(myForm.value)">
-        <input name="resourceName" placeholder="Resource Name" ngModel required>
-        <mat-icon color="warn" >info</mat-icon> <br>
+        <mat-form-field>
+            <input matInput #resname name="resourceName" placeholder="Resource Name" value="SampleName" ngModel required>
+        </mat-form-field>
+        <mat-icon [ngStyle]="{'color':reqColor}" >info</mat-icon> <br>
+ 
         <div *ngFor="let j of resPropkeys">
-
-          <input ngModel *ngIf="getTypeOf(resObject.Properties[j])=='string'" type="text" 
-           [name]="j" [placeholder]="j">
-
-           <input ngModel *ngIf="isArray(resObject.Properties[j])" type="text"  [name]="j" 
-          [placeholder]="j" matTooltip="Expecting an Array. Array of Strings= comma separated 
-          values. Array of Objects = in square brackets enter comma seperated objects.">
-
-          <input ngModel *ngIf="!isArray(resObject.Properties[j]) && getTypeOf(resObject.Properties[j])=='object'" 
-          type="text"  [name]="j" [placeholder]="j" matTooltip="Expecting an object">     
-
+          <mat-form-field *ngIf="getTypeOf(resObject.Properties[j])=='string'" >
+              <input matInput ngModel type="text" [name]="j" [placeholder]="j" [required]="isRequired(resObject.Properties[j])['required']" >
+          </mat-form-field>
+          <mat-form-field *ngIf="isArray(resObject.Properties[j])" >
+              <input matInput ngModel  type="text"  [name]="j" [placeholder]="j" [required]="isRequired(resObject.Properties[j])['required']" >
+              <mat-hint> {{arrayTip}} </mat-hint>
+          </mat-form-field>
+          <mat-form-field *ngIf="!isArray(resObject.Properties[j]) && getTypeOf(resObject.Properties[j])=='object'" >
+              <input matInput ngModel  type="text"  [name]="j" [placeholder]="j" [required]="isRequired(resObject.Properties[j])['required']" >
+              <mat-hint>{{objectTip}} </mat-hint>
+          </mat-form-field>
           <mat-icon  *ngIf="getTypeOf(resObject.Properties[j])=='string'" 
-          [matTooltip]="resObject.Properties[j]" [color]="isRequired(resObject.Properties[j])" >info</mat-icon>
+          [matTooltip]="resObject.Properties[j]" [ngStyle]="{'color':isRequired(resObject.Properties[j])['color']}">info</mat-icon>
           <mat-icon *ngIf="isArray(resObject.Properties[j])" 
-          [matTooltip]="resObject.Properties[j][0]" [color]="isRequired(resObject.Properties[j])" >info</mat-icon>
+          [matTooltip]="resObject.Properties[j][0]" [ngStyle]="{'color':isRequired(resObject.Properties[j])['color']}" >info</mat-icon>
           <mat-icon *ngIf="!isArray(resObject.Properties[j]) && getTypeOf(resObject.Properties[j])=='object'" 
-          [matTooltip]="resObject.Properties[j]['info']" [color]="isRequired(resObject.Properties[j])" >info</mat-icon>
+          [matTooltip]="resObject.Properties[j]['info']" [ngStyle]="{'color':isRequired(resObject.Properties[j])['color']}">info</mat-icon>
+          <!-- <button mat-icon-button *ngIf="getTypeOf(resObject.Properties[j])=='object'" (click)="populateProperty(j)" >
+            <mat-icon>create</mat-icon>
+          </button> -->
 
         </div>
           <div *ngIf="isTagged" >
             Tags:
-            <button type="button" mat-raised-button (click)="addTag()">Add Tag</button><br>
+            <button type="button" mat-raised-button (click)="addTag()">
+              <mat-icon>add</mat-icon>
+            </button><br>
             <div *ngFor="let i of tagArray" >
                 <input name="tagKey{{i}}" placeholder="Key" ngModel>
                 <input name="tagValue{{i}}" placeholder="Value" ngModel>
           </div>
         </div>
 
-        <button [disabled]="myForm.invalid" mat-stroked-button type="submit" color="primary" >Done</button>
-        <button mat-raised-button type="button" color="warn" (click)="onRemove(myForm.value)">Remove</button>
-        <button [disabled]="!isCopyReady" mat-icon-button (click)="copyToClipboard(myForm.value)"> <mat-icon>file_copy</mat-icon> </button>
+        <button mat-icon-button [disabled]="myForm.invalid" type="submit" 
+         matTooltip="Submit" color="primary">
+          <mat-icon>done</mat-icon>
+        </button>
+        <button mat-icon-button type="button" matTooltip="Remove from Template"  (click)="onRemove(myForm.value)">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+        <button [disabled]="!isCopyReady" mat-icon-button 
+        matTooltip="copy the json output of the resource" (click)="copyToClipboard(myForm.value)"> <mat-icon>file_copy</mat-icon> </button>
       </form>
-    </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
   </div>
   <mat-divider></mat-divider>

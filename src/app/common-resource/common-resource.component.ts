@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { GenericResource } from '../resource-view/generic-resource';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { JsonResultService } from '../json-result.service';
 import { UsefulUtilsService } from '../useful-utils.service';
 import {RESOURCE_DATA,ResourceSyntax} from '../resource-view/resource-list';
+
+
 
 @Component({
   selector: 'app-common-resource',
@@ -18,12 +19,15 @@ export class CommonResourceComponent implements OnInit {
   currentService:String;
   currentResource:String;
   resPropkeys;
+  reqColor="red";
+  conColor="darkorange";
+  arrayTip="[Obj1, Obj2..] OR str1,str2.."
+  objectTip="{Obj}"
 
-  constructor(public result:JsonResultService, public utility:UsefulUtilsService ){
+  constructor(public result:JsonResultService, public utility:UsefulUtilsService){
   }
 
   ngOnInit(){
-    //console.log(JSON.stringify(this.resObject));
     this.resObject=this.utility.addCommonProperties(this.resObject);
     this.serviceSyntax=(this.resObject["Type"] as String);
     this.currentService=(this.resObject["Type"] as String).split("::")[1];
@@ -35,6 +39,7 @@ export class CommonResourceComponent implements OnInit {
   tagArray=[];
   isPresent=true;
   isCopyReady:Boolean = false;
+  
 
   addTag(){
       this.tagCount+=1;
@@ -69,18 +74,18 @@ export class CommonResourceComponent implements OnInit {
       if(this.isArray(value)){
         if(value[0].includes("*")){
           if(value[0].startsWith("**")){
-            return "accent";
+            return {"color":this.conColor, "required":false};
           }else{
-            return "warn";
+            return {"color":this.reqColor, "required":true};
           }
         }
       }
       else{
         if(value['info'].includes("*")){
           if(value['info'].startsWith("**")){
-            return "accent";
+            return {"color":this.conColor, "required": false};
           }else{
-            return "warn";
+            return {"color":this.reqColor, "required":true};
           }
         }
       }
@@ -88,14 +93,27 @@ export class CommonResourceComponent implements OnInit {
     else{
       if(value.includes("*")){
         if(value.startsWith("**")){
-          return "accent";
+          return {"color":this.conColor, "required": false};
         }else{
-          return "warn";
+          return {"color":this.reqColor, "required":true};
         }
       }
     }
-    return "";
+    return {"color":"grey", "required": false};
   }
+
+  // populateProperty(value):void{
+  //   const dialogRef = this.dialog.open(PropertyDealerDialog, {
+  //     width: '250px',
+  //     data: value
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //   });
+  // }
+  
+
 
   copyToClipboard(value){
     var textArea= document.createElement("textarea");
@@ -140,5 +158,127 @@ export class CommonResourceComponent implements OnInit {
           }
       })
       this.result.jsonresult.Resources[value.resourceName]["Properties"]["Tags"]=this.getTagArray(value);
+
+      if(this.resObject["Type"]=="AWS::EC2::Instance"){
+        this.result.jsonresult.Resources[value.resourceName]["Properties"]["Metadata"]=undefined;
+        this.result.jsonresult.Resources[value.resourceName]["Metadata"]=this.utility.getProperJson(value["Metadata"]);
+
+      }
    }
 }
+
+
+
+
+// @Component({
+//   selector: 'property-dealer-dialog',
+//   templateUrl: 'property-dealer-dialog.html',
+// })
+// export class PropertyDealerDialog {
+
+//   constructor(
+//     public dialogRef: MatDialogRef<PropertyDealerDialog>,@Inject(MAT_DIALOG_DATA) public data, public mainObj:ResourceDataService, public utility:UsefulUtilsService) {
+//       this.onDone(data);
+//     }
+
+//     resKeys:String[];
+//     propKeys:String[];
+//     selProp:Object;
+//     isCopied:Boolean=false;
+//     myobj={}
+//     nonStringOutput={};
+
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+
+//   getTypeOf(value){
+//     return typeof(value);
+//   }
+
+//   isArray(value){
+//     return Array.isArray(value);
+//   }
+
+//   copyToClipboard(value){
+//     var textArea= document.createElement("textarea");
+//     textArea.value = JSON.stringify(this.myobj);
+//     document.body.appendChild(textArea);
+//     textArea.select();
+//     document.execCommand("copy");
+//     document.body.removeChild(textArea);
+//     this.myobj={};
+//   }
+
+//   getKeys(value){
+//     //return Object.keys(Object.values(value)[0])
+//     return (Object.keys(value)).length==0?[]:Object.keys(value);
+//   }
+
+//   getSelProp(value){
+//     var a1=Object.values(this.mainObj.comProp);
+//     var a2:Object;
+//     a1.forEach((i)=>{
+//       if(i.hasOwnProperty(value)){
+//         a2=i[value];
+//       }
+//     })
+//     console.log(a2);
+//     return a2;
+//   }
+
+//   onSubmit(value){
+//     //console.log(value);
+//     this.getLooper(this.selProp,value,this.myobj);
+//     this.isCopied=true;
+//   }
+
+//   getLooper(loopval,formval,myobj){
+//     this.getKeys(loopval).forEach((j)=>{
+//       if(typeof(loopval[j])=="string"){
+//         //myobj[j]=formval[j];
+//         myobj[j]=this.utility.getProperJson(formval[j]);
+//       }
+//       else{
+//         if(Array.isArray(loopval[j])){
+//           //myobj[j]=(formval[j] as String).split("|");
+//           myobj[j]=this.utility.getArray(formval[j]);
+//         }
+//         else{
+//           myobj[j]={}
+//           this.getLooper(loopval[j],formval,myobj[j])
+//         }
+//       }
+  
+//     })
+//   }
+
+//   onDone(value){
+//     //this.selProp=(Object.values(this.mainObj.comProp)[0])[value.resname];
+//     this.selProp=this.getSelProp(value);
+//     //console.log(value);
+//     //console.log(this.selProp)
+//     //this.propSent=true;
+//   }
+
+//   getDepth(obj){
+//     var level = 1;
+//     var key;
+//     for(key in obj) {
+//         if (!obj.hasOwnProperty(key)) continue;
+  
+//         if(typeof obj[key] == 'object'){
+//             var depth = this.getDepth(obj[key]) + 1;
+//             level = Math.max(depth, level);
+//         }
+//     }
+//     return level;
+//   }
+
+//   onReset(){
+//     //this.propSent=false;
+//     this.isCopied=false;
+//     this.myobj={};
+//   }
+
+// }
