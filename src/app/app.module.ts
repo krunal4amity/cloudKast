@@ -32,7 +32,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
@@ -111,6 +111,8 @@ import { Ec2NetworkInterfaceComponent } from './ec2/ec2-network-interface/ec2-ne
 import { Ec2SpotFleetComponent } from './ec2/ec2-spot-fleet/ec2-spot-fleet.component';
 import { Ec2VpnConnectionComponent } from './ec2/ec2-vpn-connection/ec2-vpn-connection.component';
 import { CommonResourceComponent } from './common-resource/common-resource.component';
+import { PropertyDialogTabComponent } from './property-dialog-tab/property-dialog-tab.component';
+import { PropertyDialogComponent } from './property-dialog/property-dialog.component';
 
 
 
@@ -184,7 +186,9 @@ import { CommonResourceComponent } from './common-resource/common-resource.compo
     Ec2NetworkInterfaceComponent,
     Ec2SpotFleetComponent,
     Ec2VpnConnectionComponent,
-    CommonResourceComponent
+    CommonResourceComponent,
+    PropertyDialogTabComponent,
+    PropertyDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -226,7 +230,10 @@ import { CommonResourceComponent } from './common-resource/common-resource.compo
     MatBadgeModule
     //Material End
   ],
-  providers: [JsonResultService,UsefulUtilsService,ResourceDataService],
-  bootstrap: [AppComponent]
+  providers: [JsonResultService,UsefulUtilsService,ResourceDataService,
+  {provide:MAT_DIALOG_DATA,useValue:"AWS::EC2::Instance"}
+  ],
+  bootstrap: [AppComponent],
+  entryComponents:[PropertyDialogTabComponent]
 })
 export class AppModule { }

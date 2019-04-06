@@ -1,0 +1,41 @@
+<mat-card>Property Dealer
+  <form id="propform" #propform="ngForm" (submit)="onDone(propform.value)" >
+      <select  #resname name="resname" form="propform" ngModel>
+        <optgroup  [label]="curRes" >
+          <option *ngFor="let j of mainObj.comProp[curRes] | keyvalue" [value]="j.key">{{j.key}}</option>  
+        </optgroup>
+      </select>
+      <button [disabled]="resname.value==''" mat-stroked-button color="primary" type="submit">Generate form</button>
+  </form> 
+  <form *ngIf="propSent"  #jsonform="ngForm" (submit)="onSubmit(jsonform.value)">
+            <div *ngFor="let w of getKeys(selProp)">
+                <input *ngIf="getTypeof(selProp[w])=='string' || isArray(selProp[w]) " 
+                 type="text" [name]="w" [placeholder]="w" [matTooltip]="isArray(selProp[w])?selProp[w][0]:selProp[w]" ngModel>
+                <mat-chip *ngIf="getTypeof(selProp[w])=='object' && !isArray(selProp[w])">
+                  {{w}}
+                </mat-chip>
+                <div *ngIf="getDepth(selProp[w]) > 0 && getTypeof(selProp[w])=='object' ">
+                  <div *ngFor="let x of getKeys(isArray(selProp[w])?[]:selProp[w])">
+                    <input *ngIf="getTypeof(selProp[w][x])=='string' || isArray(selProp[w][x]) " 
+                     type="text" [name]="x" [placeholder]="x" ngModel [matTooltip]="isArray(selProp[w][x])?selProp[w][x][0]:selProp[w][x]" style="margin-left: 20px" >
+                    <mat-chip *ngIf="getTypeof(selProp[w][x])=='object' && !isArray(selProp[w][x])">
+                      {{x}}
+                    </mat-chip>
+                    <div *ngIf="getDepth(selProp[w][x]) >0  && getTypeof(selProp[w][x])=='object'">
+                      <div *ngFor="let k of getKeys(isArray(selProp[w][x])?[]:selProp[w][x])">
+                          <input *ngIf="getTypeof(selProp[w][x][k])=='string' || isArray(selProp[w][x][k])" 
+                          type="text" [name]="k" [placeholder]="k" ngModel [matTooltip]="isArray(selProp[w][x][k])?selProp[w][x][k][0]:selProp[w][x][k]" style="margin-left: 40px" >         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>    
+    <button mat-stroked-button color="primary" type="submit">Generate</button>
+    <button mat-stroked-button color="warn" (click)="resname.value=''; onReset()">Reset</button>
+  </form>
+  <br>
+  <pre>{{myobj|json}}</pre>
+  <button [disabled]="!isCopyReady" mat-icon-button (click)="copyToClipboard()"> <mat-icon>file_copy</mat-icon> </button>
+  </mat-card>
+  <mat-divider></mat-divider>
+  

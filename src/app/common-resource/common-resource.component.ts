@@ -2,6 +2,10 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { JsonResultService } from '../json-result.service';
 import { UsefulUtilsService } from '../useful-utils.service';
 import {RESOURCE_DATA,ResourceSyntax} from '../resource-view/resource-list';
+import { ResourceDataService } from '../resource-data.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { PropertyDialogTabComponent } from '../property-dialog-tab/property-dialog-tab.component';
+
 
 
 
@@ -24,7 +28,7 @@ export class CommonResourceComponent implements OnInit {
   arrayTip="[Obj1, Obj2..] OR str1,str2.."
   objectTip="{Obj}"
 
-  constructor(public result:JsonResultService, public utility:UsefulUtilsService){
+  constructor(public result:JsonResultService, public utility:UsefulUtilsService, public objProp:ResourceDataService, public dialog: MatDialog){
   }
 
   ngOnInit(){
@@ -40,6 +44,9 @@ export class CommonResourceComponent implements OnInit {
   isPresent=true;
   isCopyReady:Boolean = false;
   
+  isPropertyComplex(value){
+    return this.objProp.comProp.hasOwnProperty(value);
+  }
 
   addTag(){
       this.tagCount+=1;
@@ -102,16 +109,17 @@ export class CommonResourceComponent implements OnInit {
     return {"color":"grey", "required": false};
   }
 
-  // populateProperty(value):void{
-  //   const dialogRef = this.dialog.open(PropertyDealerDialog, {
-  //     width: '250px',
-  //     data: value
-  //   });
+  populateProperty(res){
+    const dialogRef = this.dialog.open(PropertyDialogTabComponent, {
+      width: '450px',
+      data: res
+    });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+    console.log(res);
+  }
   
 
 
