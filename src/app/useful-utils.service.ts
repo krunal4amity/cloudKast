@@ -20,7 +20,7 @@ export class UsefulUtilsService {
         else{
           return (val as String).length!=0?val:undefined
         }
-        }
+      }
     }
     catch(e){
       alert("Oops! An error occurred. Please check the input field type.");

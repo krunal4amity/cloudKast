@@ -1,0 +1,170 @@
+<br>
+<br>
+<span>Generate AWS::CloudFormation::Init object.</span> <br>
+
+
+<mat-chip color="primary" >Sources</mat-chip><br>
+<mat-card class="example-card" >
+  <button mat-stroked-button (click)="addSource()" >Add sources </button><br>
+  <form #sourceform="ngForm" (submit)="onSourcesDone(sourceform.value)">
+  <div *ngFor="let i of sourceArray" >
+      <input type="text" name="sourcekey{{i}}" ngModel placeholder="sourceKey{{i}}"
+      matTooltip="Target directory to unpack. e.g. /etc/puppet">
+      <input type="text" name="sourcevalue{{i}}" ngModel placeholder="sourceValue{{i}}"
+      matTooltip="an archive file location e.g. https://github.com/user1/cfn-demo/tarball/master">
+  </div>
+  <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+  </form>
+</mat-card>
+
+<mat-chip color="primary" >Packages</mat-chip><br>
+
+<mat-card class="example-card">
+  <button mat-stroked-button (click)="addAptPackage()" >Apt Packages </button><br>
+  <form #aptform="ngForm" (submit)="onAptDone(aptform.value)">
+    <div *ngFor="let i of aptArray" >
+      <input type="text" name="key{{i}}" ngModel placeholder="key{{i}}" [matTooltip]="apt" >
+      <input type="text" name="value{{i}}" ngModel placeholder="value{{i}} "><br>
+    </div>
+    <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+  </form>
+</mat-card>
+<mat-card class="example-card">
+  <button mat-stroked-button (click)="addRpmPackage()" >RPM Packages </button><br>
+  <form #rpmform="ngForm" (submit)="onRpmDone(rpmform.value)">
+    <div *ngFor="let i of rpmArray" >
+      <input type="text" name="key{{i}}" ngModel placeholder="key{{i}}" [matTooltip]="rpm" >
+      <input type="text" name="value{{i}}" ngModel placeholder="value{{i}} "><br>
+    </div>
+    <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+  </form>
+</mat-card>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addMsiPackage()" >MSI Packages </button><br>
+    <form #msiform="ngForm" (submit)="onMsiDone(msiform.value)">
+      <div *ngFor="let i of msiArray" >
+        <input type="text" name="key{{i}}" ngModel placeholder="key{{i}}" [matTooltip]="msi" >
+        <input type="text" name="value{{i}}" ngModel placeholder="value{{i}} "><br>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addPythonPackage()" >Python Packages </button><br>
+    <form #pythonform="ngForm" (submit)="onPythonDone(pythonform.value)">
+      <div *ngFor="let i of pythonArray" >
+        <input type="text" name="key{{i}}" ngModel placeholder="key{{i}}" [matTooltip]="python" >
+        <input type="text" name="value{{i}}" ngModel placeholder="value{{i}} "><br>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addYumPackage()" >YUM Packages </button><br>
+    <form #yumform="ngForm" (submit)="onYumDone(yumform.value)">
+      <div *ngFor="let i of yumArray" >
+        <input type="text" name="key{{i}}" ngModel placeholder="key{{i}}" [matTooltip]="yum" >
+        <input type="text" name="value{{i}}" ngModel placeholder="value{{i}} "><br>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addRubyGemsPackage()" >Rubygems Packages </button><br>
+    <form #rubyform="ngForm" (submit)="onRubyGemsDone(rubyform.value)">
+      <div *ngFor="let i of rubygemsArray" >
+        <input type="text" name="key{{i}}" ngModel placeholder="key{{i}}" [matTooltip]="rubygems" >
+        <input type="text" name="value{{i}}" ngModel placeholder="value{{i}} "><br>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+
+<mat-chip>Users</mat-chip><br>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addUsers()" >User</button><br>
+    <form #userform="ngForm" (submit)="onUserDone(userform.value)">
+      <div *ngFor="let i of usersArray" >
+        <input type="text" name="user{{i}}" ngModel placeholder="user{{i}}"> <br>
+        <input type="text" name="homedir{{i}}" ngModel placeholder="homedir{{i}}" [matTooltip]="homedir" > <br>
+        <input type="text" name="uid{{i}}" ngModel placeholder="uid{{i}}" [matTooltip]="uid" > <br>
+        <input type="text" name="groups{{i}}" ngModel placeholder="groups{{i}}" [matTooltip]="groups" >
+        <mat-divider></mat-divider>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+
+<mat-chip>Services</mat-chip>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addServices()" >Services</button><br>
+    <form #serviceform="ngForm" (submit)="onServiceDone(serviceform.value)">
+      <div *ngFor="let i of servicesArray" >
+        <input type="text" name="type{{i}}" ngModel placeholder="sysvinit | windows"> <br>
+        <input type="text" name="name{{i}}" ngModel placeholder="Service Name"> <br>
+        <input type="text" name="ensureRunning{{i}}" ngModel placeholder="ensureRunning" [matTooltip]="ensureRunning" > <br>
+        <input type="text" name="enabled{{i}}" ngModel placeholder="Enabled" [matTooltip]="enabled" > <br>
+        <input type="text" name="files{{i}}" ngModel placeholder="Files" [matTooltip]="files" > <br>
+        <input type="text" name="sources{{i}}" ngModel placeholder="Sources" [matTooltip]="sources" > <br>
+        <input type="text" name="packages{{i}}" ngModel placeholder="Packages" [matTooltip]="packages" > <br>
+        <input type="text" name="commands{{i}}" ngModel placeholder="Commands" [matTooltip]="commands" > <br>
+        <mat-divider></mat-divider>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+
+<mat-chip>Groups</mat-chip>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addGroups()" >Group</button><br>
+    <form #grpform="ngForm" (submit)="onGroupDone(grpform.value)">
+      <div *ngFor="let i of groupsArray" >
+        <input type="text" name="key{{i}}" ngModel placeholder="GroupName">
+        <input type="text" name="value{{i}}" ngModel placeholder="Gid" [matTooltip]="gid" >
+        <mat-divider></mat-divider>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+
+<mat-chip>Files</mat-chip>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addFiles()" >file</button><br>
+    <form #fileform="ngForm" (submit)="onFilesDone(fileform.value)">
+      <div *ngFor="let i of filesArray" >
+        <input type="text" name="filename{{i}}" ngModel placeholder="filename">
+        <input type="text" name="content{{i}}" ngModel placeholder="content" [matTooltip]="content" >
+        <input type="text" name="source{{i}}" ngModel placeholder="source" [matTooltip]="source" >
+        <input type="text" name="encoding{{i}}" ngModel placeholder="encoding" [matTooltip]="encoding" >
+        <input type="text" name="group{{i}}" ngModel placeholder="group" [matTooltip]="group" >
+        <input type="text" name="owner{{i}}" ngModel placeholder="owner" [matTooltip]="owner" >
+        <input type="text" name="mode{{i}}" ngModel placeholder="mode" [matTooltip]="mode" >
+        <input type="text" name="authentication{{i}}" ngModel placeholder="authentication" [matTooltip]="authentication" >
+        <input type="text" name="context{{i}}" ngModel placeholder="context" [matTooltip]="context" >
+        <mat-divider></mat-divider>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+
+<mat-chip>Commands</mat-chip>
+<mat-card class="example-card">
+    <button mat-stroked-button (click)="addCommands()" >commands</button><br>
+    <form #cmdform="ngForm" (submit)="onCommandsDone(cmdform.value)">
+      <div *ngFor="let i of commandsArray" >
+        <input type="text" name="commandname{{i}}" ngModel placeholder="Command name">
+        <input type="text" name="command{{i}}" ngModel placeholder="command" [matTooltip]="command" >
+        <input type="text" name="env{{i}}" ngModel placeholder="Env" [matTooltip]="env" >
+        <input type="text" name="cwd{{i}}" ngModel placeholder="cwd" [matTooltip]="cwd" >
+        <input type="text" name="test{{i}}" ngModel placeholder="test" [matTooltip]="test" >
+        <input type="text" name="ignoreErrors{{i}}" ngModel placeholder="ignoreErrors" [matTooltip]="ignoreErrors" >
+        <input type="text" name="wait{{i}}" ngModel placeholder="waitAfterCompletion" [matTooltip]="waitAfterCompletion" >
+        <mat-divider></mat-divider>
+      </div>
+      <button mat-icon-button type="submit" > <mat-icon>done</mat-icon> </button>
+    </form>
+</mat-card>
+<button mat-raised-button color="primary" type="button" (click)="onReset()" >Reset</button>
+
+<pre> {{myobj|json}} </pre>
+

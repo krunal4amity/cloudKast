@@ -37,36 +37,36 @@ export class AwsResourcesService {
        "Metadata":{"info":"This is not a property but rather an attribute. Use the AWS::CloudFormation::Init type to include metadata on an Amazon EC2 instance for the cfn-init helper script. If your template calls the cfn-init script, the script looks for resource metadata rooted in the AWS::CloudFormation::Init metadata key."},
        "Affinity" : "Indicates whether Amazon Elastic Compute Cloud (Amazon EC2) always associates the instance with a dedicated host.",
        "AvailabilityZone" : "If not specified, an Availability Zone will be automatically chosen for you based on the load balancing criteria for the region.",
-       "BlockDeviceMappings" : ["A list of Amazon EC2 BlockDeviceMapping."],
-       "CreditSpecification" : {"info":" Amazon EC2 Instance CreditSpecification."},
+       "BlockDeviceMappings" : ["A list of Amazon EC2 BlockDeviceMapping.##"],
+       "CreditSpecification" : {"info":" Amazon EC2 Instance CreditSpecification.##"},
        "DisableApiTermination" : "Boolean. Specifies whether the instance can be terminated through the API.",
        "EbsOptimized" : "Boolean",
-       "ElasticGpuSpecifications" : ["Specifies the Elastic GPUs. An Elastic GPU is a GPU resource that you can attach to your instance to accelerate the graphics performance of your applications."],
-       "ElasticInferenceAccelerators" : ["Specify a list of elastic inference accelerators for an instance. "],
+       "ElasticGpuSpecifications" : ["Specifies the Elastic GPUs. An Elastic GPU is a GPU resource that you can attach to your instance to accelerate the graphics performance of your applications.##"],
+       "ElasticInferenceAccelerators" : ["Specify a list of elastic inference accelerators for an instance. ##"],
        "HostId" : "the ID of a dedicated host that the instance is associated with",
        "IamInstanceProfile" : "",
        "ImageId" : "",
        "InstanceInitiatedShutdownBehavior" : "Indicates whether an instance stops or terminates when you shut down the instance from the instance's operating system shutdown command",
        "InstanceType" : "",
        "Ipv6AddressCount" : "The number of IPv6 addresses to associate with the instance's primary network interface. ",
-       "Ipv6Addresses" : ["List of EC2 NetworkInterface Ipv6Addresses"],
+       "Ipv6Addresses" : ["List of EC2 NetworkInterface Ipv6Addresses##"],
        "KernelId" : "",
        "KeyName" : "",
-       "LaunchTemplate" : {"info":" Amazon EC2 Instance LaunchTemplateSpecification"},
-       "LicenseSpecifications" : ["Associate a list of license configurations with the instance."],
+       "LaunchTemplate" : {"info":" Amazon EC2 Instance LaunchTemplateSpecification##"},
+       "LicenseSpecifications" : ["Associate a list of license configurations with the instance.##"],
        "Monitoring" : "Boolean. Specifies whether detailed monitoring is enabled for the instance.",
-       "NetworkInterfaces" : ["A list of embedded objects that describes the network interfaces to associate with this instance."],
+       "NetworkInterfaces" : ["A list of embedded objects that describes the network interfaces to associate with this instance.##"],
        "PlacementGroupName" : "The name of an existing placement group that you want to launch the instance into (for cluster instances).",
        "PrivateIpAddress" : "The private IP address for this instance.By default, Amazon VPC selects an IP address from the subnet for the instance.",
        "RamdiskId" : "The ID of the RAM disk to select. Some kernels require additional drivers at launch. ",
        "SecurityGroupIds" : ["** [String,...] List of String values. A list that contains the security group IDs for VPC security groups to assign to the Amazon EC2 instance. If you specified the NetworkInterfaces property, do not specify this property."],
        "SecurityGroups" : ["[String,...] Valid only for Amazon EC2 security groups. A list that contains the Amazon EC2 security groups to assign to the Amazon EC2 instance."],
        "SourceDestCheck" : "Boolean. Controls whether source/destination checking is enabled on the instance. Also determines if an instance in a VPC will perform network address translation (NAT).For the instance to perform NAT, the value must be false",
-       "SsmAssociations" : ["List of Amazon EC2 Instance SsmAssociations."],
+       "SsmAssociations" : ["List of Amazon EC2 Instance SsmAssociations.##"],
        "SubnetId" : "",
        "Tenancy" : "The tenancy of the instance that you want to launch, such as default, dedicated, or host. ",
        "UserData" : "Base64-encoded MIME user data that is made available to the instances.",
-       "Volumes" : ["A list of EC2 MountPoints."],
+       "Volumes" : ["A list of EC2 MountPoints.##"],
        "AdditionalInfo" : "",
        "CreationPolicy":{"info":"Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured."}       
     }
@@ -77,8 +77,8 @@ export class AwsResourcesService {
     "Properties" : {
        "GroupName" : "If you don't specify a GroupName, AWS CloudFormation generates a unique physical ID and uses that ID for the group name.",
        "GroupDescription" : "*description",
-       "SecurityGroupEgress" : ["A list of Amazon EC2 security group egress rules."],
-       "SecurityGroupIngress" : ["A list of Amazon EC2 security group ingress rules."],
+       "SecurityGroupEgress" : ["A list of Amazon EC2 security group egress rules.##"],
+       "SecurityGroupIngress" : ["A list of Amazon EC2 security group ingress rules.##"],
        "VpcId" : "*The physical ID of the VPC. You can obtain the physical ID by using a reference function"
     }
   };
@@ -107,12 +107,12 @@ export class AwsResourcesService {
     "Type" : "AWS::EC2::EC2Fleet",
     "Properties" : {
       "ExcessCapacityTerminationPolicy" : "Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.",
-      "LaunchTemplateConfigs" : ["*List of FleetLaunchTemplateConfigRequest property types"],
-      "OnDemandOptions" : {"info":"Type: OnDemandOptionsRequest. The allocation strategy of On-Demand Instances in an EC2 Fleet. "},
+      "LaunchTemplateConfigs" : ["*List of FleetLaunchTemplateConfigRequest property types##"],
+      "OnDemandOptions" : {"info":"Type: OnDemandOptionsRequest. The allocation strategy of On-Demand Instances in an EC2 Fleet.## "},
       "ReplaceUnhealthyInstances" : "Boolean. Indicates whether EC2 Fleet should replace unhealthy instances.",
-      "SpotOptions" : {"info":"Type: SpotOptionsRequest. Describes the configuration of Spot Instances in an EC2 Fleet."},
-      "TagSpecifications" : ["List of TagSpecification property types.The key-value pair for tagging the EC2 Fleet request on creation. The value for ResourceType must be fleet, otherwise the fleet request fails."],
-      "TargetCapacitySpecification" : "*TargetCapacitySpecificationRequest Type. The TotalTargetCapacity, OnDemandTargetCapacity, SpotTargetCapacity, and DefaultCapacityType structure.",
+      "SpotOptions" : {"info":"Type: SpotOptionsRequest. Describes the configuration of Spot Instances in an EC2 Fleet.##"},
+      "TagSpecifications" : ["List of TagSpecification property types.The key-value pair for tagging the EC2 Fleet request on creation. The value for ResourceType must be fleet, otherwise the fleet request fails.##"],
+      "TargetCapacitySpecification" : {"info": "*TargetCapacitySpecificationRequest Type. The TotalTargetCapacity, OnDemandTargetCapacity, SpotTargetCapacity, and DefaultCapacityType structure.##"},
       "TerminateInstancesWithExpiration" : "Boolean. Indicates whether running instances should be terminated when the EC2 Fleet expires.",
       "Type" : "The type of the request. By default, the EC2 Fleet places an asynchronous request for your desired capacity, and maintains it by replenishing interrupted Spot Instances (maintain). A value of instant places a synchronous one-time request, and returns errors for any instances that could not be launched. A value of request places an asynchronous one-time request without maintaining capacity or submitting requests in alternative capacity pools if capacity is unavailable.",
       "ValidFrom" : "The start date and time of the request, in UTC format (for example, YYYY-MM-DDTHH:MM:SSZ). The default is to start fulfilling the request immediately.",
@@ -169,7 +169,7 @@ export class AwsResourcesService {
     "Type" : "AWS::EC2::LaunchTemplate",
     "Properties" : {
       "LaunchTemplateName" : "Minimum length of 3. Maximum length of 128.",
-      "LaunchTemplateData" : {"info":"Type: LaunchTemplateData"}
+      "LaunchTemplateData" : {"info":"Type: LaunchTemplateData##"}
     }
   };
 
@@ -193,10 +193,10 @@ export class AwsResourcesService {
     "Properties" : {
        "CidrBlock" : "**You must specify the CidrBlock or Ipv6CidrBlock property.",
        "Egress" : "Boolean. Whether this rule applies to egress traffic from the subnet (true) or ingress traffic to the subnet (false). By default, AWS CloudFormation specifies false.",
-       "Icmp" : {"info":"**Type: EC2 NetworkAclEntry Icmp. required if specifying 1 (ICMP) for the protocol parameter."},
+       "Icmp" : {"info":"**Type: EC2 NetworkAclEntry Icmp. required if specifying 1 (ICMP) for the protocol parameter.##"},
        "Ipv6CidrBlock" : "**You must specify the CidrBlock or Ipv6CidrBlock property.", 
        "NetworkAclId" : "*ID of the ACL where the entry will be created.",
-       "PortRange" : {"info":"**Type: EC2 NetworkAclEntry PortRange. Required if specifying 6 (TCP) or 17 (UDP) for the protocol parameter. "},
+       "PortRange" : {"info":"**Type: EC2 NetworkAclEntry PortRange. Required if specifying 6 (TCP) or 17 (UDP) for the protocol parameter.## "},
        "Protocol" : "*The IP protocol that the rule applies to. You must specify -1 or a protocol number. If you specify -1, all ports are opened and the PortRange property is ignored.",
        "RuleAction" : "*Whether to allow or deny traffic that matches the rule; valid values are 'allow' or 'deny'.",
        "RuleNumber" : "*Rule number to assign to the entry, such as 100. ACL entries are processed in ascending order by rule number. Entries can't use the same rule number unless one is an egress rule and the other is an ingress rule."
@@ -209,9 +209,9 @@ export class AwsResourcesService {
        "Description" : "String",
        "GroupSet" : [ "Type: List of strings. A list of security group IDs associated with this network interface."],
        "Ipv6AddressCount" : "Integer. The number of IPv6 addresses to associate with the network interface. EC2 automatically selects the IPv6 addresses from the subnet range. To specify specific IPv6 addresses, use the Ipv6Addresses property and don't specify this property.",
-       "Ipv6Addresses" : ["One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet to associate with the network interface. If you're specifying a number of IPv6 addresses, use the Ipv6AddressCount property and don't specify this property."],
+       "Ipv6Addresses" : ["One or more specific IPv6 addresses from the IPv6 CIDR block range of your subnet to associate with the network interface. If you're specifying a number of IPv6 addresses, use the Ipv6AddressCount property and don't specify this property.##"],
        "PrivateIpAddress" : "Assigns a single private IP address to the network interface, which is used as the primary private IP address. If you want to specify multiple private IP address, use the PrivateIpAddresses property.",
-       "PrivateIpAddresses" : ["Type: list of PrivateIpAddressSpecification. Assigns a list of private IP addresses to the network interface. You can specify a primary private IP address by setting the value of the Primary property to true in the PrivateIpAddressSpecification property. If you want EC2 to automatically assign private IP addresses, use the SecondaryPrivateIpAddressCount property and do not specify this property." ],
+       "PrivateIpAddresses" : ["Type: list of PrivateIpAddressSpecification. Assigns a list of private IP addresses to the network interface. You can specify a primary private IP address by setting the value of the Primary property to true in the PrivateIpAddressSpecification property. If you want EC2 to automatically assign private IP addresses, use the SecondaryPrivateIpAddressCount property and do not specify this property.##" ],
        "SecondaryPrivateIpAddressCount" : "Integer. The number of secondary private IP addresses that EC2 automatically assigns to the network interface. EC2 uses the value of the PrivateIpAddress property as the primary private IP address. If you don't specify that property, EC2 automatically assigns both the primary and secondary private IP addresses.",
        "SourceDestCheck" : "Boolean. Flag indicating whether traffic to or from the instance is validated.",
        "SubnetId" : "String"
@@ -302,7 +302,7 @@ export class AwsResourcesService {
   ec2_spotfleet={
     "Type" : "AWS::EC2::SpotFleet",
     "Properties" : {
-      "SpotFleetRequestConfigData" : {"info":"*Type of SpotFleetRequestConfigData"}
+      "SpotFleetRequestConfigData" : {"info":"*Type of SpotFleetRequestConfigData##"}
     }
   };
 
@@ -500,7 +500,7 @@ export class AwsResourcesService {
        "CustomerGatewayId" : "*The ID of the customer gateway. This can either be an embedded JSON object or a reference to a Gateway ID.",
        "StaticRoutesOnly" : "**Boolean. Conditional. If you are creating a VPN connection for a device that does not support Border Gateway Protocol (BGP), you must specify true.",
        "VpnGatewayId" : "*The ID of the virtual private gateway. This can either be an embedded JSON object or a reference to a Gateway ID.",
-       "VpnTunnelOptionsSpecifications" : ["Type: List of VpnTunnelOptionsSpecification. The tunnel options for the VPN connection. Duplicates not allowed."]
+       "VpnTunnelOptionsSpecifications" : ["Type: List of VpnTunnelOptionsSpecification. The tunnel options for the VPN connection. Duplicates not allowed.##"]
     }
  };
   ec2_vpnconnectionroute={
@@ -526,31 +526,33 @@ export class AwsResourcesService {
        "VpnGatewayId" : "*The ID of the virtual private gateway that is attached to a VPC. The virtual private gateway must be attached to the same VPC that the routing tables are associated with."
     }
  };
+ //Ec2 ends...
 
+ //Route53 starts...
  route53_healthcheck={
   "Type" : "AWS::Route53::HealthCheck",
   "Properties" : {
-    "HealthCheckConfig" : {"info":"*Type: Route 53 HealthCheck HealthCheckConfig"},
-    "HealthCheckTags" : ["Type: A list of Amazon Route 53 HealthCheck HealthCheckTags"]
+    "HealthCheckConfig" : {"info":"*Type: Route 53 HealthCheck HealthCheckConfig##"},
+    "HealthCheckTags" : ["Type: A list of Amazon Route 53 HealthCheck HealthCheckTags##"]
   }
 };
  route53_hostedzone={
   "Type" : "AWS::Route53::HostedZone",
   "Properties" : {
-    "HostedZoneConfig" : {"info":"Type: Route 53 HostedZoneConfig Property"},
-    "HostedZoneTags" : ["Type: List of Amazon Route 53 HostedZoneTags"],
+    "HostedZoneConfig" : {"info":"Type: Route 53 HostedZoneConfig Property##"},
+    "HostedZoneTags" : ["Type: List of Amazon Route 53 HostedZoneTags##"],
     "Name" : "*The name of the domain. For resource record types that include a domain name, specify a fully qualified domain name.",
-    "QueryLoggingConfig" : {"info":"Type: Route 53 QueryLoggingConfig"},
-    "VPCs" : ["Type: List of Route 53 HostedZoneVPCs. One or more VPCs that you want to associate with this hosted zone. When you specify this property, AWS CloudFormation creates a private hosted zone."]
+    "QueryLoggingConfig" : {"info":"Type: Route 53 QueryLoggingConfig##"},
+    "VPCs" : ["Type: List of Route 53 HostedZoneVPCs. One or more VPCs that you want to associate with this hosted zone. When you specify this property, AWS CloudFormation creates a private hosted zone.##"]
   }
 }
  route53_recordset={
   "Type" : "AWS::Route53::RecordSet",
   "Properties" : {
-    "AliasTarget" : {"info":"**Type: AliasTarget. Required if you are creating an alias resource record set. If you specify this property, do not specify the TTL property. The alias uses a TTL value from the alias target record."},
+    "AliasTarget" : {"info":"**Type: AliasTarget. Required if you are creating an alias resource record set. If you specify this property, do not specify the TTL property. The alias uses a TTL value from the alias target record.##"},
     "Comment" : "Any comments that you want to include about the change batch. Important: If the record set is part of a record set group, this property isn't valid. Don't specify this property.",
     "Failover" : "Designates the record set as a PRIMARY or SECONDARY failover record set. When you have more than one resource performing the same function, you can configure Route 53 to check the health of your resources and use only health resources to respond to DNS queries. You cannot create nonfailover resource record sets that have the same Name and Type property values as failover resource record sets. If you specify this property, you must specify the SetIdentifier property.",
-    "GeoLocation" : {"info":"Type: Route 53 Record Set GeoLocation Property. Describes how Route 53 responds to DNS queries based on the geographic origin of the query. This property is not compatible with the Region property."},
+    "GeoLocation" : {"info":"Type: Route 53 Record Set GeoLocation Property. Describes how Route 53 responds to DNS queries based on the geographic origin of the query. This property is not compatible with the Region property.##"},
     "HealthCheckId" : "The health check ID that you want to apply to this record set. Route 53 returns this resource record set in response to a DNS query only while record set is healthy.",
     "HostedZoneId" : "**You must specify either the HostedZoneName or HostedZoneId, but you cannot specify both. If this record set is part of a record set group, do not specify this property.",
     "HostedZoneName" : "**You must specify either the HostedZoneName or HostedZoneId, but you cannot specify both. If this record set is part of a record set group, do not specify this property. The name of the domain for the hosted zone where you want to add the record set. When you create a stack using an AWS::Route53::RecordSet that specifies HostedZoneName, AWS CloudFormation attempts to find a hosted zone whose name matches the HostedZoneName. If AWS CloudFormation cannot find a hosted zone with a matching domain name, or if there is more than one hosted zone with the specified domain name, AWS CloudFormation will not create the stack. If you have multiple hosted zones with the same domain name, you must explicitly specify the hosted zone using HostedZoneId.",
@@ -578,7 +580,7 @@ export class AwsResourcesService {
   "Type" : "AWS::Route53Resolver::ResolverEndpoint",
   "Properties" : {
     "Direction" : "*Valid values:INBOUND | OUTBOUND. Indicates whether the resolver endpoint allows inbound or outbound DNS queries.",
-    "IpAddresses" : ["*Type: List of IpAddressRequest property types. The subnets and IP addresses in your VPC that you want DNS queries to pass through on the way from your VPCs to your network (for outbound endpoints) or on the way from your network to your VPCs (for inbound resolver endpoints)."],
+    "IpAddresses" : ["*Type: List of IpAddressRequest property types. The subnets and IP addresses in your VPC that you want DNS queries to pass through on the way from your VPCs to your network (for outbound endpoints) or on the way from your network to your VPCs (for inbound resolver endpoints).##"],
     "Name" : "A friendly name that lets you easily find a configuration in the Resolver dashboard in the Route 53 console.",
     "SecurityGroupIds" : ["*Type: List of String values. The ID of one or more security groups that you want to use to control access to this VPC. The security group that you specify must include one or more inbound rules (for inbound resolver endpoints) or outbound rules (for outbound resolver endpoints)."]
   }
@@ -591,7 +593,7 @@ export class AwsResourcesService {
     "Name" : "A friendly name that lets you easily find a rule in the Resolver dashboard in the Route 53 console.",
     "ResolverEndpointId" : "The ID of the outbound endpoint that the rule is associated with.",
     "RuleType" : "*When you want to forward DNS queries for specified domain name to resolvers on your network, specify FORWARD. When you have a forwarding rule to forward DNS queries for a domain to your network and you want Resolver to process queries for a subdomain of that domain, choose SYSTEM. For example, to forward DNS queries for example.com to resolvers on your network, you create a rule and specify FORWARD for RuleType. To then have Resolver process queries for apex.example.com, you create a rule and specify SYSTEM for RuleType.",
-    "TargetIps" : ["Type: List of TargetAddress property types. When a DNS query matches the name that you specify in DomainName, the outbound endpoint forwards the query to the IP addresses that you specify here, typically the IP addresses for DNS resolvers on your network. Specify IPv4 addresses."]
+    "TargetIps" : ["Type: List of TargetAddress property types. When a DNS query matches the name that you specify in DomainName, the outbound endpoint forwards the query to the IP addresses that you specify here, typically the IP addresses for DNS resolvers on your network. Specify IPv4 addresses.##"]
   }
 };
 
@@ -603,7 +605,9 @@ export class AwsResourcesService {
     "VPCId" : "*The ID of the VPC that you associated the resolver rule with."
   }
 }
+//Route53 ends...
 
+//IAM starts...
 iam_accesskey=
 {
    "Type": "AWS::IAM::AccessKey",
@@ -647,7 +651,7 @@ iam_policy={
   "Type" : "AWS::IAM::Policy",
   "Properties" : { 
     "Groups" : ["**You must specify at least one of the following properties: Groups, Roles, or Users."],
-    "PolicyDocument" :{"info":"*A policy document that contains permissions to add to the specified users or groups. NOTE: this policy is not available in 'Property Dealer' utility. Please use aws policy generate to do the same"},
+    "PolicyDocument" :{"info":"*A policy document that contains permissions to add to the specified users or groups. NOTE: this policy is not available in 'Property Dealer' utility. Please use aws policy generate to do the same##"},
     "PolicyName" : "*The name of the policy. If you specify multiple policies for an entity, specify unique names. For example, if you specify a list of policies for an IAM role, each policy must have a unique name.",
     "Roles" : ["**Type: List of String values. If a policy has a Ref to a role and if a resource (such as AWS::ECS::Service) also has a Ref to the same role, add a DependsOn attribute to the resource so that the resource depends on the policy. This dependency ensures that the role's policy is available throughout the resource's lifecycle. For example, when you delete a stack with an AWS::ECS::Service resource, the DependsOn attribute ensures that the AWS::ECS::Service resource can complete its deletion before its role's policy is deleted."],
     "Users" : ["**Type: List of String values. You must specify at least one of the following properties: Groups, Roles, or Users. "]
@@ -677,11 +681,11 @@ iam_user={
   "Type": "AWS::IAM::User",
   "Properties": {
     "Groups": ["Type: List of String values"],
-    "LoginProfile": {"info":"Type: IAM User LoginProfile"},
+    "LoginProfile": {"info":"Type: IAM User LoginProfile##"},
     "ManagedPolicyArns": ["One or more managed policy ARNs to attach to this user."],
     "Path": "The path for the user name.",
     "PermissionsBoundary": "The ARN of the policy that is used to set the permissions boundary for the user. Minimum length of 20. Maximum length of 2048.",   
-    "Policies": ["Type: List of IAM Policies"],
+    "Policies": ["Type: List of IAM Policies##"],
     "UserName": "String. Naming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name"
   }
 }

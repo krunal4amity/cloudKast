@@ -18,18 +18,29 @@
                 <div *ngFor="let x of getKeys(isArray(selProp[w])?[]:selProp[w])">
                   <input *ngIf="getTypeof(selProp[w][x])=='string' || isArray(selProp[w][x]) " 
                    type="text" [name]="x" [placeholder]="x" ngModel [matTooltip]="isArray(selProp[w][x])?selProp[w][x][0]:selProp[w][x]" style="margin-left: 20px" >
-                  <mat-chip *ngIf="getTypeof(selProp[w][x])=='object' && !isArray(selProp[w][x])">
+                  <mat-chip *ngIf="getTypeof(selProp[w][x])=='object' && !isArray(selProp[w][x])" style="margin-left: 20px" >
                     {{x}}
                   </mat-chip>
                   <div *ngIf="getDepth(selProp[w][x]) >0  && getTypeof(selProp[w][x])=='object'">
                     <div *ngFor="let k of getKeys(isArray(selProp[w][x])?[]:selProp[w][x])">
                         <input *ngIf="getTypeof(selProp[w][x][k])=='string' || isArray(selProp[w][x][k])" 
-                        type="text" [name]="k" [placeholder]="k" ngModel [matTooltip]="isArray(selProp[w][x][k])?selProp[w][x][k][0]:selProp[w][x][k]" style="margin-left: 40px" >         
+                        type="text" [name]="k" [placeholder]="k" ngModel [matTooltip]="isArray(selProp[w][x][k])?selProp[w][x][k][0]:selProp[w][x][k]" style="margin-left: 40px" >
+
+                        <mat-chip *ngIf="getTypeof(selProp[w][x][k])=='object' && !isArray(selProp[w][x][k])" style="margin-left: 40px" >
+                          {{k}}
+                        </mat-chip>
+                        <div *ngIf="getDepth(selProp[w][x][k]) >0  && getTypeof(selProp[w][x][k])=='object'">
+                          <div *ngFor="let v of getKeys(isArray(selProp[w][x][k])?[]:selProp[w][x][k])">
+                              <input *ngIf="getTypeof(selProp[w][x][k][v])=='string' || isArray(selProp[w][x][k][v])" 
+                              type="text" [name]="v" [placeholder]="v" ngModel [matTooltip]="isArray(selProp[w][x][k][v])?selProp[w][x][k][v][0]:selProp[w][x][k][v]" style="margin-left: 60px" >                        
+
+                          </div>
+                        </div>
                     </div>
                   </div>
-                </div>
               </div>
-            </div>    
+            </div>
+          </div>
   <button mat-stroked-button color="primary" type="submit">Generate</button>
   <button mat-stroked-button color="warn" (click)="resname.value=''; onReset()">Reset</button>
 </form>

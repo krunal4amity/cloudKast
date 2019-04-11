@@ -11,8 +11,8 @@ export class PropertyDialogTabComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<PropertyDialogTabComponent>,@Inject(MAT_DIALOG_DATA) public data) { }
 
-  tagCount=0;
-  tagArray=[];
+  tagCount=1;
+  tagArray=[1];
 
   ngOnInit() {
   }

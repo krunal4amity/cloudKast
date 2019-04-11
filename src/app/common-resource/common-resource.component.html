@@ -32,7 +32,7 @@
           [matTooltip]="resObject.Properties[j][0]" [ngStyle]="{'color':isRequired(resObject.Properties[j])['color']}" >info</mat-icon>
           <mat-icon *ngIf="!isArray(resObject.Properties[j]) && getTypeOf(resObject.Properties[j])=='object'" 
           [matTooltip]="resObject.Properties[j]['info']" [ngStyle]="{'color':isRequired(resObject.Properties[j])['color']}">info</mat-icon>
-          <button mat-icon-button *ngIf="getTypeOf(resObject.Properties[j])=='object' && isPropertyComplex(serviceSyntax) " (click)="populateProperty(serviceSyntax)" >
+          <button mat-icon-button type="button"  *ngIf="isPropertyComplex(resObject.Properties[j])" (click)="populateProperty(serviceSyntax)" >
             <mat-icon>create</mat-icon>
           </button>
 

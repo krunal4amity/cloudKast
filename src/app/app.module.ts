@@ -113,6 +113,10 @@ import { Ec2VpnConnectionComponent } from './ec2/ec2-vpn-connection/ec2-vpn-conn
 import { CommonResourceComponent } from './common-resource/common-resource.component';
 import { PropertyDialogTabComponent } from './property-dialog-tab/property-dialog-tab.component';
 import { PropertyDialogComponent } from './property-dialog/property-dialog.component';
+import { FunctionsTabComponent } from './functions-tab/functions-tab.component';
+import { EC2InitComponent } from './ec2-init/ec2-init.component';
+import { Ec2initconfigComponent } from './ec2initconfig/ec2initconfig.component';
+import { Ec2InitConfigTabComponent } from './ec2-init-config-tab/ec2-init-config-tab.component';
 
 
 
@@ -188,7 +192,11 @@ import { PropertyDialogComponent } from './property-dialog/property-dialog.compo
     Ec2VpnConnectionComponent,
     CommonResourceComponent,
     PropertyDialogTabComponent,
-    PropertyDialogComponent
+    PropertyDialogComponent,
+    FunctionsTabComponent,
+    EC2InitComponent,
+    Ec2initconfigComponent,
+    Ec2InitConfigTabComponent
   ],
   imports: [
     BrowserModule,

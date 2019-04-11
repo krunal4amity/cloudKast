@@ -13,13 +13,49 @@ export class ResourceDataService {
       "Metadata":{
         "AWS::CloudFormation::Init" : {
           "config" : {
-            "packages" : "",
-            "groups" : "",
-            "users" : "",
+            "packages" : {
+              "apt":"apt packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL. ",
+              "msi":"msi packages as a json object. On Windows systems, the packages key supports only the MSI installer.",
+              "python":"msi packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL.",
+              "rpm":"rpm packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL.",
+              "rubygems":"rubygems as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL.",
+              "yum":"yum packages as a json object. each package is specified as a package name and a list of versions. The version can be a string, a list of versions, or an empty string or list. An empty string or list indicates that you want the latest version. For rpm manager, the version is specified as a path to a file on disk or a URL."
+            },
+            "groups" : {
+              "gid":"If a group ID is specified, and the group already exists by name, the group creation will fail. If another group has the specified group ID, the OS may reject the group creation."
+            },
+            "users" : {
+              "groups":["A list of group names. The user will be added to each group in the list."],
+              "uid":"A user ID. The creation process fails if the user name exists with a different user ID. If the user ID is already assigned to an existing user the operating system may reject the creation request.",
+              "homeDir":"The user's home directory."
+            },
             "sources" : "",
-            "files" : "",
-            "commands" : "",
-            "services" : ""
+            "files" : {
+              "content":"Either a string or a properly formatted JSON object. If you use a JSON object as your content, the JSON will be written to a file on disk. Any intrinsic functions such as Fn::GetAtt or Ref are evaluated before the JSON object is written to disk. When you create a symlink, specify the symlink target as the content.",
+              "source":"A URL to load the file from. This option cannot be specified with the content key.",
+              "encoding":"The encoding format. Only used if the content is a string. Encoding is not applied if you are using a source. Valid values: plain | base64",
+              "group":"The name of the owning group for this file. Not supported for Windows systems.",
+              "owner":"The name of the owning user for this file. Not supported for Windows systems.",
+              "mode":"A six-digit octal value representing the mode for this file. Not supported for Windows systems. Use the first three digits for symlinks and the last three digits for setting permissions. To create a symlink, specify 120xxx, where xxx defines the permissions of the target file. To specify permissions for a file, use the last three digits, such as 000644.",
+              "authentication":"The name of an authentication method to use. This overrides any default authentication.",
+              "context":"Specifies a context for files that are to be processed as Mustache templates. To use this key, you must have installed aws-cfn-bootstrap 1.3-11 or later as well as pystache."
+            },
+            "commands" : {
+              "commands":"*Required. Either an array or a string specifying the command to run. If you use an array, you do not need to escape space characters or enclose command parameters in quotes. Don't use the array to specify multiple commands.",
+              "env":"Sets environment variables for the command. This property overwrites, rather than appends, the existing environment.",
+              "cwd":"current working directory",
+              "test":"A test command that determines whether cfn-init runs commands that are specified in the command key. If the test passes, cfn-init runs the commands. The cfn-init script runs the test in a command interpreter, such as Bash or cmd.exe. Whether a test passes depends on the exit code that the interpreter returns. For Linux, the test command must return an exit code of 0 for the test to pass. For Windows, the test command must return an ERRORLEVEL of 0.",
+              "ignoreErrors":"Boolean, A Boolean value that determines whether cfn-init continues to run if the command in contained in the command key fails (returns a non-zero value). Set to true if you want cfn-init to continue running even if the command fails. Set to false if you want cfn-init to stop running if the command fails. The default value is false.",
+              "waitAfterCompletion":"For Windows systems only. Specifies how long to wait (in seconds) after a command has finished in case the command causes a reboot. The default value is 60 seconds and a value of 'forever' directs cfn-init to exit and resume only after the reboot is complete. Set this value to 0 if you do not want to wait for every command."
+            },
+            "services" : {
+              "ensureRunning":"Set to true to ensure that the service is running after cfn-init finishes. Set to false to ensure that the service is not running after cfn-init finishes. Omit this key to make no changes to the service state.",
+              "enabled":"Set to true to ensure that the service will be started automatically upon boot. Set to false to ensure that the service will not be started automatically upon boot. ",
+              "files":["A list of files. If cfn-init changes one directly via the files block, this service will be restarted"],
+              "sources":["A list of directories. If cfn-init expands an archive into one of these directories, this service will be restarted."],
+              "packages":"A map of package manager to list of package names. If cfn-init installs or updates one of these packages, this service will be restarted.",
+              "commands":["A list of command names. If cfn-init runs the specified command, this service will be restarted."]
+            }
           }
         }
       },

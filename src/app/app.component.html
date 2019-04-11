@@ -1,6 +1,11 @@
-<mat-tab-group>
+<mat-toolbar color="primary" >
+  <span>
+    <img src="../assets/img/cloudkast-logo.jpg" height="42" width="200" alt="">
+  </span>
+</mat-toolbar>
+<mat-tab-group color="primary" >
   <mat-tab label="Create"> 
-      <mat-tab-group>
+      <mat-tab-group color="accent" >
           <mat-tab label="Metadata"> 
             <app-metadata></app-metadata>
           </mat-tab>
@@ -22,12 +27,12 @@
           <mat-tab label="Outputs"> 
               <app-outputs-tab></app-outputs-tab>
           </mat-tab>
+          <mat-tab label="Ec2 Init" >
+            <app-ec2-init></app-ec2-init>
+          </mat-tab>
       </mat-tab-group>
   </mat-tab>
-  <mat-tab label="Functions">
-    <app-intrinsic-functions></app-intrinsic-functions>
-  </mat-tab>
-  <mat-tab label="Properties" >
+  <mat-tab label="Properties">
     <app-object-help></app-object-help>
   </mat-tab>
   <mat-tab label="Result"> 

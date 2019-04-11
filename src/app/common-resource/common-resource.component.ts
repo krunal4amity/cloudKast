@@ -9,6 +9,7 @@ import { PropertyDialogTabComponent } from '../property-dialog-tab/property-dial
 
 
 
+
 @Component({
   selector: 'app-common-resource',
   templateUrl: './common-resource.component.html',
@@ -45,7 +46,15 @@ export class CommonResourceComponent implements OnInit {
   isCopyReady:Boolean = false;
   
   isPropertyComplex(value){
-    return this.objProp.comProp.hasOwnProperty(value);
+    //return this.objProp.comProp.hasOwnProperty(value);
+    if(this.getTypeOf(value)!='string'){
+      var tooltip = this.isArray(value)?value[0]:value["info"];
+      //console.log(tooltip);
+      return (tooltip as String).includes("##")?true:false
+    }
+    else {
+      return false;
+    }
   }
 
   addTag(){
@@ -111,7 +120,8 @@ export class CommonResourceComponent implements OnInit {
 
   populateProperty(res){
     const dialogRef = this.dialog.open(PropertyDialogTabComponent, {
-      width: '450px',
+      width: '750px',
+      height:'500px',
       data: res
     });
 
@@ -174,119 +184,3 @@ export class CommonResourceComponent implements OnInit {
       }
    }
 }
-
-
-
-
-// @Component({
-//   selector: 'property-dealer-dialog',
-//   templateUrl: 'property-dealer-dialog.html',
-// })
-// export class PropertyDealerDialog {
-
-//   constructor(
-//     public dialogRef: MatDialogRef<PropertyDealerDialog>,@Inject(MAT_DIALOG_DATA) public data, public mainObj:ResourceDataService, public utility:UsefulUtilsService) {
-//       this.onDone(data);
-//     }
-
-//     resKeys:String[];
-//     propKeys:String[];
-//     selProp:Object;
-//     isCopied:Boolean=false;
-//     myobj={}
-//     nonStringOutput={};
-
-//   onNoClick(): void {
-//     this.dialogRef.close();
-//   }
-
-//   getTypeOf(value){
-//     return typeof(value);
-//   }
-
-//   isArray(value){
-//     return Array.isArray(value);
-//   }
-
-//   copyToClipboard(value){
-//     var textArea= document.createElement("textarea");
-//     textArea.value = JSON.stringify(this.myobj);
-//     document.body.appendChild(textArea);
-//     textArea.select();
-//     document.execCommand("copy");
-//     document.body.removeChild(textArea);
-//     this.myobj={};
-//   }
-
-//   getKeys(value){
-//     //return Object.keys(Object.values(value)[0])
-//     return (Object.keys(value)).length==0?[]:Object.keys(value);
-//   }
-
-//   getSelProp(value){
-//     var a1=Object.values(this.mainObj.comProp);
-//     var a2:Object;
-//     a1.forEach((i)=>{
-//       if(i.hasOwnProperty(value)){
-//         a2=i[value];
-//       }
-//     })
-//     console.log(a2);
-//     return a2;
-//   }
-
-//   onSubmit(value){
-//     //console.log(value);
-//     this.getLooper(this.selProp,value,this.myobj);
-//     this.isCopied=true;
-//   }
-
-//   getLooper(loopval,formval,myobj){
-//     this.getKeys(loopval).forEach((j)=>{
-//       if(typeof(loopval[j])=="string"){
-//         //myobj[j]=formval[j];
-//         myobj[j]=this.utility.getProperJson(formval[j]);
-//       }
-//       else{
-//         if(Array.isArray(loopval[j])){
-//           //myobj[j]=(formval[j] as String).split("|");
-//           myobj[j]=this.utility.getArray(formval[j]);
-//         }
-//         else{
-//           myobj[j]={}
-//           this.getLooper(loopval[j],formval,myobj[j])
-//         }
-//       }
-  
-//     })
-//   }
-
-//   onDone(value){
-//     //this.selProp=(Object.values(this.mainObj.comProp)[0])[value.resname];
-//     this.selProp=this.getSelProp(value);
-//     //console.log(value);
-//     //console.log(this.selProp)
-//     //this.propSent=true;
-//   }
-
-//   getDepth(obj){
-//     var level = 1;
-//     var key;
-//     for(key in obj) {
-//         if (!obj.hasOwnProperty(key)) continue;
-  
-//         if(typeof obj[key] == 'object'){
-//             var depth = this.getDepth(obj[key]) + 1;
-//             level = Math.max(depth, level);
-//         }
-//     }
-//     return level;
-//   }
-
-//   onReset(){
-//     //this.propSent=false;
-//     this.isCopied=false;
-//     this.myobj={};
-//   }
-
-// }
