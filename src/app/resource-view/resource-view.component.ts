@@ -93,6 +93,35 @@ export class ResourceViewComponent implements OnInit {
   ec2_vpngateway=[];
   ec2_vpngatewayroutepropagation=[];
 
+  //autoscaling
+  ag_agGroup=[];
+  ag_launchConfiguration=[];
+  ag_lifecyclehook=[];
+  ag_scalingpolicy=[];
+  ag_scheduledAction=[]
+
+  //elbv2
+  elbv2_listener=[];
+  elbv2_listenercertificate=[];
+  elbv2_listenerrule=[];
+  elbv2_loadbalancer=[];
+  elbv2_targetgroup=[];
+
+  //certificate manager
+  acm_certificate=[];
+
+  //dynamodb
+  dynamodb_table=[];
+
+  //sqs
+  sqs_queue=[];
+  sqs_queuepolicy=[];
+
+  //sns
+  sns_subscription=[];
+  sns_topic=[];
+  sns_topicpolicy=[]
+
   serviceAddition(subresource:SubResource){
     //console.log(`${subresource.resourcename} ${subresource.resourcecount} ${subresource.resourcesyntax}`);
     subresource.resourcecount = subresource.resourcecount + 1;
@@ -172,6 +201,43 @@ export class ResourceViewComponent implements OnInit {
       if(this.resource_detail[2]=="User") this.iam_user.push(subresource.resourcecount);
       if(this.resource_detail[2]=="UserToGroupAddition") this.iam_usertogroupaddition.push(subresource.resourcecount);
         break;
+
+      case "AutoScaling":
+      if(this.resource_detail[2]=="AutoScalingGroup") this.ag_agGroup.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="LaunchConfiguration") this.ag_launchConfiguration.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="LifecycleHook") this.ag_lifecyclehook.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="ScalingPolicy") this.ag_scalingpolicy.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="ScheduledAction") this.ag_scheduledAction.push(subresource.resourcecount);
+        break;
+
+      case "ElasticLoadBalancingV2":
+      if(this.resource_detail[2]=="Listener") this.elbv2_listener.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="ListenerCertificate") this.elbv2_listenercertificate.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="ListenerRule") this.elbv2_listenerrule.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="LoadBalancer") this.elbv2_loadbalancer.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="TargetGroup") this.elbv2_targetgroup.push(subresource.resourcecount);
+        break;
+
+      case "Certificate Manager":
+      if(this.resource_detail[2]=="Certificate") this.acm_certificate.push(subresource.resourcecount);      
+        break;
+
+      case "SNS":
+      if(this.resource_detail[2]=="Subscription") this.sns_subscription.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="Topic") this.sns_topic.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="TopicPolicy") this.sns_topicpolicy.push(subresource.resourcecount);
+      
+        break;
+
+      case "SQS":
+      if(this.resource_detail[2]=="Queue") this.sqs_queue.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="QueuePolicy") this.sqs_queuepolicy.push(subresource.resourcecount);
+        break;
+
+      case "DynamoDB":
+      if(this.resource_detail[2]=="Table") this.dynamodb_table.push(subresource.resourcecount);
+        break;
+
       default:
         break;
     }    

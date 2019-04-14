@@ -18,7 +18,7 @@ export class JsonResultService {
 
   jsonresult:CloudFormation={
     AWSTemplateFormatVersion:"2010-09-09",
-    Description:"Template created by Cloudferry",
+    Description:"Template created by CloudKast",
     Parameters:{},
     Mappings:{},
     Conditions:{},

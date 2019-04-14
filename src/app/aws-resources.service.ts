@@ -696,6 +696,257 @@ iam_usertogroupaddition=
       "GroupName": "*The name of group to add users to.",
       "Users": ["*Type: List of users"]
    }
+}
+
+//ec2 autoscaling starts
+ag_agGroup=
+{
+   "Type" : "AWS::AutoScaling::AutoScalingGroup",
+   "Properties" : {
+      "AutoScalingGroupName" : "String",
+      "AvailabilityZones" : ["**list of string values. If you don't specify the VPCZoneIdentifier property, you must specify this property."],
+      "Cooldown" : "The number of seconds after a scaling activity is completed before any further scaling activities can start.",
+      "DesiredCapacity" : "If SpotPrice is not set in the AWS::AutoScaling::LaunchConfiguration for this Auto Scaling group, then Auto Scaling will begin to bring instances online based on DesiredCapacity. CloudFormation will not mark the Auto Scaling group as successful (by setting its status to CREATE_COMPLETE) until the desired capacity is reached. If SpotPrice is set, then DesiredCapacity will not be used as a criteria for success, since instances will only be started when the spot price has been matched. After the spot price has been matched, however, Amazon EC2 Auto Scaling uses DesiredCapacity as the target capacity for the group.",
+      "HealthCheckGracePeriod" : "The length of time in seconds after a new EC2 instance comes into service that Amazon EC2 Auto Scaling starts checking its health.",
+      "HealthCheckType" : "The service you want the health status from, Amazon EC2 or Elastic Load Balancer. Valid values are EC2 or ELB.",
+      "InstanceId" : "**You must specify one of the following: InstanceId, LaunchConfigurationName, LaunchTemplate, or MixedInstancesPolicy. The ID of the Amazon EC2 instance you want to use to create the Auto Scaling group. Use this property if you want to create an Auto Scaling group that uses an existing Amazon EC2 instance instead of a launch configuration. When you use an Amazon EC2 instance to create an Auto Scaling group, a new launch configuration is first created and then associated with the Auto Scaling group. The new launch configuration derives all its properties from the instance, with the exception of BlockDeviceMapping and AssociatePublicIpAddress.",
+      "LaunchConfigurationName" : "**You must specify one of the following: InstanceId, LaunchConfigurationName, LaunchTemplate, or MixedInstancesPolicy. If this resource has a public IP address and is also in a VPC that is defined in the same template, you must use the DependsOn attribute to declare a dependency on the VPC-gateway attachment. For more information. When you update the LaunchConfigurationName, existing Amazon EC2 instances continue to run with the configuration that they were originally launched with. To update existing instances, specify an update policy attribute for this Auto Scaling group.  ",
+      "LaunchTemplate" : {"info":"**Type: LaunchTemplateSpecification. You must specify one of the following: InstanceId, LaunchConfigurationName, LaunchTemplate, or MixedInstancesPolicy.##"},
+      "LifecycleHookSpecificationList" : ["List of LifecycleHookSpecification. The lifecycle hooks for the group, which specify actions to perform when Amazon EC2 Auto Scaling launches or terminates instances. ##"],
+      "LoadBalancerNames" : [ "list of string values. A list of Classic Load Balancers associated with this Auto Scaling group. To specify Application Load Balancers or Network Load Balancers, use TargetGroupARNs instead."],
+      "MaxSize" : "*The maximum size of the Auto Scaling group.",
+      "MetricsCollection" : [ "A list of Amazon EC2 Auto Scaling AutoScalingGroup MetricsCollection##"],
+      "MinSize" : "*String",
+      "MixedInstancesPolicy" : {"info":"**Type: MixedInstancesPolicy. You must specify one of the following: InstanceId, LaunchConfigurationName, LaunchTemplate, or MixedInstancesPolicy."},
+      "NotificationConfigurations" : ["Type: List of Amazon EC2 Auto Scaling AutoScalingGroup NotificationConfiguration. An embedded property that configures an Auto Scaling group to send notifications when specified events take place.##"],
+      "PlacementGroup" : "String. The name of an existing cluster placement group into which you want to launch your instances. A placement group is a logical grouping of instances within a single Availability Zone. You cannot specify multiple Availability Zones and a placement group.",
+      "ServiceLinkedRoleARN" : "String. The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS services on your behalf. By default, Auto Scaling uses a service-linked role named AWSServiceRoleForAutoScaling, which it creates if it does not exist.",
+      "TargetGroupARNs" : ["list of string values. A list of Amazon Resource Names (ARN) of target groups to associate with the Auto Scaling group."],
+      "TerminationPolicies" : ["list of string values. A policy or a list of policies that are used to select the instances to terminate. The policies are executed in the order that you list them."],
+      "VPCZoneIdentifier" : ["**If you don't specify the AvailabilityZones property, you must specify this property. A list of subnet identifiers of Amazon Virtual Private Cloud (Amazon VPCs)."],
+      "Tags":{"info":"Type: List of Amazon EC2 Auto Scaling AutoScalingGroup TagProperty##"},
+      "CreationPolicy":{"info":"Associate the CreationPolicy attribute with a resource to prevent its status from reaching create complete until AWS CloudFormation receives a specified number of success signals or the timeout period is exceeded.Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured.##"},
+      "UpdatePolicy":{"info":"For AWS::AutoScaling::AutoScalingGroup resources, AWS CloudFormation invokes one of three update policies depending on the type of change you make or whether a scheduled action is associated with the Auto Scaling group. The AutoScalingReplacingUpdate and AutoScalingRollingUpdate policies apply only when you do one or more of the following: 1. Change the Auto Scaling group's AWS::AutoScaling::LaunchConfiguration. 2. Change the Auto Scaling group's VPCZoneIdentifier property 3. Change the Auto Scaling group's LaunchTemplate property 4. Update an Auto Scaling group that contains instances that don't match the current LaunchConfiguration. If both the AutoScalingReplacingUpdate and AutoScalingRollingUpdate policies are specified, setting the WillReplace property to true gives AutoScalingReplacingUpdate precedence. The AutoScalingScheduledAction policy applies when you update a stack that includes an Auto Scaling group with an associated scheduled action. ##"}
+   }
 }     
+
+ag_launchConfiguration=
+{
+   "Type" : "AWS::AutoScaling::LaunchConfiguration",
+   "Properties" : {
+      "AssociatePublicIpAddress" : "Boolean. For Amazon EC2 instances in a VPC, indicates whether instances in the Auto Scaling group receive public IP addresses. If you specify true, each instance in the Auto Scaling group receives a unique public IP address.",
+      "BlockDeviceMappings" : ["Type: A list of BlockDeviceMapping.##"],
+      "ClassicLinkVPCId" : "String. The ID of a ClassicLink-enabled VPC to link your EC2-Classic instances to. You can specify this property only for EC2-Classic instances. ",
+      "ClassicLinkVPCSecurityGroups" : ["**list of string values. If you specified the ClassicLinkVPCId property, you must specify this property."],
+      "EbsOptimized" : "Boolean. Specifies whether the launch configuration is optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. By default false.",
+      "IamInstanceProfile" : "String. Provides the name or the Amazon Resource Name (ARN) of the instance profile associated with the IAM role for the instance. The instance profile contains the IAM role.",
+      "ImageId" : "*String. Provides the unique ID of the Amazon Machine Image (AMI) that was assigned during registration.",
+      "InstanceId" : "String. The ID of the Amazon EC2 instance you want to use to create the launch configuration. Use this property if you want the launch configuration to use settings from an existing Amazon EC2 instance.",
+      "InstanceMonitoring" : "Boolean. Indicates whether detailed instance monitoring is enabled for the Auto Scaling group. By default, this property is set to true (enabled).",
+      "InstanceType" : "*String. Specifies the instance type of the EC2 instance.",
+      "KernelId" : "Provides the ID of the kernel associated with the EC2 AMI.",
+      "KeyName" : "String. Provides the name of the EC2 key pair.",
+      "LaunchConfigurationName" : "String. The name of the launch configuration. This name must be unique within the scope of your AWS account.",
+      "PlacementTenancy" : "String. The tenancy of the instance. An instance with a tenancy of dedicated runs on single-tenant hardware and can only be launched in a VPC.",
+      "RamDiskId" : "The ID of the RAM disk to select. Some kernels require additional drivers at launch. Check the kernel requirements for information about whether you need to specify a RAM disk. To find kernel requirements, refer to the AWS Resource Center and search for the kernel ID.",
+      "SecurityGroups" : ["Type: A list of security groups. The list can contain the IDs of existing EC2 security groups or references to AWS::EC2::SecurityGroup resources created in the template."],
+      "SpotPrice" : "String. The spot price for this Auto Scaling group. If a spot price is set, then the Auto Scaling group will launch when the current spot price is less than the amount specified in the template. When you have specified a spot price for an Auto Scaling group, the group will only launch when the spot price has been met, regardless of the setting in the Auto Scaling group's DesiredCapacity.",
+      "UserData" : "The user data available to the launched EC2 instances."
+   }
+}     
+
+ag_lifecyclehook={
+  "Type" : "AWS::AutoScaling::LifecycleHook",
+  "Properties" : {
+    "AutoScalingGroupName" : "*String",
+    "DefaultResult" : "The action the Auto Scaling group takes when the lifecycle hook timeout elapses or if an unexpected failure occurs. Valid values are CONTINUE and ABANDON (default).",
+    "HeartbeatTimeout" : "The amount of time (in seconds) that can elapse before the lifecycle hook times out. When the lifecycle hook times out, Amazon EC2 Auto Scaling performs the action that you specified in the DefaultResult property.",
+    "LifecycleHookName" : "String",
+    "LifecycleTransition" : "*String. The state of the Amazon EC2 instance to which you want to attach the lifecycle hook. autoscaling:EC2_INSTANCE_LAUNCHING| autoscaling:EC2_INSTANCE_TERMINATING. This parameter is required for new lifecycle hooks, but optional when updating existing hooks. ",
+    "NotificationMetadata" : "String. Additional information that you want to include when Amazon EC2 Auto Scaling sends a message to the notification target.",
+    "NotificationTargetARN" : "String. The Amazon resource name (ARN) of the notification target that Amazon EC2 Auto Scaling uses to notify you when an instance is in the transition state for the lifecycle hook. You can specify an Amazon SQS queue or an Amazon SNS topic. The notification message includes the following information: lifecycle action token, user account ID, Auto Scaling group name, lifecycle hook name, instance ID, lifecycle transition, and notification metadata.",
+    "RoleARN" : "String. The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target. The role requires permissions to Amazon SNS and Amazon SQS."
+  }
+}
+
+ag_scalingpolicy=
+{
+   "Type" : "AWS::AutoScaling::ScalingPolicy",
+   "Properties" : {
+      "AdjustmentType" : "String. Specifies whether the ScalingAdjustment is an absolute number or a percentage of the current capacity. Valid values are ChangeInCapacity, ExactCapacity, and PercentChangeInCapacity.",
+      "AutoScalingGroupName" : "*String. The name or Amazon Resource Name (ARN) of the Auto Scaling group that you want to attach the policy to.",
+      "Cooldown" : "String. The amount of time, in seconds, after a scaling activity completes before any further trigger-related scaling activities can start. Do not specify this property if you are using the StepScaling policy type.",
+      "EstimatedInstanceWarmup" : "Integer. The estimated time, in seconds, until a newly launched instance can send metrics to CloudWatch. By default, Amazon EC2 Auto Scaling uses the cooldown period, as specified in the Cooldown property. Do not specify this property if you are using the SimpleScaling policy type.",
+      "MetricAggregationType" : "String. The aggregation type for the CloudWatch metrics. You can specify Minimum, Maximum, or Average. By default, AWS CloudFormation specifies Average. Do not specify this property if you are using the SimpleScaling policy type.",
+      "MinAdjustmentMagnitude" : "Integer. For the PercentChangeInCapacity adjustment type, the minimum number of instances to scale. The scaling policy changes the desired capacity of the Auto Scaling group by a minimum of this many instances. This property replaces the MinAdjustmentStep property.",
+      "PolicyType" : "String. An Auto Scaling policy type. You can specify SimpleScaling, StepScaling, or TargetTrackingScaling. By default, AWS CloudFormation specifies SimpleScaling. ",
+      "ScalingAdjustment" : "**Integer. This property is required if the policy type is SimpleScaling. This property is not supported with any other policy type. The number of instances by which to scale. The AdjustmentType property determines if AWS CloudFormation interprets this number as an absolute number (when the ExactCapacity value is specified), increase or decrease capacity by a specified number (when the ChangeInCapacity value is specified), or increase or decrease capacity as a percentage of the existing Auto Scaling group size (when the PercentChangeInCapacity value is specified). A positive value adds to the current capacity and a negative value subtracts from the current capacity. For exact capacity, you must specify a positive value.",
+      "StepAdjustments" : ["**Type: List of Amazon EC2 Auto Scaling ScalingPolicy StepAdjustments. This property is required if the policy type is StepScaling. This property is not supported with any other policy type.##"],
+      "TargetTrackingConfiguration" : {"info":"**Type: Amazon EC2 Auto Scaling ScalingPolicy TargetTrackingConfiguration This property is required if the policy type is TargetTrackingScaling. This property is not supported with any other policy type. ##"}
+   }
+}      
+
+ag_scheduledAction= {
+  "Type" : "AWS::AutoScaling::ScheduledAction",
+  "Properties" : {
+    "AutoScalingGroupName" : "*String",
+    "DesiredCapacity" : "**Integer. The number of Amazon EC2 instances that should be running in the Auto Scaling group. At least one of MaxSize, MinSize, or DesiredCapacity must be specified.",
+    "EndTime" : "The time in UTC for this schedule to end. For example, 2010-06-01T00:00:00Z",
+    "MaxSize" : "**Integer. The maximum number of Amazon EC2 instances in the Auto Scaling group. At least one of MaxSize, MinSize, or DesiredCapacity must be specified.",
+    "MinSize" : "**Integer. The minimum number of Amazon EC2 instances in the Auto Scaling group. At least one of MaxSize, MinSize, or DesiredCapacity must be specified.",
+    "Recurrence" : "String. Specifying the StartTime and EndTime properties with Recurrence property forms the start and stop boundaries of the recurring action.",
+    "StartTime" : "The time in UTC for this schedule to start. For example, 2010-06-01T00:00:00Z."
+  }
+}
+
+elbv2_listener={
+  "Type" : "AWS::ElasticLoadBalancingV2::Listener",
+  "Properties" : {
+    "Certificates" : ["**Type: List of Elastic Load Balancing V2 Certificate##"],
+    "DefaultActions" : ["*Type: List of Elastic Load Balancing V2 Action##"],
+    "LoadBalancerArn" : "*String",
+    "Port" : "*Integer. Valid Range: Minimum value of 1. Maximum value of 65535.",
+    "Protocol" : "*String. Valid Values: HTTP | HTTPS | TCP | TLS",
+    "SslPolicy" : "String. [HTTPS and TLS listeners] The security policy that defines the ciphers and protocols that the listener supports. The default is the current predefined security policy."
+  }
+}
+
+elbv2_listenercertificate={
+  "Type" : "AWS::ElasticLoadBalancingV2::ListenerCertificate",
+  "Properties" : {
+    "Certificates" : ["* Type: List of Certificate##"],
+    "ListenerArn" : "*String. The Amazon Resource Name (ARN) of the listener."
+  }
+};
+elbv2_listenerrule={
+  "Type" : "AWS::ElasticLoadBalancingV2::ListenerRule",
+  "Properties" : {
+    "Actions" : [ "*Type: List of Elastic Load Balancing V2 Actions##" ],
+    "Conditions" : ["*Type: List of Elastic Load Balancing V2 Conditions##"],
+    "ListenerArn" : "*String. The Amazon Resource Name (ARN) of the listener.",
+    "Priority" : "*Integer. The priority for the rule. Elastic Load Balancing evaluates rules in priority order, from the lowest value to the highest value. If a request satisfies a rule, Elastic Load Balancing ignores all subsequent rules. Valid Range: Minimum value of 1. Maximum value of 50000."
+  }
+};
+elbv2_loadbalancer={
+  "Type" : "AWS::ElasticLoadBalancingV2::LoadBalancer",
+  "Properties" : {    
+    "IpAddressType" : "String. [Application Load Balancers] The type of IP addresses that are used by the load balancer's subnets, such as ipv4 (for IPv4 addresses) or dualstack (for IPv4 and IPv6 addresses).The default value is ipv4. If Scheme is internal, then IpAddressType must be ipv4. Valid Values: ipv4 | dualstack ",
+    "LoadBalancerAttributes" : ["Type: A list of Elastic Load Balancing V2 LoadBalancerAttributes##."],
+    "Name" : "String. A name for the load balancer. This name must be unique within your AWS account and can have a maximum of 32 alphanumeric characters and hyphens. A name can't begin or end with a hyphen. ",
+    "Scheme" : "String. Specifies whether the load balancer is internal or Internet-facing. Valid values are internet-facing and internal. The default is internet-facing. The nodes of an Internet-facing load balancer have public IP addresses. The DNS name of an Internet-facing load balancer is publicly resolvable to the public IP addresses of the nodes. Therefore, Internet-facing load balancers can route requests from clients over the Internet. The nodes of an internal load balancer have only private IP addresses. The DNS name of an internal load balancer is publicly resolvable to the private IP addresses of the nodes. Therefore, internal load balancers can only route requests from clients with access to the VPC for the load balancer. ",
+    "SecurityGroups" : ["Type: List of String values. [Application Load Balancers] The IDs of the security groups to assign to the load balancer."],
+    "SubnetMappings" : ["Type: List of Elastic Load Balancing V2 SubnetMapping. The subnets to attach to the load balancer, specified as a list of SubnetMapping property types. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings. [Application Load Balancers] You must specify subnets from at least two Availability Zones. You cannot specify your own Elastic IP addresses. [Network Load Balancers] You can specify subnets from one or more Availability Zones. You can specify one Elastic IP address per subnet. ##"],
+    "Subnets" : ["Type: List of String values. The subnets to attach to the load balancer, specified as a list of subnet IDs. You can specify only one subnet per Availability Zone. You must specify either subnets or subnet mappings. [Application Load Balancers] You must specify subnets from at least two Availability Zones."],
+    "Type" : "String. The type of load balancer to create. Valid values are application and network. The default is application. "
+  }
+};
+elbv2_targetgroup={
+  "Type" : "AWS::ElasticLoadBalancingV2::TargetGroup",
+  "Properties" : {
+    "HealthCheckIntervalSeconds" : "Integer. The approximate number of seconds between health checks for an individual target. Valid Range: Minimum value of 5. Maximum value of 300.",
+    "HealthCheckPath" : "[HTTP/HTTPS health checks] The ping path destination where Elastic Load Balancing sends health check requests. The default is /. ",
+    "HealthCheckPort" : "String. The port that the load balancer uses when performing health checks on the targets. The default is traffic-port, which is the port on which each target receives traffic from the load balancer. ",
+    "HealthCheckProtocol" : "String. Valid Values: HTTP | HTTPS | TCP | TLS. The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks only if the protocol of the target group is TCP or TLS. The TLS protocol is not supported for health checks. ",
+    "HealthCheckTimeoutSeconds" : "Integer. The number of seconds to wait for a response before considering that a health check has failed. For Application Load Balancers, the range is 2–60 seconds and the default is 5 seconds. For Network Load Balancers, this value is 10 seconds for TCP and HTTPS health checks and 6 seconds for HTTP health checks. ",
+    "HealthyThresholdCount" : "Integer. The number of consecutive successful health checks that are required before an unhealthy target is considered healthy. ",
+    "Matcher" : {"info": " Type: Elastic Load Balancing V2 Matcher. [HTTP/HTTPS health checks] The HTTP codes that a healthy target uses when responding to a health check. ##"},
+    "Name" : "String. This name must be unique per account, per region.",
+    "Port" : "*Integer. The port on which the targets receive traffic.",
+    "Protocol" : "*String. The protocol to use for routing traffic to the targets.",
+    "TargetGroupAttributes" : ["Type: List of Elastic Load Balancing V2 TargetGroupAttributes ##"],
+    "Targets" : ["Type: List of Elastic Load Balancing V2 TargetDescription##"],
+    "TargetType" : "String. The type of targets that you must specify when registering targets with this target group. ",
+    "UnhealthyThresholdCount" : "Integer. The number of consecutive failed health checks that are required before a target is considered unhealthy.",
+    "VpcId" : "String"
+  }
+};
+
+  //certificate manager
+  acm_certificate={
+    "Type" : "AWS::CertificateManager::Certificate",
+    "Properties" : {
+      "DomainName" : "*String. Fully qualified domain name (FQDN), such as www.example.com, of the site that you want to secure with the ACM certificate. To protect several sites in the same domain, use an asterisk (*) to specify a wildcard. For example, *.example.com protects www.example.com, site.example.com, and images.example.com. ",
+      "DomainValidationOptions" : ["Type: List of AWS Certificate Manager Certificate DomainValidationOption.  ##" ],
+      "SubjectAlternativeNames" : ["Type: List of String values. FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example, you can add www.example.net to a certificate for the www.example.com domain name so that users can reach your site by using either name. "],
+      "ValidationMethod" : "String. The method you want to use if you are requesting a public certificate to validate that you own or control a domain. Valid values include EMAIL or DNS. We recommend that you use DNS validation. The default is EMAIL. ACM uses CNAME (Canonical Name) records to validate that you own or control a domain. When you choose DNS validation, ACM provides you one or more CNAME records to insert into your DNS database. During stack creation, CloudFormation emits a CREATE_IN_PROGRESS event which lists these CNAME records. They are displayed in the Status reason column on the Events page for the stack. "
+    }
+  };
+
+  //dynamodb
+  dynamodb_table={
+    "Type" : "AWS::DynamoDB::Table",
+    "Properties" : {
+      "AttributeDefinitions" : ["*Type: List of AttributeDefinition.A list of attributes that describe the key schema for the table and indexes. Duplicates are allowed ##"],
+      "BillingMode" : "String. Specify how you are charged for read and write throughput and how you manage capacity. If not specified, the default is PROVISIONED. PROVISIONED: Sets the billing mode to PROVISIONED. We recommend using PROVISIONED for predictable workloads. PAY_PER_REQUEST: Sets the billing mode to PAY_PER_REQUEST. We recommend using PAY_PER_REQUEST for unpredictable workloads.",
+      "GlobalSecondaryIndexes" : ["Type: List of GlobalSecondaryIndex. Global secondary indexes to be created on the table. You can create up to 20 global secondary indexes. If you update a table to include a new global secondary index, AWS CloudFormation initiates the index creation and then proceeds with the stack update. AWS CloudFormation doesn't wait for the index to complete creation because the backfilling phase can take a long time, depending on the size of the table. You can't use the index or update the table until the index's status is ACTIVE. You can track its status by using the DynamoDB DescribeTable command. If you add or delete an index during an update, we recommend that you don't update any other resources. If your stack fails to update and is rolled back while adding a new index, you must manually delete the index. Updates are not supported. The following are exceptions: 1. If you update only the provisioned throughput values of global secondary indexes, you can update the table without interruption. 2. You can delete or add one global secondary index without interruption. If you do both in the same update (for example, by changing the index's logical ID), the update fails ##" ],
+      "KeySchema" : ["*Type: List of KeySchema. Specifies the attributes that make up the primary key for the table. The attributes in the KeySchema property must also be defined in the AttributeDefinitions property. ##"],
+      "LocalSecondaryIndexes" : ["Type: List of LocalSecondaryIndex. Local secondary indexes to be created on the table. You can create up to 5 local secondary indexes. Each index is scoped to a given hash key value. The size of each hash key can be up to 10 gigabytes##"],
+      "PointInTimeRecoverySpecification" : {"info":"Type: PointInTimeRecoverySpecification. The settings used to enable point in time recovery.##"},
+      "ProvisionedThroughput" : {"info":"**Type: ProvisionedThroughput. Throughput for the specified table, which consists of values for ReadCapacityUnits and WriteCapacityUnits.Conditional. If you set BillingMode as PROVISIONED, you must specify this property. If you set BillingMode as PAY_PER_REQUEST, you cannot specify this property. ##"},
+      "SSESpecification" : {"info":"Type: DynamoDB Table SSESpecification##"},
+      "StreamSpecification" : {"info":"Type: StreamSpecification##"},
+      "TableName" : "String. A name for the table. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the table name. If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name. ",
+      "TimeToLiveSpecification" : {"info":"Type: TimeToLiveSpecification##"}
+    }
+  };
+
+  //sqs
+  sqs_queue=
+  {
+     "Type" : "AWS::SQS::Queue",
+     "Properties" : {
+        "ContentBasedDeduplication" : "Boolean. For first-in-first-out (FIFO) queues, specifies whether to enable content-based deduplication. During the deduplication interval, Amazon SQS treats messages that are sent with identical content as duplicates and delivers only one copy of the message.",
+        "DelaySeconds": "Integer. The time in seconds that the delivery of all messages in the queue is delayed. You can specify an integer value of 0 to 900 (15 minutes). The default value is 0. ",
+        "FifoQueue" : "Boolean. If set to true, creates a FIFO queue. If you don't specify this property, Amazon SQS creates a standard queue. ",
+        "KmsMasterKeyId": "String. The ID of an AWS managed customer master key (CMK) for Amazon SQS or a custom CMK. To use the AWS managed CMK for Amazon SQS, specify the alias alias/aws/sqs. ",
+        "KmsDataKeyReusePeriodSeconds": "Integer. The length of time in seconds that Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. The value must be an integer between 60 (1 minute) and 86,400 (24 hours). The default is 300 (5 minutes). ",
+        "MaximumMessageSize": "Integer. The limit of how many bytes that a message can contain before Amazon SQS rejects it. You can specify an integer value from 1024 bytes (1 KiB) to 262144 bytes (256 KiB). The default value is 262144 (256 KiB). ",
+        "MessageRetentionPeriod": "Integer. The number of seconds that Amazon SQS retains a message. You can specify an integer value from 60 seconds (1 minute) to 1209600 seconds (14 days). The default value is 345600 seconds (4 days). ",
+        "QueueName": "String. A name for the queue. To create a FIFO queue, the name of your FIFO queue must end with the .fifo suffix. If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+        "ReceiveMessageWaitTimeSeconds": "Integer. Specifies the duration, in seconds, that the ReceiveMessage action call waits until a message is in the queue in order to include it in the response, as opposed to returning an empty response if a message isn't yet available. You can specify an integer from 1 to 20. ",
+        "RedrivePolicy": {"info":"Specifies an existing dead letter queue to receive messages after the source queue (this queue) fails to process a message a specified number of times. ##"},
+        "VisibilityTimeout": "Integer. The length of time during which a message will be unavailable after a message is delivered from the queue. This blocks other components from receiving the same message and gives the initial component time to process and delete the message from the queue. "
+     }
+  }     ;
+  sqs_queuepolicy=
+  {
+     "Type" : "AWS::SQS::QueuePolicy",
+     "Properties" : {
+        "PolicyDocument" : {"info":"*A policy document that contains the permissions for the specified Amazon SQS queues. Use AWS policy generator to create one."},
+        "Queues" : ["*Type: List of String values . The URLs of the queues to which you want to add the policy. "]
+     }
+  };
+
+  //sns
+  sns_subscription={
+    "Type" : "AWS::SNS::Subscription",
+    "Properties" : {
+      "DeliveryPolicy" : {"info":"The JSON serialization of the subscription's delivery policy. Use AWS policy generator to create the policy."},
+      "Endpoint" : "String. The endpoint that receives notifications from the Amazon SNS topic. The endpoint value depends on the protocol that you specify. For the http protocol, the endpoint is an URL beginning with 'https://' For the https protocol, the endpoint is a URL beginning with 'https://' .For the email protocol, the endpoint is an email address. For the email-json protocol, the endpoint is an email address. For the sms protocol, the endpoint is a phone number of an SMS-enabled device. For the sqs protocol, the endpoint is the ARN of an Amazon SQS queue. For the application protocol, the endpoint is the EndpointArn of a mobile app and device. For the lambda protocol, the endpoint is the ARN of an AWS Lambda function.",
+      "FilterPolicy" : {"info":"The filter policy JSON that is assigned to the subscription. Use AWS policy generator to create the policy."},
+      "Protocol" : "*String. http – delivery of JSON-encoded message via HTTP POST. https – delivery of JSON-encoded message via HTTPS POST . email – delivery of message via SMTP. email-json – delivery of JSON-encoded message via SMTP. sms – delivery of message via SMS. sqs – delivery of JSON-encoded message to an Amazon SQS queue. application – delivery of JSON-encoded message to an EndpointArn for a mobile app and device.   lambda – delivery of JSON-encoded message to an AWS Lambda function.",
+      "RawMessageDelivery" : "Boolean. true if raw message delivery is enabled for the subscription. Raw messages are free of JSON formatting and can be sent to HTTP/S and Amazon SQS endpoints.",
+      "Region" : "String. For cross-region subscriptions, the region in which the topic resides. ",
+      "TopicArn" : "String. The Amazon Resource Name (ARN) of the topic to subscribe to."
+    }
+  };
+  sns_topic={
+    "Type" : "AWS::SNS::Topic",
+    "Properties" : {
+      "DisplayName" : "A developer-defined string that can be used to identify this SNS topic.",
+      "KmsMasterKeyId" : "String. An AWS KMS key identifier. This can be a key ID, key ARN, or key alias.",
+      "Subscription" : ["Type: List of SNS Subscriptions##"],
+      "TopicName" : "A name for the topic. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the topic name. If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name. "
+    }
+  };
+  sns_topicpolicy={
+    "Type" : "AWS::SNS::TopicPolicy",
+    "Properties" :
+      {
+        "PolicyDocument" : {"info":"A JSON policy document. Please use aws policy generator to create the policy."},
+        "Topics" : ["Type: A list of Amazon SNS topics ARNs"]
+      }
+  }
+
 
 }

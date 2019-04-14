@@ -11,6 +11,7 @@ export class ParametersComponent implements OnInit {
   tagCount=0;
   tagArray=[];
   isPresent=true;
+  regexTooltip="Please do not add an additional backlash to any backlash characters in your regular expression. Escape characters will be automatically added. E.g. if you need to include a \\d in your regular expression, leave it as \\d."
 
 
   resProp={

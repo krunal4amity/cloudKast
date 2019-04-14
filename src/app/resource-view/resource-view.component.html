@@ -183,6 +183,7 @@
             <app-common-resource [myresource]="awsresource.r53_resolver_resolverruleassociation" [isTagged]="false" ></app-common-resource>
       </div>      
       
+      
       <div *ngFor="let i of iam_accesskey" >
             <app-common-resource [myresource]="awsresource.iam_accesskey" [isTagged]="false" ></app-common-resource>
       </div>            
@@ -209,7 +210,66 @@
       </div>            
       <div *ngFor="let i of iam_usertogroupaddition" >
             <app-common-resource [myresource]="awsresource.iam_usertogroupaddition" [isTagged]="false" ></app-common-resource>
+      </div>   
+      
+      <div *ngFor="let i of ag_agGroup" >
+            <app-common-resource [myresource]="awsresource.ag_agGroup" [isTagged]="false" ></app-common-resource>
+      </div>      
+      <div *ngFor="let i of ag_launchConfiguration" >
+            <app-common-resource [myresource]="awsresource.ag_launchConfiguration" [isTagged]="false" ></app-common-resource>
+      </div>      
+      <div *ngFor="let i of ag_lifecyclehook" >
+            <app-common-resource [myresource]="awsresource.ag_lifecyclehook" [isTagged]="false" ></app-common-resource>
+      </div>      
+      <div *ngFor="let i of ag_scalingpolicy" >
+            <app-common-resource [myresource]="awsresource.ag_scalingpolicy" [isTagged]="false" ></app-common-resource>
+      </div>      
+      <div *ngFor="let i of ag_scheduledAction" >
+            <app-common-resource [myresource]="awsresource.ag_scheduledAction" [isTagged]="false" ></app-common-resource>
+      </div>       
+      
+      <div *ngFor="let i of elbv2_listener" >
+            <app-common-resource [myresource]="awsresource.elbv2_listener" [isTagged]="false" ></app-common-resource>
       </div>            
+      <div *ngFor="let i of elbv2_listenercertificate" >
+            <app-common-resource [myresource]="awsresource.elbv2_listenercertificate" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of elbv2_listenerrule" >
+            <app-common-resource [myresource]="awsresource.elbv2_listenerrule" [isTagged]="false" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of elbv2_loadbalancer" >
+            <app-common-resource [myresource]="awsresource.elbv2_loadbalancer" [isTagged]="true" ></app-common-resource>
+      </div>            
+      <div *ngFor="let i of elbv2_targetgroup" >
+            <app-common-resource [myresource]="awsresource.elbv2_targetgroup" [isTagged]="true" ></app-common-resource>
+      </div>            
+
+      <div *ngFor="let i of acm_certificate" >
+            <app-common-resource [myresource]="awsresource.acm_certificate" [isTagged]="true" ></app-common-resource>
+      </div>            
+
+      <div *ngFor="let i of dynamodb_table" >
+            <app-common-resource [myresource]="awsresource.dynamodb_table" [isTagged]="true" ></app-common-resource>
+      </div>
+
+      <div *ngFor="let i of sqs_queue" >
+            <app-common-resource [myresource]="awsresource.sqs_queue" [isTagged]="true" ></app-common-resource>
+      </div>
+      <div *ngFor="let i of sqs_queuepolicy" >
+            <app-common-resource [myresource]="awsresource.sqs_queuepolicy" [isTagged]="false" ></app-common-resource>
+      </div>                        
+
+      <div *ngFor="let i of sns_subscription" >
+            <app-common-resource [myresource]="awsresource.sns_subscription" [isTagged]="false" ></app-common-resource>
+      </div>                        
+      <div *ngFor="let i of sns_topic" >
+            <app-common-resource [myresource]="awsresource.sns_topic" [isTagged]="false" ></app-common-resource>
+      </div>                        
+      <div *ngFor="let i of sns_topicpolicy" >
+            <app-common-resource [myresource]="awsresource.sns_topicpolicy" [isTagged]="false" ></app-common-resource>
+      </div>                        
+
+
     </div>
 </mat-drawer-container>
 </div>
