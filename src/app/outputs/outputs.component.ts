@@ -39,7 +39,8 @@ export class OutputsComponent implements OnInit {
       "Value":this.util.getProperJson(value.value),
       "Export":{
         "Name":this.util.getProperJson(value.export)
-      }
+      },
+      "Condition":this.util.getProperJson(value.Condition)
     }
   }
 }

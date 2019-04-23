@@ -174,7 +174,7 @@ export class CommonResourceComponent implements OnInit {
                 }
               }
               else {
-                if(prop=="UpdatePolicy" || prop=="CreationPolicy"){
+                if(prop=="UpdatePolicy" || prop=="CreationPolicy" ||prop=="Metadata" ){
                   this.doCommonResAttributesObjectType(value.resourceName,prop, value[prop]);
                 }
                 else{

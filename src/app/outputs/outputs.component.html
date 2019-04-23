@@ -10,6 +10,8 @@
             <mat-chip>Export</mat-chip> <br>
             <input type="text" name="export" placeholder="Name" ngModel style="margin-left:20px"
             matTooltip="Value to be exported"><br>
+            <input type="text" name="Condition" placeholder="Condition" ngModel 
+            matTooltip="AWS CloudFormation creates entities that are associated with a true condition and ignores entities that are associated with a false condition" > <br>
             <button type="submit" mat-icon-button [disabled]="myForm.invalid" >
               <mat-icon>done</mat-icon>
             </button>
