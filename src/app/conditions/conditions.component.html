@@ -3,13 +3,16 @@
             <form action="" #conform="ngForm" (submit)="onDone(conform.value)">
                 <!-- <input type="hidden" ngModel name="index" [ngModel]="i" ><br> -->
                 <input type="text" name="resourceName" placeholder="Logical ID" ngModel
-                matTooltip="Logical ID of the condition, a String value" >
+                matTooltip="Logical ID of the condition, a String value" required >
                 <input type="text" name="func" placeholder="Intrinsic Function" ngModel
                 matTooltip="Use any of these functions = Fn::And, Fn::Equals, Fn::If, 
-                Fn::Not, Fn::Or"><br>
-                <button mat-stroked-button type="submit">Done</button>
-                <button mat-raised-button type="button" (click)="onRemove(conform.value)">
-                  Remove</button>
+                Fn::Not, Fn::Or" required ><br>
+                <button mat-icon-button type="submit" [disabled]="conform.invalid">
+                    <mat-icon>done</mat-icon>
+                </button>
+                <button mat-icon-button type="button" (click)="onRemove(conform.value)">
+                    <mat-icon>remove_circle</mat-icon>
+                </button>
               </form>
         </mat-card>
     <mat-divider></mat-divider>

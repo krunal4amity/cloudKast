@@ -68,7 +68,7 @@ export class AwsResourcesService {
        "UserData" : "Base64-encoded MIME user data that is made available to the instances.",
        "Volumes" : ["A list of EC2 MountPoints.##"],
        "AdditionalInfo" : "",
-       "CreationPolicy":{"info":"Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured."}       
+       "CreationPolicy":{"info":"Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured.##"}       
     }
  };
 

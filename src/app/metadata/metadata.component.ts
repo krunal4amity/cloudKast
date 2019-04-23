@@ -8,7 +8,7 @@ import { JsonResultService } from '../json-result.service';
 })
 export class MetadataComponent implements OnInit {
 
-  constructor(private result:JsonResultService) {
+  constructor(public result:JsonResultService) {
    }
 
   ngOnInit() {

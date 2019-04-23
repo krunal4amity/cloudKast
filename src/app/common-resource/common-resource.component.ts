@@ -166,13 +166,28 @@ export class CommonResourceComponent implements OnInit {
       Object.keys(this.resObject["Properties"]).forEach((prop)=>{
           if(typeof(this.resObject["Properties"][prop])=="object"){
               if(Array.isArray(this.resObject["Properties"][prop])){
-                this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getArray(value[prop]);
+                if(prop=="DependsOn"){
+                  this.doCommonResAttributesArrayType(value.resourceName,prop,value[prop])
+                }
+                else{
+                  this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getArray(value[prop]);
+                }
               }
               else {
+                if(prop=="UpdatePolicy" || prop=="CreationPolicy"){
+                  this.doCommonResAttributesObjectType(value.resourceName,prop, value[prop]);
+                }
+                else{
                   this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getProperJson(value[prop]);
+                }
               }            
           }else{
-                  this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getProperJson(value[prop]);
+            if(prop=="UpdateReplacePolicy" || prop=="DeletionPolicy" ||prop=="Condition" ){
+              this.doCommonResAttributesObjectType(value.resourceName,prop,value[prop]);
+            }
+            else{
+              this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getProperJson(value[prop]);
+            }
           }
       })
       this.result.jsonresult.Resources[value.resourceName]["Properties"]["Tags"]=this.getTagArray(value);
@@ -180,7 +195,22 @@ export class CommonResourceComponent implements OnInit {
       if(this.resObject["Type"]=="AWS::EC2::Instance"){
         this.result.jsonresult.Resources[value.resourceName]["Properties"]["Metadata"]=undefined;
         this.result.jsonresult.Resources[value.resourceName]["Metadata"]=this.utility.getProperJson(value["Metadata"]);
-
       }
    }
+
+  doCommonResAttributesArrayType(resname, propname, propvalue){
+    if(propname!=undefined){
+      //this.result.jsonresult.Resources[resname][propname]={};
+      this.result.jsonresult.Resources[resname][propname]=this.utility.getArray(propvalue);
+    }
+  }
+
+  doCommonResAttributesObjectType(resname, propname, propvalue){
+    if(propname!=undefined){
+      this.result.jsonresult.Resources[resname][propname]={};
+      this.result.jsonresult.Resources[resname][propname]=this.utility.getProperJson(propvalue);
+    }
+  }
+
+
 }

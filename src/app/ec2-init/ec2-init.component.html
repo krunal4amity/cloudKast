@@ -2,8 +2,15 @@
 <br>
 <span>Generate AWS::CloudFormation::Init object.</span> <br>
 
-
-<mat-chip color="primary" >Sources</mat-chip><br>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      config
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      Create a config object.
+    </mat-panel-description>
+    <mat-chip color="primary" >Sources</mat-chip><br>
 <mat-card class="example-card" >
   <button mat-stroked-button (click)="addSource()" >Add sources </button><br>
   <form #sourceform="ngForm" (submit)="onSourcesDone(sourceform.value)">
@@ -165,6 +172,9 @@
     </form>
 </mat-card>
 <button mat-raised-button color="primary" type="button" (click)="onReset()" >Reset</button>
+
+  </mat-expansion-panel>
+</mat-accordion>
 
 <pre> {{myobj|json}} </pre>
 

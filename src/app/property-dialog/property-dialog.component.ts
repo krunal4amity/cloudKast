@@ -14,7 +14,7 @@ export class PropertyDialogComponent implements OnInit {
   propSent=false;
   selProp:Object;
   isCopyReady:Boolean=false;
-  @Input('curRes') curRes:String;
+  @Input('curRes') curRes:string;
 
   constructor(public mainObj:ResourceDataService, public util:UsefulUtilsService){
     //this.resKeys=Object.keys(this.mainObj.comProp);

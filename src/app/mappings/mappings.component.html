@@ -3,7 +3,7 @@
     <div *ngIf="isPresent" >
         <mat-card  class="example-card">Mapping
           <form #myForm="ngForm" (submit)="onDone(myForm.value)">
-            <input name="resourceName" placeholder="Mapping Name" ngModel> <br>
+            <input name="resourceName" placeholder="Mapping Name" ngModel required > <br>
             <button type="button" mat-stroked-button (click)="addKeying()" >Add keys</button>
             <mat-divider></mat-divider>
             <div *ngFor="let i of keyArray" >
@@ -19,8 +19,12 @@
                 </div>
                 <mat-divider></mat-divider>
             </div>
-            <button type="submit" mat-stroked-button>Done</button>
-            <button mat-raised-button (click)="onRemove(myForm.value)">Remove</button>
+            <button  [disabled]="myForm.invalid" type="submit" mat-icon-button> 
+              <mat-icon>done</mat-icon> 
+            </button>
+            <button mat-icon-button (click)="onRemove(myForm.value)">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
           </form>
         </mat-card>
     </div>

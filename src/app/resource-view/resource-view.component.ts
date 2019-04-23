@@ -218,7 +218,7 @@ export class ResourceViewComponent implements OnInit {
       if(this.resource_detail[2]=="TargetGroup") this.elbv2_targetgroup.push(subresource.resourcecount);
         break;
 
-      case "Certificate Manager":
+      case "CertificateManager":
       if(this.resource_detail[2]=="Certificate") this.acm_certificate.push(subresource.resourcecount);      
         break;
 

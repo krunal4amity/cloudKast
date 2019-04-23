@@ -8,7 +8,7 @@
 <mat-tab-group color="primary" >
   <mat-tab label="Create"> 
       <mat-tab-group color="accent" >
-          <mat-tab label="Metadata"> 
+          <mat-tab label="Version & Desc"> 
             <app-metadata></app-metadata>
           </mat-tab>
           <mat-tab label="Parameters">
@@ -20,7 +20,7 @@
           <mat-tab label="Conditions"> 
             <app-conditions-tab></app-conditions-tab>
           </mat-tab>
-          <mat-tab label="Transform"> 
+          <mat-tab label="Transform & Metadata"> 
               <app-transform></app-transform>
           </mat-tab>
           <mat-tab label="Resources"> 
@@ -29,18 +29,18 @@
           <mat-tab label="Outputs"> 
               <app-outputs-tab></app-outputs-tab>
           </mat-tab>
-          <mat-tab label="Ec2 Init" >
+          <mat-tab label="AWS::Cloudformation::Init" >
             <app-ec2-init></app-ec2-init>
           </mat-tab>
       </mat-tab-group>
   </mat-tab>
-  <mat-tab label="Properties">
+  <mat-tab label="Property Dealer">
     <app-object-help></app-object-help>
   </mat-tab>
   <mat-tab label="Result"> 
     <app-result></app-result>
   </mat-tab>
-  <mat-tab label="About">
+  <mat-tab label="Help">
     <app-about-page></app-about-page>
   </mat-tab>
 </mat-tab-group>
