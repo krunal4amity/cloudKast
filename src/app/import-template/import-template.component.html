@@ -1,0 +1,154 @@
+<button type="button" mat-raised-button (click)="jsonfile.click()" > Import </button>
+<input hidden #jsonfile type="file" (change)="onFileAdd($event.target.files)"> <br>
+<mat-accordion>
+<mat-card>
+  <mat-expansion-panel *ngIf="fileImported">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Add new</mat-panel-title>
+      <mat-panel-description>Add new Parameter/Condition/Mapping/Resource/Output</mat-panel-description>
+    </mat-expansion-panel-header>
+
+  <div *ngIf="fileImported">
+    <input type="text" #paramname placeholder="Add a new Parameter" name="paramname"  ngModel >
+    <button [disabled]="paramname.value==''" mat-icon-button  (click)="addParam(paramname.value)" > <mat-icon>add</mat-icon> </button>
+  </div>
+  <div *ngIf="fileImported">
+    <input type="text" #mapname placeholder="Add a new Mapping" name="mapname"  ngModel >
+    <button [disabled]="mapname.value==''" mat-icon-button  (click)="addMapping(mapname.value)" > <mat-icon>add</mat-icon> </button>
+  </div>
+  <div *ngIf="fileImported">
+    <input type="text" #conname placeholder="Add a new Condition" name="conname"  ngModel >
+    <button [disabled]="conname.value==''" mat-icon-button  (click)="addCondition(conname.value)" > <mat-icon>add</mat-icon> </button>
+  </div>  
+  <div *ngIf="fileImported">
+    <input type="text" #resname placeholder="Add a new Resource" name="resname"  ngModel >
+    <button [disabled]="resname.value==''" mat-icon-button  (click)="addResource(resname.value)" > <mat-icon>add</mat-icon> </button>
+  </div>
+  <div *ngIf="fileImported">
+      <input type="text" #outname placeholder="Add a new Output" name="outname"  ngModel >
+      <button [disabled]="outname.value==''" mat-icon-button  (click)="addOutput(outname.value)" > <mat-icon>add</mat-icon> </button>
+  </div>
+  </mat-expansion-panel>
+  <mat-divider></mat-divider>
+
+  <mat-expansion-panel *ngIf="fileImported">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Parameters:</mat-panel-title>
+      <mat-panel-description> Number of Parameters : {{getKeys(selProp['Parameters']).length}} </mat-panel-description>
+    </mat-expansion-panel-header>
+  <form *ngIf="fileImported"  #paramform="ngForm" (submit)="onParamSubmit(paramform.value)">
+    <div *ngFor="let i of getKeys(selProp['Parameters'])" >
+          <mat-form-field *ngIf="isParamRemoved(i)" >
+              <input type="text" [name]="i" [placeholder]="i" [value]="selProp['Parameters'][i] | json" 
+              [matTooltip]="selProp['Parameters'][i] | json" matInput ngModel>
+          </mat-form-field>
+          <button *ngIf="isParamRemoved(i)" mat-icon-button (click)="removeParam(i)" matTooltip="remove this parameter." > 
+            <mat-icon>remove</mat-icon> 
+          </button>
+    </div>
+      <button mat-icon-button color="primary" type="submit"> 
+        <mat-icon>done</mat-icon>
+      </button>
+  </form> 
+  </mat-expansion-panel>
+  <mat-divider></mat-divider>
+
+  <mat-expansion-panel *ngIf="fileImported">
+      <mat-expansion-panel-header>
+          <mat-panel-title>Mappings:</mat-panel-title>
+          <mat-panel-description> Number of Mappings : {{getKeys(selProp['Mappings']).length}} </mat-panel-description>
+      </mat-expansion-panel-header>
+  <form *ngIf="fileImported"  #mapform="ngForm" (submit)="onMappingSubmit(mapform.value)">
+    <div *ngFor="let i of getKeys(selProp['Mappings'])" >
+          <mat-form-field *ngIf="isMappingRemoved(i)" >
+              <input type="text" [name]="i" [placeholder]="i" [value]="selProp['Mappings'][i] | json" 
+              [matTooltip]="selProp['Mappings'][i] | json" matInput ngModel>
+          </mat-form-field>
+          <button *ngIf="isMappingRemoved(i)" mat-icon-button (click)="removeMapping(i)" matTooltip="remove this mapping." > 
+            <mat-icon>remove</mat-icon> 
+          </button>
+    </div>
+    <button mat-icon-button color="primary" type="submit"> 
+        <mat-icon>done</mat-icon>
+    </button>
+  </form>
+  </mat-expansion-panel>
+  <mat-divider></mat-divider>
+
+  <mat-expansion-panel *ngIf="fileImported">
+      <mat-expansion-panel-header>
+          <mat-panel-title>Conditions:</mat-panel-title>
+          <mat-panel-description> Number of Conditions : {{getKeys(selProp['Conditions']).length}} </mat-panel-description>
+      </mat-expansion-panel-header>    
+  <form *ngIf="fileImported"  #conform="ngForm" (submit)="onConditionSubmit(conform.value)">
+
+        <div *ngFor="let i of getKeys(selProp['Conditions'])" >
+            <mat-form-field *ngIf="isConditionRemoved(i)" >
+                <input type="text" [name]="i" [placeholder]="i" [value]="selProp['Conditions'][i] | json" 
+                [matTooltip]="selProp['Conditions'][i] | json" matInput ngModel>
+            </mat-form-field>
+            <button *ngIf="isConditionRemoved(i)" mat-icon-button (click)="removeCondition(i)" matTooltip="remove this condition." > 
+              <mat-icon>remove</mat-icon> 
+            </button>
+      </div>
+
+    <button mat-icon-button color="primary" type="submit"> 
+        <mat-icon>done</mat-icon>
+    </button>
+  </form>
+  </mat-expansion-panel>
+  <mat-divider></mat-divider>
+
+  <mat-expansion-panel *ngIf="fileImported">
+      <mat-expansion-panel-header>
+          <mat-panel-title>Resources:</mat-panel-title>
+          <mat-panel-description> Number of Resources : {{getKeys(selProp['Resources']).length}} </mat-panel-description>
+      </mat-expansion-panel-header>    
+  <form *ngIf="fileImported"  #resform="ngForm" (submit)="onResourceSubmit(resform.value)">
+    <div *ngFor="let i of getKeys(selProp['Resources'])" >
+          <mat-form-field *ngIf="isResourceRemoved(i)" >
+              <input type="text" [name]="i" [placeholder]="i" [value]="selProp['Resources'][i] | json" 
+              [matTooltip]="selProp['Resources'][i] | json" matInput ngModel>
+          </mat-form-field>
+          <button *ngIf="isResourceRemoved(i)" mat-icon-button (click)="removeResource(i)" 
+          matTooltip="remove this resource."> 
+            <mat-icon>remove</mat-icon> 
+          </button>
+    </div>
+    <button mat-icon-button color="primary" type="submit"> 
+        <mat-icon>done</mat-icon>
+    </button>
+  </form>
+</mat-expansion-panel>
+  <mat-divider></mat-divider>
+
+  <mat-expansion-panel *ngIf="fileImported"> 
+      <mat-expansion-panel-header>
+          <mat-panel-title>Outputs:</mat-panel-title>
+          <mat-panel-description> Number of Outputs : {{getKeys(selProp['Outputs']).length}} </mat-panel-description>
+      </mat-expansion-panel-header>    
+  <form *ngIf="fileImported"  #outform="ngForm" (submit)="onOutputSubmit(outform.value)">
+    Outputs:  <br>
+    <div *ngFor="let i of getKeys(selProp['Outputs'])" >
+          <mat-form-field *ngIf="isOutputRemoved(i)" >
+              <input type="text" [name]="i" [placeholder]="i" [value]="selProp['Outputs'][i] | json" 
+              [matTooltip]="selProp['Outputs'][i] | json" matInput ngModel>
+          </mat-form-field>
+          <button *ngIf="isOutputRemoved(i)" mat-icon-button (click)="removeOutput(i)" matTooltip="remove this outing." > 
+            <mat-icon>remove</mat-icon> 
+          </button>
+    </div>
+    <button mat-icon-button color="primary" type="submit"> 
+        <mat-icon>done</mat-icon>
+    </button>
+  </form>
+</mat-expansion-panel>
+  <mat-divider></mat-divider>
+</mat-card>
+</mat-accordion> <br>
+<a *ngIf="fileImported" mat-button href="#" (click)="getDownloadHref()" matTooltip="Download Template" >
+    <mat-icon>save</mat-icon>
+</a> <br>
+
+
+<pre> {{ selProp | json}} </pre>

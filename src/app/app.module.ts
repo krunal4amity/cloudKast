@@ -117,6 +117,7 @@ import { FunctionsTabComponent } from './functions-tab/functions-tab.component';
 import { EC2InitComponent } from './ec2-init/ec2-init.component';
 //import { Ec2initconfigComponent } from './ec2initconfig/ec2initconfig.component';
 import { Ec2InitConfigTabComponent } from './ec2-init-config-tab/ec2-init-config-tab.component';
+import { ImportTemplateComponent } from './import-template/import-template.component';
 
 
 
@@ -196,7 +197,8 @@ import { Ec2InitConfigTabComponent } from './ec2-init-config-tab/ec2-init-config
     FunctionsTabComponent,
     EC2InitComponent,
     //Ec2initconfigComponent,
-    Ec2InitConfigTabComponent
+    Ec2InitConfigTabComponent,
+    ImportTemplateComponent
   ],
   imports: [
     BrowserModule,

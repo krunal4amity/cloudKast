@@ -53,12 +53,12 @@ getSelProp(value){
       a2=i[value];
     }
   })
-  console.log(a2);
+  //console.log(a2);
   return a2;
 }
 
 onSubmit(value){
-  console.log(value);
+  //console.log(value);
   this.getLooper(this.selProp,value,this.myobj);
   this.isCopyReady=true;
 }
