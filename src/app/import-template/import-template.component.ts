@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsefulUtilsService } from '../useful-utils.service';
 
+
 @Component({
   selector: 'app-import-template',
   templateUrl: './import-template.component.html',
@@ -21,11 +22,10 @@ export class ImportTemplateComponent implements OnInit {
 
   onFileAdd(files){
     let reader = new FileReader();
-    reader.readAsText(files[0],"UTF-8");
+    reader.readAsText(files[0]);
     reader.onload=()=>{
-      this.selProp= JSON.parse(reader.result);
+      this.selProp=  JSON.parse(JSON.parse(JSON.stringify(reader.result)));
       this.selPropCopy=this.selProp;
-      //this.import_output=this.util.getProperJson(this.selProp);
     }
     this.fileImported=true;
   }
@@ -37,6 +37,16 @@ export class ImportTemplateComponent implements OnInit {
     else{
       return [];
     }
+  }
+
+  getSectionCount(value:Object){
+    var i=0;
+    this.getKeys(value).forEach((j)=>{
+      if(value[j]!=undefined){
+        i=i+1;
+      }
+    });
+    return i
   }
 
   getDownloadHref(){

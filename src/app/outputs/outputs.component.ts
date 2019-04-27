@@ -12,6 +12,7 @@ export class OutputsComponent implements OnInit {
   tagCount=0;
   tagArray=[];
   isPresent=true;
+  isCopyReady=false;
   resProp={
     "Description" : "Information about the value",
     "Value" : "Value to return",
@@ -42,5 +43,15 @@ export class OutputsComponent implements OnInit {
       },
       "Condition":this.util.getProperJson(value.Condition)
     }
+    this.isCopyReady=true;
+  }
+
+  copyToClipboard(value){
+    var textArea= document.createElement("textarea");
+    textArea.value = JSON.stringify(this.result.jsonresult.Outputs[value.resourceName]);
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
   }
 }

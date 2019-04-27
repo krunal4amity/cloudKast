@@ -1,4 +1,13 @@
 <button mat-raised-button color="primary" (click)="addParam()">Add Condition</button><br>
 <div *ngFor="let i of tagArray">
   <app-conditions></app-conditions>
-</div>
+</div><br> <br> <br> <br>
+<mat-accordion>
+  <mat-expansion-panel class="example-card" >
+    <mat-expansion-panel-header>
+      <mat-panel-title>Intrinsic Functions</mat-panel-title>
+      <mat-panel-description>Use Function manager to generate a function for the conditions.</mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-intrinsic-functions class="example-card" ></app-intrinsic-functions>
+  </mat-expansion-panel>
+</mat-accordion>

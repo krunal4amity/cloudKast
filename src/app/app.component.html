@@ -5,9 +5,9 @@
     <a style="color:white"  href="mailto:cloudkasting@gmail.com"> <mat-icon>email</mat-icon> </a>  
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-tab-group color="primary" >
+<mat-tab-group color="primary" animationDuration="0ms">
   <mat-tab label="Create"> 
-      <mat-tab-group color="accent" >
+      <mat-tab-group color="accent" animationDuration="0ms" >
           <mat-tab label="Version & Desc"> 
             <app-metadata></app-metadata>
           </mat-tab>
@@ -40,7 +40,7 @@
   <mat-tab label="Result"> 
     <app-result></app-result>
   </mat-tab>
-  <mat-tab label="Import(beta)">
+  <mat-tab label="Import">
     <app-import-template></app-import-template>
   </mat-tab>
   <mat-tab label="Help">

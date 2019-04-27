@@ -1,8 +1,19 @@
+<mat-card class="example-card" >
 <div *ngIf="isPresent">
-        <mat-card class="example-card">Conditions 
+    <mat-accordion>
+    <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Condition
+        </mat-panel-title>
+        <mat-panel-description>
+            {{conname.value}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+        <mat-card class="example-card">Condition
             <form action="" #conform="ngForm" (submit)="onDone(conform.value)">
                 <!-- <input type="hidden" ngModel name="index" [ngModel]="i" ><br> -->
-                <input type="text" name="resourceName" placeholder="Logical ID" ngModel
+                <input type="text" #conname name="resourceName" placeholder="Logical ID" ngModel
                 matTooltip="Logical ID of the condition, a String value" required >
                 <input type="text" name="func" placeholder="Intrinsic Function" ngModel
                 matTooltip="Use any of these functions = Fn::And, Fn::Equals, Fn::If, 
@@ -14,7 +25,13 @@
                     <mat-icon>remove_circle</mat-icon>
                 </button>
               </form>
+              <button [disabled]="!isCopyReady" mat-icon-button 
+                matTooltip="copy the json output of the condition" 
+                (click)="copyToClipboard(conform.value)"> 
+                <mat-icon>file_copy</mat-icon> 
+              </button>
         </mat-card>
-    <mat-divider></mat-divider>
+    </mat-expansion-panel>
+    </mat-accordion>
 </div>
-
+</mat-card>

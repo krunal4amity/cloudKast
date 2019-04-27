@@ -16,6 +16,7 @@ export class MappingsComponent implements OnInit {
   valueCount=0;
   valueArray=[];
   isPresent=true;
+  isCopyReady=false
   constructor(public result:JsonResultService, public util:UsefulUtilsService) { }
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class MappingsComponent implements OnInit {
         var curName=val[`name${i}${j}`];
         var curVal=val[`value${i}${j}`];
         if(curName.length==0 || curVal.length==0){
-          valObj=undefined
+          valObj[curName]=undefined
         }
         else{
           if(curVal.includes(",")){
@@ -68,11 +69,20 @@ export class MappingsComponent implements OnInit {
             valObj[curName]=curVal;
           }
         }
-        if(j==this.valueArray.length-1){
+        if(j==this.valueArray.length){
           this.result.jsonresult.Mappings[val.resourceName][curKey]= valObj;
         }
       }
-
     }
+    this.isCopyReady=true;
+  }
+
+  copyToClipboard(value){
+    var textArea= document.createElement("textarea");
+    textArea.value = JSON.stringify(this.result.jsonresult.Mappings[value.resourceName]);
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
   }
 }

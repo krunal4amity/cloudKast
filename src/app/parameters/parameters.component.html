@@ -1,9 +1,18 @@
-<!-- <button mat-raised-button color="primary" (click)="addParam()">Add Parameter</button><br>
-<div *ngFor="let i of tagArray"> -->
+<mat-card class="example-card"> 
 <div *ngIf="isPresent" >
-    <mat-card  class="example-card" >Parameters
+    <mat-accordion>
+        <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Parameters
+            </mat-panel-title>
+            <mat-panel-description>
+                {{paramname.value}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>    
+    <mat-card  class="example-card" >Parameter
       <form #myForm="ngForm" (submit)="onDone(myForm.value)">
-        <input name="resourceName" placeholder="Resource Name" ngModel required> <br>
+        <input name="resourceName" #paramname placeholder="Parameter Name" ngModel required> <br>
         <!-- <input name="AllowedPattern" placeholder="Allowed Pattern" ngModel pattern='[\\A-Z0-9]*'> <br> -->
         <div *ngFor="let j of resPropkeys">
           <input ngModel type="text" [name]="j" [placeholder]="j" [matTooltip]="resProp[j]" >
@@ -16,7 +25,13 @@
           <mat-icon>remove_circle</mat-icon>
         </button>
       </form>
+      <button [disabled]="!isCopyReady" mat-icon-button 
+        matTooltip="copy the json output of the parameters" 
+        (click)="copyToClipboard(myForm.value)"> 
+        <mat-icon>file_copy</mat-icon> 
+      </button>
     </mat-card>
+  </mat-expansion-panel>
+  </mat-accordion>
 </div>
-<!-- </div> -->
-<mat-divider></mat-divider>
+</mat-card>

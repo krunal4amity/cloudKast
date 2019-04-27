@@ -1,4 +1,5 @@
-<button type="button" mat-raised-button (click)="jsonfile.click()" > Import </button>
+<button type="button" mat-raised-button color="primary" (click)="jsonfile.click()"
+matTooltip="Please select the cloudformation template json file" > Import file </button> <br>
 <input hidden #jsonfile type="file" (change)="onFileAdd($event.target.files)"> <br>
 <mat-accordion>
 <mat-card>
@@ -34,7 +35,7 @@
   <mat-expansion-panel *ngIf="fileImported">
     <mat-expansion-panel-header>
       <mat-panel-title>Parameters:</mat-panel-title>
-      <mat-panel-description> Number of Parameters : {{getKeys(selProp['Parameters']).length}} </mat-panel-description>
+      <mat-panel-description> Number of Parameters : {{getSectionCount(selProp['Parameters'])}} </mat-panel-description>
     </mat-expansion-panel-header>
   <form *ngIf="fileImported"  #paramform="ngForm" (submit)="onParamSubmit(paramform.value)">
     <div *ngFor="let i of getKeys(selProp['Parameters'])" >

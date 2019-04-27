@@ -11,6 +11,7 @@ export class ParametersComponent implements OnInit {
   tagCount=0;
   tagArray=[];
   isPresent=true;
+  isCopyReady=false;
   regexTooltip="Please do not add an additional backlash to any backlash characters in your regular expression. Escape characters will be automatically added. E.g. if you need to include a \\d in your regular expression, leave it as \\d."
 
 
@@ -49,6 +50,15 @@ export class ParametersComponent implements OnInit {
     return decodeURI(value);
   }
 
+  copyToClipboard(value){
+    var textArea= document.createElement("textarea");
+    textArea.value = JSON.stringify(this.result.jsonresult.Parameters[value.resourceName]);
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+  }
+
   
   onDone(value){
     console.log(value);
@@ -65,6 +75,7 @@ export class ParametersComponent implements OnInit {
       "MinLength":value.MinLength?value.MinLength:undefined,
       "MinValue":value.MinValue?value.MinValue:undefined,
       "NoEcho":value.NoEcho?value.NoEcho:undefined
-    }
+    };
+    this.isCopyReady=true;
   }
 }

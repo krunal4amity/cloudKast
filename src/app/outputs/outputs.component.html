@@ -1,9 +1,18 @@
-<!-- <button mat-raised-button color="primary" (click)="addOutput()">Add Output</button><br>
-<div *ngFor="let i of tagArray"> -->
+<mat-card class="example-card" >
     <div *ngIf="isPresent" >
-        <mat-card  class="example-card">Outputs
+    <mat-accordion>
+    <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Output
+        </mat-panel-title>
+        <mat-panel-description>
+            {{outname.value}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+        <mat-card  class="example-card">Output
           <form #myForm="ngForm" (submit)="onDone(myForm.value)">
-            <input name="resourceName" placeholder="Output Name" ngModel required> <br>
+            <input name="resourceName" placeholder="Output Name" #outname  ngModel required> <br>
             <input type="text" name="desc" placeholder="Description" ngModel> <br>
             <input type="text" name="value" placeholder="Value" matTooltip="
             Value to be returned" ngModel> <br>
@@ -19,6 +28,12 @@
               <mat-icon>remove_circle</mat-icon>
             </button>
           </form>
+          <button [disabled]="!isCopyReady" mat-icon-button 
+            matTooltip="copy the json output" (click)="copyToClipboard(myForm.value)"> 
+            <mat-icon>file_copy</mat-icon> 
+          </button>
         </mat-card>
+      </mat-expansion-panel>
+    </mat-accordion>
     </div>
-    <mat-divider></mat-divider>
+</mat-card>

@@ -11,6 +11,7 @@ export class ConditionsComponent implements OnInit {
   tagCount=0;
   tagArray=[];
   isPresent=true;
+  isCopyReady=false;
   constructor(public result:JsonResultService, public util:UsefulUtilsService) { }
 
   ngOnInit() {
@@ -25,14 +26,12 @@ export class ConditionsComponent implements OnInit {
 
   onRemove(value){
     this.isPresent=false;
-    //this.tagCount-=1;
-    //this.tagArray.splice(value.index-1, 1)
     if(value.resourceName)    this.result.jsonresult.Conditions[value.resourceName]=undefined;
   }
 
   onDone(value){
-    console.log(value);
-    this.result.jsonresult.Conditions[value.resourceName]=this.util.getProperJson(value.func)
+    this.result.jsonresult.Conditions[value.resourceName]=this.util.getProperJson(value.func);
+    this.isCopyReady=true;
   }
 
   onReset(){
@@ -42,5 +41,13 @@ export class ConditionsComponent implements OnInit {
     this.result.jsonresult.Conditions={}
   }
 
+  copyToClipboard(value){
+    var textArea= document.createElement("textarea");
+    textArea.value = JSON.stringify(this.result.jsonresult.Conditions[value.resourceName]);
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+  }
 
 }

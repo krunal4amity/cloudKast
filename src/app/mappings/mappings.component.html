@@ -1,9 +1,18 @@
-<!-- <button mat-raised-button color="primary" (click)="addMapping()">Add Mapping</button><br>
-<div *ngFor="let i of tagArray"> -->
+<mat-card class="example-card" >
     <div *ngIf="isPresent" >
+        <mat-accordion>
+            <mat-expansion-panel color="accent">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Mapping
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{mapname.value}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
         <mat-card  class="example-card">Mapping
           <form #myForm="ngForm" (submit)="onDone(myForm.value)">
-            <input name="resourceName" placeholder="Mapping Name" ngModel required > <br>
+            <input name="resourceName" #mapname placeholder="Mapping Name" ngModel required > <br>
             <button type="button" mat-stroked-button (click)="addKeying()" >Add keys</button>
             <mat-divider></mat-divider>
             <div *ngFor="let i of keyArray" >
@@ -26,6 +35,14 @@
               <mat-icon>remove_circle</mat-icon>
             </button>
           </form>
+          <button [disabled]="!isCopyReady" mat-icon-button 
+            matTooltip="copy the json output of the mapping" 
+            (click)="copyToClipboard(myForm.value)"> 
+            <mat-icon>file_copy</mat-icon> 
+          </button>
         </mat-card>
+      </mat-expansion-panel>
+    </mat-accordion>
     </div>
-    <mat-divider></mat-divider>
+
+  </mat-card>
