@@ -42,6 +42,16 @@ export class UsefulUtilsService {
     }
   }
 
+  doUnescape(val){
+    //var kk = this.getProperJson(val);
+    if(typeof(val)=='string'){
+      return val.replace('\\n',"\n")
+    }
+    else{
+      return val;
+    }
+  }
+
   addCommonProperties(value:ResourceSyntax){
     value["Properties"]["DeletionPolicy"]="With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted.Possible values : 'Delete', 'Retain','Snapshot'. Snapshot applies to ec2volume, elasticcache-cachecluster and replication group, rds-dbcluster and dbinstance, redshift-cluster, neptune-dbcluster";
     value["Properties"]["DependsOn"]=["List of strings. When you add a DependsOn attribute to a resource, that resource is created only after the creation of the resource specified in the DependsOn attribute."];

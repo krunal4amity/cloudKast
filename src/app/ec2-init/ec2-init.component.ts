@@ -246,7 +246,7 @@ export class EC2InitComponent implements OnInit {
     this.myobj["AWS::CloudFormation::Init"]["config"]["files"]={};
     for(var i=1;i<=this.filesArray.length;i++){
       this.myobj["AWS::CloudFormation::Init"]["config"]["files"][value[`filename${i}`]]={
-        "content":this.util.getProperJson(value[`content${i}`]),
+        "content":this.util.doUnescape(this.util.getProperJson(value[`content${i}`])),
         "source":this.util.getProperJson(value[`source${i}`]),
         "encoding":this.util.getProperJson(value[`encoding${i}`]),
         "group":this.util.getProperJson(value[`group${i}`]),
@@ -274,5 +274,14 @@ export class EC2InitComponent implements OnInit {
 
   onReset(){
     this.myobj["AWS::CloudFormation::Init"]["config"]={}
+  }
+
+  copyToClipboard(){
+    var textArea= document.createElement("textarea");
+    textArea.value = JSON.stringify(this.myobj);
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
   }
 }

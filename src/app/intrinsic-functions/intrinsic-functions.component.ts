@@ -69,7 +69,71 @@ export class IntrinsicFunctionsComponent implements OnInit {
     this.fnselectCount=0;
     this.fnandArray=[];
     this.fnandCount=0;
-    //this.funcobj={};
+    //this.funcobj={}
+    // switch (value.funcname) {      
+    //   case "Ref":
+    //     value.refvalue=undefined;
+    //     break;
+    //   case "Fn::Base64":
+    //     this.funcobj["Fn::Base64"]=undefined;
+    //     break;
+    //   case "Fn::Cidr":
+    //     value.ipblock=undefined;
+    //     value.count=undefined;
+    //     value.cidrbits=undefined;
+    //     break;
+    //   case "Fn::FindInMap":
+    //     value.maps=undefined;
+    //     value.topkey=undefined;
+    //     value.secondkey=undefined;
+    //     break;
+    //   case "Fn::GetAtt":
+    //     value.resname=undefined;
+    //     value.propname=undefined;
+    //     break;
+    //   case "Fn::GetAZs":
+    //     value.zone=undefined;
+    //     break;
+    //   case "Fn::ImportValue":
+    //     value.importval=undefined;
+    //     break;
+    //   case "Fn::Join":
+    //     value.delim=undefined;
+    //     break;
+    //   case "Fn::Select":
+    //     value.index=undefined;
+    //     break;        
+    //   case "Fn::Split":
+    //     value.split=undefined;
+    //     value.splitvalue=undefined;
+    //     break;    
+    //   case "Fn::Sub":
+    //     value.sub=undefined;
+    //     value.subvalue=undefined;
+    //     break;                
+    //   case "Fn::Transform":
+    //     value.trapara=undefined;
+    //     break;         
+    //   case "Fn::And":
+    //     break;  
+    //   case "Fn::Equals":
+    //     value.equal1=undefined;
+    //     value.equal2=undefined;
+    //     break;    
+    //   case "Fn::If":
+    //     value.ifcon=undefined;
+    //     value.iftrue=undefined;
+    //     value.iffalse=undefined;
+    //     break;      
+    //   case "Fn::Not":
+    //     value.fnnot=undefined;          
+    //     break;
+    //   case "Fn::Or":
+    //     value.fnor=undefined;
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 
   retResource(){
@@ -100,6 +164,12 @@ export class IntrinsicFunctionsComponent implements OnInit {
     document.body.removeChild(textArea);
   }
 
+  // doUnescape(value){
+  //   if((value as String).includes('/\\n')){
+  //     return (value as String).replace('/\\n',"\n");
+  //   }
+  // }
+
   doFunc(value){
     switch (value.funcname) {
       case "Ref":
@@ -107,43 +177,43 @@ export class IntrinsicFunctionsComponent implements OnInit {
           "Ref":value.refvalue
         }
         break;
-      case "FnBase64":
+      case "Fn::Base64":
         this.funcobj={
-          "Fn::Base64":value.b64value
+          "Fn::Base64": this.utility.getProperJson(value.b64value)
         }
         break;
-      case "FnCidr":
+      case "Fn::Cidr":
         this.funcobj={
-          "Fn:Cidr":[value.ipblock, value.count, value.cidrbits]
+          "Fn::Cidr":[value.ipblock, value.count, value.cidrbits]
         }
         break;
-      case "FnFindInMap":
+      case "Fn::FindInMap":
         //var val2 = (value.topkey as String).includes("::")?JSON.parse(value.topkey):value.topkey;
         //var val3 = (value.secondkey as String).includes("::")?JSON.parse(value.secondkey):value.secondkey;
         this.funcobj={
           "Fn::FindInMap":[value.maps,this.utility.getProperJson(value.topkey),this.utility.getProperJson(value.secondkey)]
         }
         break;
-      case "FnGetAtt":
+      case "Fn::GetAtt":
         this.funcobj={
           "Fn::GetAtt":[value.resname, value.propname]
         }
         break;
-      case "FnGetAZs":
+      case "Fn::GetAZs":
         this.funcobj={
-          "Fn:GetAZs":this.utility.getProperJson(value.zone)
+          "Fn::GetAZs":this.utility.getProperJson(value.zone)
         }
         break;
-      case "FnImportValue":
+      case "Fn::ImportValue":
         this.funcobj={
           "Fn::ImportValue":this.utility.getProperJson(value.importval)
         }
         break;
-      case "FnJoin":
+      case "Fn::Join":
         var joinArr = [];
         var joinElements=[];
         this.fnjoinArray.forEach((i)=>{
-          joinElements.push(this.utility.getProperJson( value[`element${i}`]));
+          joinElements.push(this.utility.doUnescape(this.utility.getProperJson( value[`element${i}`])));
         });
         joinArr.push(value.delim);
         joinArr.push(joinElements);
@@ -151,7 +221,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
           "Fn::Join": this.utility.getProperJson(joinArr)
         }
         break;
-      case "FnSelect":
+      case "Fn::Select":
         var selectArr=[];
         var selectElements=[];
         this.fnselectArray.forEach((i)=>{
@@ -164,7 +234,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
         }
         break;        
 
-      case "FnSplit":
+      case "Fn::Split":
         var splitArr=[];
         splitArr.push(value.split);
         splitArr.push(value.splitvalue);
@@ -173,7 +243,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
         }
         break;    
 
-      case "FnSub":
+      case "Fn::Sub":
         var subArr=[];
         subArr.push(value.sub);
         subArr.push(this.utility.getProperJson(value.subvalue))
@@ -182,7 +252,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
         }
         break;                
 
-      case "FnTransform":
+      case "Fn::Transform":
         this.funcobj={
           "Fn::Transform": {
             "Name":value.traname,
@@ -191,7 +261,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
         }
         break; 
         
-      case "FnAnd":
+      case "Fn::And":
           var andArray=[];
           this.fnandArray.forEach((i)=>{
             andArray.push(this.utility.getProperJson(value[`element${i}`]));
@@ -201,16 +271,16 @@ export class IntrinsicFunctionsComponent implements OnInit {
           }
         break;
       
-      case "FnEquals":
+      case "Fn::Equals":
           var equalArray=[];
           equalArray.push(value.equal1);
           equalArray.push(value.equal2);
           this.funcobj={
-            "Fn:Equals":this.utility.getProperJson(equalArray)
+            "Fn::Equals":this.utility.getProperJson(equalArray)
           }
         break;
       
-      case "FnIf":
+      case "Fn::If":
           var ifArray=[];
           ifArray.push(value.ifcon);
           ifArray.push(this.utility.getProperJson(value.iftrue));
@@ -220,7 +290,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
           }
         break;
       
-      case "FnNot":
+      case "Fn::Not":
           var fnnotArray=[];
           fnnotArray.push(this.utility.getProperJson(value.fnnot));
           this.funcobj={
@@ -229,7 +299,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
           
         break;
 
-      case "FnOr":
+      case "Fn::Or":
           var fnorarray=[];
           fnorarray.push(this.utility.getProperJson(value.fnor));
           this.funcobj={

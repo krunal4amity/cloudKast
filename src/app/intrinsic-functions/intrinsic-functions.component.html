@@ -1,23 +1,23 @@
 <mat-card> Function Manager
 <form #funcform="ngForm" id="funcform" (submit)="doFunc(funcform.value)" >
     <input list="functions" name="funcname" placeholder="Pick a function" #funcname ngModel> <br>
-    <datalist id="functions">
+    <datalist id="functions" label="functions" >
         <option value="Ref"></option>
-        <option value="FnBase64"></option>
-        <option value="FnCidr"></option>
-        <option value="FnFindInMap"></option>
-        <option value="FnGetAtt"></option>
-        <option value="FnGetAZs"></option>
-        <option value="FnImportValue"></option>
-        <option value="FnJoin"></option>
-        <option value="FnSelect"></option>
-        <option value="FnSplit"></option>
-        <option value="FnSub"></option>
-        <option value="FnAnd"></option>
-        <option value="FnEquals"></option>
-        <option value="FnIf"></option>
-        <option value="FnNot"></option>
-        <option value="FnOr"></option>
+        <option value="Fn::Base64"></option>
+        <option value="Fn::Cidr"></option>
+        <option value="Fn::FindInMap"></option>
+        <option value="Fn::GetAtt"></option>
+        <option value="Fn::GetAZs"></option>
+        <option value="Fn::ImportValue"></option>
+        <option value="Fn::Join"></option>
+        <option value="Fn::Select"></option>
+        <option value="Fn::Split"></option>
+        <option value="Fn::Sub"></option>
+        <option value="Fn::And"></option>
+        <option value="Fn::Equals"></option>
+        <option value="Fn::If"></option>
+        <option value="Fn::Not"></option>
+        <option value="Fn::Or"></option>
     </datalist>
 
     <div *ngIf="funcname.value=='Ref'" >
@@ -28,11 +28,11 @@
       </select>
     </div>
 
-    <div *ngIf="funcname.value=='FnBase64'">
+    <div *ngIf="funcname.value=='Fn::Base64'">
       <input type="text" ngModel name="b64value" placeholder="Enter String"> 
     </div>
 
-    <div *ngIf="funcname.value=='FnCidr'">
+    <div *ngIf="funcname.value=='Fn::Cidr'">
       <input type="text" ngModel name="ipblock" placeholder="IP Block" 
       matTooltip="The user-specified CIDR address block to be split into 
       smaller CIDR blocks. e.g. 192.168.0.0/24"> <br>
@@ -43,7 +43,7 @@
       for this parameter will create a CIDR with a mask of '/24'. Enter a number e.g. 24" >
     </div>
 
-    <div *ngIf="funcname.value=='FnFindInMap'">
+    <div *ngIf="funcname.value=='Fn::FindInMap'">
       <input type="text" ngModel name="maps" placeholder="Mapping element" 
       matTooltip="list of maps from Mappings element" > <br>
       <input type="text" ngModel name="topkey" placeholder="TopLevelKey"
@@ -53,22 +53,22 @@
       from the list assigned to TopLevelKey." >
     </div>
 
-    <div *ngIf="funcname.value=='FnGetAtt'">
+    <div *ngIf="funcname.value=='Fn::GetAtt'">
       <input type="text" ngModel name="resname" placeholder="Resource"  #resname >
       <input *ngIf="resname.value!=''"  ngModel type="text" name="propname" 
       placeholder="Property Name">
     </div>
    
-    <div *ngIf="funcname.value=='FnGetAZs'">
+    <div *ngIf="funcname.value=='Fn::GetAZs'">
       <input type="text" ngModel name="zone" placeholder="Zonename or Function" >
     </div>
     
-    <div *ngIf="funcname.value=='FnImportValue'">
+    <div *ngIf="funcname.value=='Fn::ImportValue'">
       <input type="text" ngModel name="importval" placeholder="ImportValue" 
       [matTooltip]="fnimportvalueTip" >
     </div>
     
-    <div *ngIf="funcname.value=='FnJoin'">
+    <div *ngIf="funcname.value=='Fn::Join'">
       <input type="text" ngModel name="delim" placeholder="Delimiter" matTooltip="
       Enter delimiter." #delim>
       <mat-icon [matTooltip]="fnjoinTip" >info</mat-icon> <br>
@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <div *ngIf="funcname.value=='FnSelect'">
+    <div *ngIf="funcname.value=='Fn::Select'">
       <input type="text" ngModel name="index" placeholder="Index">
       <mat-icon [matTooltip]="fnselectTip" >info</mat-icon> <br>
       <button mat-raised-button color="primary" type="button" (click)="addFnselectElement()">Add Element</button><br>
@@ -87,44 +87,44 @@
       </div>
     </div>
 
-    <div *ngIf="funcname.value=='FnSplit'">
+    <div *ngIf="funcname.value=='Fn::Split'">
       <input type="text" ngModel name="split" placeholder="Split By"><br>
       <mat-icon [matTooltip]="fnsplitTip">info</mat-icon>
       <input type="text" ngModel name="splitvalue" placeholder="Value"><br>
     </div>
 
-    <div *ngIf="funcname.value=='FnSub'">
+    <div *ngIf="funcname.value=='Fn::Sub'">
         <input type="text" ngModel name="sub" placeholder="Substitute"><br>
         <input type="text" ngModel name="subvalue" placeholder="Subvalue">
     </div>
 
-    <div *ngIf="funcname.value=='FnAnd'" >
+    <div *ngIf="funcname.value=='Fn::And'" >
       <button mat-raised-button color="primary" type="button" (click)="addFnAndElement()">Add Element</button><br>
       <div *ngFor="let i of fnandArray">
         <input type="text" name="element{{i}}" ngModel >
       </div>
     </div>
 
-    <div *ngIf="funcname.value=='FnEquals'" >
+    <div *ngIf="funcname.value=='Fn::Equals'" >
       <input type="text" name="equal1" ngModel placeholder="value 1" >
       <input type="text" name="equal2" ngModel placeholder="value 2" >
     </div>
 
-    <div *ngIf="funcname.value=='FnIf'" >
+    <div *ngIf="funcname.value=='Fn::If'" >
       <input type="text" name="ifcon" ngModel placeholder="Condition"> <br>
       <input type="text" name="iftrue" ngModel placeholder="Value if true">
       <input type="text" name="iffalse" ngModel placeholder="Value if false">
     </div>
 
-    <div *ngIf="funcname.value=='FnNot'" >
+    <div *ngIf="funcname.value=='Fn::Not'" >
       <input type="text" name="fnnot" ngModel placeholder="Condition" >
     </div>
 
-    <div *ngIf="funcname.value=='FnOr'" >
+    <div *ngIf="funcname.value=='Fn::Or'" >
       <input type="text" name="fnor" ngModel placeholder="Condition">
     </div>
     <button mat-stroked-button color="primary" type="submit">Generate</button>
-    <button mat-stroked-button color="warn" (click)="funcname.value='';onReset()" >Reset</button>
+    <button mat-stroked-button  type="button" color="warn" (click)="funcname.value=''; funcobj={}; onRest()" >Reset</button>
 
 </form>
 

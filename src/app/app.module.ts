@@ -118,6 +118,7 @@ import { EC2InitComponent } from './ec2-init/ec2-init.component';
 //import { Ec2initconfigComponent } from './ec2initconfig/ec2initconfig.component';
 import { Ec2InitConfigTabComponent } from './ec2-init-config-tab/ec2-init-config-tab.component';
 import { ImportTemplateComponent } from './import-template/import-template.component';
+import { HowToComponent } from './how-to/how-to.component';
 
 
 
@@ -198,7 +199,8 @@ import { ImportTemplateComponent } from './import-template/import-template.compo
     EC2InitComponent,
     //Ec2initconfigComponent,
     Ec2InitConfigTabComponent,
-    ImportTemplateComponent
+    ImportTemplateComponent,
+    HowToComponent
   ],
   imports: [
     BrowserModule,

@@ -177,5 +177,11 @@
   </mat-expansion-panel>
 </mat-accordion>
 
+<button mat-icon-button 
+matTooltip="copy the metadata object in json" 
+(click)="copyToClipboard()"> 
+<mat-icon>file_copy</mat-icon> 
+</button>
+
 <pre> {{myobj|json}} </pre>
 
