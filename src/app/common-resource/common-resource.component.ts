@@ -5,7 +5,7 @@ import {RESOURCE_DATA,ResourceSyntax} from '../resource-view/resource-list';
 import { ResourceDataService } from '../resource-data.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { PropertyDialogTabComponent } from '../property-dialog-tab/property-dialog-tab.component';
-
+import {MatSnackBar} from '@angular/material'
 
 
 
@@ -29,8 +29,16 @@ export class CommonResourceComponent implements OnInit {
   arrayTip="[Obj1, Obj2..] OR str1,str2.."
   objectTip="{Obj}"
 
-  constructor(public result:JsonResultService, public utility:UsefulUtilsService, public objProp:ResourceDataService, public dialog: MatDialog){
+  constructor(public result:JsonResultService, 
+    public utility:UsefulUtilsService, 
+    public objProp:ResourceDataService, 
+    public dialog: MatDialog,
+    private snackBar:MatSnackBar){
   }
+
+  openSnackBar(message:string, action:string){
+    this.snackBar.open(message,action,{duration:2000})
+  };
 
   ngOnInit(){
     this.resObject=this.utility.addCommonProperties(this.resObject);
@@ -155,6 +163,7 @@ export class CommonResourceComponent implements OnInit {
         }
       }
       this.result.jsonresult.Resources[value.resourceName]=undefined;
+      this.openSnackBar(`"${value.resourceName}" has been removed. Check Result tab.`,"Ok")
     }
 
   onDone(value){
@@ -196,6 +205,7 @@ export class CommonResourceComponent implements OnInit {
         this.result.jsonresult.Resources[value.resourceName]["Properties"]["Metadata"]=undefined;
         this.result.jsonresult.Resources[value.resourceName]["Metadata"]=this.utility.getProperJson(value["Metadata"]);
       }
+      this.openSnackBar(`"${value.resourceName}" has been added. Check Result tab.`,"Ok");
    }
 
   doCommonResAttributesArrayType(resname, propname, propvalue){

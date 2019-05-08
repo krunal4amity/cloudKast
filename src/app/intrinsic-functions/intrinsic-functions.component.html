@@ -1,4 +1,4 @@
-<mat-card> Function Manager
+<mat-card class="example-card" > 
 <form #funcform="ngForm" id="funcform" (submit)="doFunc(funcform.value)" >
     <input list="functions" name="funcname" placeholder="Pick a function" #funcname ngModel> <br>
     <datalist id="functions" label="functions" >
@@ -123,8 +123,14 @@
     <div *ngIf="funcname.value=='Fn::Or'" >
       <input type="text" name="fnor" ngModel placeholder="Condition">
     </div>
-    <button mat-stroked-button color="primary" type="submit">Generate</button>
-    <button mat-stroked-button  type="button" color="warn" (click)="funcname.value=''; funcobj={}; onReset()" >Reset</button>
+    <button mat-icon-button color="primary" type="submit" matTooltip="Generate function">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-icon-button  type="button" color="accent" 
+      (click)="funcname.value=''; funcobj={}; onReset()"
+      matTooltip="Reset function" >
+      <mat-icon>clear_all</mat-icon>
+    </button>
 
 </form>
 

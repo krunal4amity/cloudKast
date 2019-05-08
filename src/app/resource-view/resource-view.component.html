@@ -1,6 +1,18 @@
-<div style="float: left">
+<div >
 <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #function class="example-sidenav" mode="side" position="end" >
+            <mat-icon color="primary"  matTooltip="Two identical function widgets are provided so that one function's output can be used in another function easily. E.g. output of Fn::Join to be used in Fn::Base64 to generate UserData property for AWS::EC2::Instance. Use the scroller at the bottom to scroll to the right to preview lengthy function outputs." >
+                  info
+            </mat-icon>
+            <app-intrinsic-functions></app-intrinsic-functions>
+            <app-intrinsic-functions></app-intrinsic-functions>
+      </mat-drawer>
     <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+          <button type="button" mat-button color="primary" (click)="function.toggle()"
+          matTooltip="click to open intrinsic functions side panel. click again to close">
+                Intrinsic Functions
+            </button>
+          <mat-divider></mat-divider>
           <mat-select *ngFor="let service of resourcelist" [placeholder]="service.servicename">
               <mat-option *ngFor="let resource of service.subresource">
                 
@@ -276,9 +288,9 @@
 <!-- <div style="float:left" >
     <app-object-help></app-object-help>
 </div> -->
-<div style="float:left">
+<!-- <div style="float:left">
       <app-intrinsic-functions></app-intrinsic-functions>
 </div>
 <div style="float:left">
       <app-intrinsic-functions></app-intrinsic-functions>
-</div>
+</div> -->
