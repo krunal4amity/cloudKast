@@ -8,15 +8,15 @@
       </mat-expansion-panel-header>
 
 
-      <form #myForm="ngForm" (submit)="onDone(myForm.value)">
+      <form #myForm="ngForm" (submit)="onDone(myForm.value)" >
         <mat-form-field>
             <input matInput #resname name="resourceName" placeholder="Resource Name" value="SampleName" ngModel required>
         </mat-form-field>
         <mat-icon [ngStyle]="{'color':reqColor}" >info</mat-icon> <br>
         <span> <br> <u>Properties: </u> <br> </span>
-        <div *ngFor="let j of resPropkeys">
-           <span *ngIf="j=='CreationPolicy' || j=='UpdatePolicy'" > <br> <u> Special Attributes: </u> <br> </span>
-           <span *ngIf="j=='DeletionPolicy'" > <br> <u>Common Attributes:</u> <br> </span>
+        <div *ngFor="let j of resPropkeys" >
+           <span *ngIf="j=='CreationPolicy' || j=='UpdatePolicy'" > <br> <u> Specific Attributes: </u> <br> </span>
+           <span *ngIf="j=='DeletionPolicy'" > <br> <u>Common Attributes:</u> <br> </span> <br>
           <mat-form-field *ngIf="getTypeOf(resObject.Properties[j])=='string'" >
               <input matInput ngModel type="text" [name]="j" [placeholder]="j" [required]="isRequired(resObject.Properties[j])['required']" >
           </mat-form-field>

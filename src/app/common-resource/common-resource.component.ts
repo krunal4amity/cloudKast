@@ -26,7 +26,7 @@ export class CommonResourceComponent implements OnInit {
   resPropkeys;
   reqColor="red";
   conColor="darkorange";
-  arrayTip="[Obj1, Obj2..] OR str1,str2.."
+  arrayTip="e.g. [ Obj1,Obj2..] OR str1,str2.."
   objectTip="{Obj}"
 
   constructor(public result:JsonResultService, 

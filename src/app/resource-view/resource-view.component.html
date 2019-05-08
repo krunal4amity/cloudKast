@@ -4,7 +4,7 @@
             <mat-icon color="primary"  matTooltip="Two identical function widgets are provided so that one function's output can be used in another function easily. E.g. output of Fn::Join to be used in Fn::Base64 to generate UserData property for AWS::EC2::Instance. Use the scroller at the bottom to scroll to the right to preview lengthy function outputs." >
                   info
             </mat-icon>
-            <app-intrinsic-functions></app-intrinsic-functions>
+            <app-intrinsic-functions></app-intrinsic-functions><br>
             <app-intrinsic-functions></app-intrinsic-functions>
       </mat-drawer>
     <mat-drawer #drawer class="example-sidenav" mode="side" opened>
@@ -16,8 +16,8 @@
           <mat-select *ngFor="let service of resourcelist" [placeholder]="service.servicename">
               <mat-option *ngFor="let resource of service.subresource">
                 
-                <button mat-raised-button  [matBadge]="resource.resourcecount" (click)="serviceAddition(resource)">
-                    {{resource.resourcename}}
+                <button mat-raised-button (click)="serviceAddition(resource)">
+                  <span [matBadge]="resource.resourcecount" matBadgeOverlap="false">{{resource.resourcename}}</span>  
                 </button>
               </mat-option>
           </mat-select>
