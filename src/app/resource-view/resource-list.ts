@@ -475,6 +475,26 @@ export var RESOURCE_DATA:AWSResource[]=[
                 resourcecount:0
             }
         ]
+    },
+    {
+        servicename:"ECS",
+        subresource:[
+            {
+                resourcename:"Cluster",
+                resourcesyntax:"AWS::ECS::Cluster",
+                resourcecount:0
+            },
+            {
+                resourcename:"Service",
+                resourcesyntax:"AWS::ECS::Service",
+                resourcecount:0
+            },
+            {
+                resourcename:"TaskDefinition",
+                resourcesyntax:"AWS::ECS::TaskDefinition",
+                resourcecount:0
+            }
+        ]
     }
 
 ]

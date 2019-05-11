@@ -1,6 +1,6 @@
 .example-container {
-    width: 1200px;
-    height: 900px;
+    width: 1240px;
+    height: 440px;
     border: 1px solid rgba(0, 0, 0, 0.5);
   }
 
@@ -19,6 +19,11 @@
   .example-sidenav {
     padding: 20px;
     width:350px
+  }
+
+  .example-sidenav-res {
+    padding: 20px;
+    width:220px
   }
 
   .property-dealer{

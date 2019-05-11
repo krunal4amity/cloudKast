@@ -122,6 +122,11 @@ export class ResourceViewComponent implements OnInit {
   sns_topic=[];
   sns_topicpolicy=[]
 
+  //ecs
+  ecs_cluster=[];
+  ecs_service=[];
+  ecs_taskdefinition=[];
+
   serviceAddition(subresource:SubResource){
     //console.log(`${subresource.resourcename} ${subresource.resourcecount} ${subresource.resourcesyntax}`);
     subresource.resourcecount = subresource.resourcecount + 1;
@@ -236,6 +241,12 @@ export class ResourceViewComponent implements OnInit {
 
       case "DynamoDB":
       if(this.resource_detail[2]=="Table") this.dynamodb_table.push(subresource.resourcecount);
+        break;
+
+      case "ECS":
+      if(this.resource_detail[2]=="Cluster") this.ecs_cluster.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="Service") this.ecs_service.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="TaskDefinition") this.ecs_taskdefinition.push(subresource.resourcecount);
         break;
 
       default:

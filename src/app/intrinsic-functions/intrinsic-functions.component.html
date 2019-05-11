@@ -26,6 +26,7 @@
           <option  *ngFor="let i of retReflist()" [value]="i">{{i}} </option>
         </optgroup>
       </select>
+      <mat-icon matTooltip="Resources and Parameters will only get populated once they have been added to the template"  >info</mat-icon>
     </div>
 
     <div *ngIf="funcname.value=='Fn::Base64'">
@@ -54,9 +55,19 @@
     </div>
 
     <div *ngIf="funcname.value=='Fn::GetAtt'">
-      <input type="text" ngModel name="resname" placeholder="Resource"  #resname >
-      <input *ngIf="resname.value!=''"  ngModel type="text" name="propname" 
-      placeholder="Property Name">
+      <input type="text" ngModel name="resname" placeholder="Resource"  #resname list="reslist" > 
+      <datalist id="reslist" label="Resources" >
+        <option *ngFor="let i of retResList()" [value]="i" > {{i}} </option>
+      </datalist>
+      <mat-icon matTooltip="Only resources that have been added to the template will be populated here." >info</mat-icon>
+      <br>
+      <div *ngIf="resname.value!=''" >
+        <input list="attrs" ngModel type="text" name="propname" placeholder="Property Name">
+        <datalist id="attrs" label="Attributes" >
+          <option *ngFor="let j of ResAttributes[jsonresult.jsonresult.Resources[resname.value]['Type']]"  [value]="j"> {{j}} </option>
+        </datalist>
+        <mat-icon matTooltip="Respective attributes will be populated based on the type of the resource seleted."  >info</mat-icon>
+      </div>
     </div>
    
     <div *ngIf="funcname.value=='Fn::GetAZs'">
@@ -88,13 +99,14 @@
     </div>
 
     <div *ngIf="funcname.value=='Fn::Split'">
-      <input type="text" ngModel name="split" placeholder="Split By"><br>
-      <mat-icon [matTooltip]="fnsplitTip">info</mat-icon>
+      <input type="text" ngModel name="split" placeholder="Split By">
+      <mat-icon [matTooltip]="fnsplitTip">info</mat-icon><br>
       <input type="text" ngModel name="splitvalue" placeholder="Value"><br>
     </div>
 
     <div *ngIf="funcname.value=='Fn::Sub'">
-        <input type="text" ngModel name="sub" placeholder="Substitute"><br>
+        <input type="text" ngModel name="sub" placeholder="Substitute" >
+        <mat-icon [matTooltip]="fnsubTip" >info</mat-icon><br>
         <input type="text" ngModel name="subvalue" placeholder="Subvalue">
     </div>
 
@@ -129,7 +141,7 @@
     <button mat-icon-button  type="button" color="accent" 
       (click)="funcname.value=''; funcobj={}; onReset()"
       matTooltip="Reset function" >
-      <mat-icon>clear_all</mat-icon>
+      <mat-icon>clear</mat-icon>
     </button>
 
 </form>

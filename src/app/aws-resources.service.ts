@@ -948,5 +948,73 @@ elbv2_targetgroup={
       }
   }
 
+  // serverless_function={
+  //   "Type":"AWS::Serverless::Function",
+  //   "Properties":{
+  //     "Globals":{"info":"Note: Globals is NOT a property but a section. in your SAM template to define properties common to all your Serverless Function and APIs ##"},
+  //     "Handler":"**String. Function within your code that is called to begin execution. It can be specified in Globals or overridden here.",
+  //     "Runtime":"**String. The runtime environment. It can be specified in Globals or overridden here.",
+  //     "CodeUri":"** string | S3 Location Object. Either CodeUri or InlineCode must be specified. S3 Uri or location to the function code. The S3 object this Uri references MUST be a Lambda deployment package.##. Either InlineCode or CodeUri must be specified. ",
+  //     "InlineCode": "** string. Either CodeUri or InlineCode must be specified. The inline code for the lambda.",
+  //     "FunctionName": "string. A name for the function. If you don't specify a name, a unique name will be generated for you.",
+  //     "Description": "string",
+  //     "MemorySize": "Number. Size of the memory allocated per invocation of the function in MB. Defaults to 128.",
+  //     "Timeout": "**Number. Maximum time that the function can run before it is killed in seconds. Defaults to 3. It can be specified in Globals or overridden here.",
+  //     "Role":"string. ARN of an IAM role to use as this function's execution role. If omitted, a default role is created for this function.",
+  //     "Policies":["list of strings | list of iam policy document objects | list of SAM policy templates. Names of AWS managed IAM policies or IAM policy documents or SAM Policy Templates that this function needs, which should be appended to the default role for this function. If the Role property is set, this property has no meaning.##"],
+  //     "PermissionsBoundary":"**string. ARN of a permissions boundary to use for this function's execution role.",
+  //     "Environment":" ** Function environment object. Configuration for the runtime environment.##",
+  //     "VpcConfig": "VPC config object. Configuration to enable this function to access private resources within your VPC.##",
+  //   }
+  // }
+
+
+  //ecs
+
+  ecs_cluster={
+    "Type" : "AWS::ECS::Cluster",
+    "Properties" : {
+        "ClusterName" : "String. A user-generated string that you use to identify your cluster. If you don't specify a name, AWS CloudFormation generates a unique physical ID for the name. Update requires: Replacement"
+      }
+  }
+  
+  ecs_service={
+    "Type" : "AWS::ECS::Service",
+    "Properties" : {
+        "Cluster" : "String. The short name or full Amazon Resource Name (ARN) of the cluster on which to run your service. If you do not specify a cluster, the default cluster is assumed.",
+        "DeploymentConfiguration" : {"info":"Type: DeploymentConfiguration. Optional deployment parameters that control how many tasks run during the deployment and the ordering of stopping and starting tasks.##"},
+        "DesiredCount" : "Integer. The number of instantiations of the specified task definition to place and keep running on your cluster.",
+        "HealthCheckGracePeriodSeconds" : "Integer. The period of time, in seconds, that the Amazon ECS service scheduler should ignore unhealthy Elastic Load Balancing target health checks after a task has first started. This is only valid if your service is configured to use a load balancer. If your service's tasks take a while to start and respond to Elastic Load Balancing health checks, you can specify a health check grace period of up to 2,147,483,647 seconds. During that time, the ECS service scheduler ignores health check status. This grace period can prevent the ECS service scheduler from marking tasks as unhealthy and stopping them before they have time to come up.",
+        "LaunchType" : "String. Allowed Values: EC2 | FARGATE",
+        "LoadBalancers" : ["Type: List of LoadBalancer. A list of load balancer objects to associate with the cluster. If you specify the Role property, LoadBalancers must be specified as well.##"],
+        "NetworkConfiguration" : {"info":" Type: NetworkConfiguration. The network configuration for the service. This parameter is required for task definitions that use the awsvpc network mode to receive their own elastic network interface, and it is not supported for other network modes. ##"},
+        "PlacementConstraints" : ["Type: List of PlacementConstraint. An array of placement constraint objects to use for tasks in your service. You can specify a maximum of 10 constraints per task (this limit includes constraints in the task definition and those specified at runtime).##"],
+        "PlacementStrategies" : ["Type: List of PlacementStrategy. The placement strategy objects to use for tasks in your service. You can specify a maximum of five strategy rules per service.##"],
+        "PlatformVersion" : "String. The platform version that your tasks in the service are running on. A platform version is specified only for tasks using the Fargate launch type. If one isn't specified, the LATEST platform version is used by default.",
+        "Role" : "String. The name or full Amazon Resource Name (ARN) of the IAM role that allows Amazon ECS to make calls to your load balancer on your behalf. This parameter is only permitted if you are using a load balancer with your service and your task definition does not use the awsvpc network mode. If you specify the role parameter, you must also specify a load balancer object with the loadBalancers parameter. Important: If your account has already created the Amazon ECS service-linked role, that role is used by default for your service unless you specify a role here. The service-linked role is required if your task definition uses the awsvpc network mode, in which case you should not specify a role here. If your specified role has a path other than /, then you must either specify the full role ARN (this is recommended) or prefix the role name with the path. ",
+        "SchedulingStrategy" : "String. Allowed Values: DAEMON | REPLICA . REPLICA-The replica scheduling strategy places and maintains the desired number of tasks across your cluster. By default, the service scheduler spreads tasks across Availability Zones. You can use task placement strategies and constraints to customize task placement decisions. This scheduler strategy is required if the service is using the CODE_DEPLOY or EXTERNAL deployment controller types. DAEMON-The daemon scheduling strategy deploys exactly one task on each active container instance that meets all of the task placement constraints that you specify in your cluster. When you're using this strategy, you don't need to specify a desired number of tasks, a task placement strategy, or use Service Auto Scaling policies. Tasks using the Fargate launch type or the CODE_DEPLOY or EXTERNAL deployment controller types don't support the DAEMON scheduling strategy.",
+        "ServiceName" : "String. The name of your service. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed. Service names must be unique within a cluster, but you can have similarly named services in multiple clusters within a Region or across multiple Regions.",
+        "ServiceRegistries" : ["Type: List of ServiceRegistry. The details of the service discovery registries to assign to this service. Service discovery is supported for Fargate tasks if you are using platform version v1.1.0 or later.##"],
+        "TaskDefinition" : "*String. The family and revision (family:revision) or full ARN of the task definition to run in your service. If a revision is not specified, the latest ACTIVE revision is used. A task definition must be specified if the service is using the ECS deployment controller."
+      }
+  }
+
+  ecs_taskdefinition={
+    "Type" : "AWS::ECS::TaskDefinition",
+    "Properties" : {
+        "ContainerDefinitions" : ["Type: List of ContainerDefinition. A list of container definitions in JSON format that describe the different containers that make up your task.##"],
+        "Cpu" : "String. The number of cpu units used by the task. If you are using the EC2 launch type, this field is optional and any value can be used. If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of valid values for the memory parameter: 256 (.25 vCPU) - Available memory values: 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB). 512 (.5 vCPU) - Available memory values: 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB). 1024 (1 vCPU) - Available memory values: 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB). 2048 (2 vCPU) - Available memory values: Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB). 4096 (4 vCPU) - Available memory values: Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB).",
+        "ExecutionRoleArn" : "String. The Amazon Resource Name (ARN) of the task execution role that containers in this task can assume. All containers in this task are granted the permissions that are specified in this role.",
+        "Family" : "String. The name of a family that this task definition is registered to. A family groups multiple versions of a task definition. Amazon ECS gives the first task definition that you registered to a family a revision number of 1. Amazon ECS gives sequential revision numbers to each task definition that you add. To use revision numbers when you update a task definition, specify this property. If you don't specify a value, AWS CloudFormation generates a new task definition each time that you update it.",
+        "Memory" : "String. The amount (in MiB) of memory used by the task. If using the EC2 launch type, this field is optional and any value can be used. If using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter: 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available cpu values: 256 (.25 vCPU) | 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available cpu values: 512 (.5 vCPU) | 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB) - Available cpu values: 1024 (1 vCPU) | Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) - Available cpu values: 2048 (2 vCPU) | Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) - Available cpu values: 4096 (4 vCPU)",
+        "NetworkMode" : "String. Allowed Values: awsvpc | bridge | host | none. The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. The default Docker network mode is bridge. If you are using the Fargate launch type, the awsvpc network mode is required. If you are using the EC2 launch type, any network mode can be used. If the network mode is set to none, you cannot specify port mappings in your container definitions, and the tasks containers do not have external connectivity. The host and awsvpc network modes offer the highest networking performance for containers because they use the EC2 network stack instead of the virtualized network stack provided by the bridge mode. With the host and awsvpc network modes, exposed container ports are mapped directly to the corresponding host port (for the host network mode) or the attached elastic network interface port (for the awsvpc network mode), so you cannot take advantage of dynamic host port mappings. If the network mode is awsvpc, the task is allocated an elastic network interface, and you must specify a NetworkConfiguration value when you create a service or run a task with the task definition. Currently, only Amazon ECS-optimized AMIs, other Amazon Linux variants with the ecs-init package, or AWS Fargate infrastructure support the awsvpc network mode. If the network mode is host, you cannot run multiple instantiations of the same task on a single container instance when port mappings are used. Docker for Windows uses different network modes than Docker for Linux. When you register a task definition with Windows containers, you must not specify a network mode. If you use the console to register a task definition with Windows containers, you must choose the <default> network mode object.",
+        "PlacementConstraints" : [ "Type: List of TaskDefinitionPlacementConstraint. An array of placement constraint objects to use for tasks. This field is not valid if you are using the Fargate launch type for your task. ##"],
+        "RequiresCompatibilities" : [ "list of strings. The launch type the task requires. If no value is specified, it will default to EC2. Valid values include EC2 and FARGATE."],
+        "TaskRoleArn" : "String. IAM roles for tasks on Windows require that the -EnableTaskIAMRole option is set when you launch the Amazon ECS-optimized Windows AMI. Your containers must also run some configuration code in order to take advantage of the feature.",
+        "Volumes" : ["Type: List of Volume. If your tasks are using the Fargate launch type, the host and sourcePath parameters are not supported. ##"]
+      }
+  }
+  
+  
 
 }

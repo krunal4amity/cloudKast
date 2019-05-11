@@ -731,6 +731,162 @@ export class ResourceDataService {
         "Endpoint" : "*String. The subscription's endpoint (format depends on the protocol).",
         "Protocol" : "*String. The subscription's protocol."
       }
+    },
+    "AWS::ECS::Service":{
+      "NetworkConfiguration":{
+        "AwsvpcConfiguration" : {
+          "AssignPublicIp" : "String. Allowed Values: DISABLED | ENABLED. Whether the task's elastic network interface receives a public IP address. The default value is DISABLED.",
+          "SecurityGroups" : ["Type: List of String. The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used. There is a limit of 5 security groups that can be specified per AwsVpcConfiguration."],
+          "Subnets" : ["*Type: List of String. The subnets associated with the task or service. There is a limit of 16 subnets that can be specified per AwsVpcConfiguration." ]
+        }
+      },
+      "DeploymentConfiguration":{
+        "MaximumPercent" : "Integer. If a service is using the rolling update (ECS) deployment type, the maximum percent parameter represents an upper limit on the number of tasks in a service that are allowed in the RUNNING or PENDING state during a deployment, as a percentage of the desired number of tasks (rounded down to the nearest integer), and while any container instances are in the DRAINING state if the service contains tasks using the EC2 launch type. This parameter enables you to define the deployment batch size. For example, if your service has a desired number of four tasks and a maximum percent value of 200%, the scheduler may start four new tasks before stopping the four older tasks (provided that the cluster resources required to do this are available). The default value for maximum percent is 200%. If a service is using the blue/green (CODE_DEPLOY) or EXTERNAL deployment types and tasks that use the EC2 launch type, the maximum percent value is set to the default value and is used to define the upper limit on the number of the tasks in the service that remain in the RUNNING state while the container instances are in the DRAINING state. If the tasks in the service use the Fargate launch type, the maximum percent value is not used, although it is returned when describing your service.",
+        "MinimumHealthyPercent" : "Integer. If a service is using the rolling update (ECS) deployment type, the minimum healthy percent represents a lower limit on the number of tasks in a service that must remain in the RUNNING state during a deployment, as a percentage of the desired number of tasks (rounded up to the nearest integer), and while any container instances are in the DRAINING state if the service contains tasks using the EC2 launch type. This parameter enables you to deploy without using additional cluster capacity. For example, if your service has a desired number of four tasks and a minimum healthy percent of 50%, the scheduler may stop two existing tasks to free up cluster capacity before starting two new tasks. Tasks for services that do not use a load balancer are considered healthy if they are in the RUNNING state; tasks for services that do use a load balancer are considered healthy if they are in the RUNNING state and they are reported as healthy by the load balancer. The default value for minimum healthy percent is 100%. If a service is using the blue/green (CODE_DEPLOY) or EXTERNAL deployment types and tasks that use the EC2 launch type, the minimum healthy percent value is set to the default value and is used to define the lower limit on the number of the tasks in the service that remain in the RUNNING state while the container instances are in the DRAINING state. If the tasks in the service use the Fargate launch type, the minimum healthy percent value is not used, although it is returned when describing your service."
+      },
+      "LoadBalancer":{
+        "ContainerName" : "String. The name of the container (as it appears in a container definition) to associate with the load balancer.",
+        "ContainerPort" : "*Integer. The port on the container to associate with the load balancer. This port must correspond to a containerPort in the service's task definition. Your container instances must allow ingress traffic on the hostPort of the port mapping.",
+        "LoadBalancerName" : "String. The name of the load balancer to associate with the Amazon ECS service.",
+        "TargetGroupArn" : "String. The full Amazon Resource Name (ARN) of the Elastic Load Balancing target group or groups associated with a service. For services using the ECS deployment controller, you are limited to one target group. For services using the CODE_DEPLOY deployment controller, you are required to define two target groups for the load balancer."
+      },
+      "PlacementConstraint":{
+        "Expression" : "String. A cluster query language expression to apply to the constraint. You cannot specify an expression if the constraint type is distinctInstance.",
+        "Type" : "*String. The type of constraint. Use distinctInstance to ensure that each task in a particular group is running on a different container instance. Use memberOf to restrict the selection to a group of valid candidates. The value distinctInstance is not supported in task definitions. Allowed Values: distinctInstance | memberOf. "
+      },
+      "PlacementStrategy":{
+        "Field" : "String. The field to apply the placement strategy against. For the spread placement strategy, valid values are instanceId (or host, which has the same effect), or any platform or custom attribute that is applied to a container instance, such as attribute:ecs.availability-zone. For the binpack placement strategy, valid values are cpu and memory. For the random placement strategy, this field is not used.",
+        "Type" : "*String. The type of placement strategy. The random placement strategy randomly places tasks on available candidates. The spread placement strategy spreads placement across available candidates evenly based on the field parameter. The binpack strategy places tasks on available candidates that have the least available amount of the resource that is specified with the field parameter. For example, if you binpack on memory, a task is placed on the instance with the least amount of remaining memory (but still enough to run the task). Allowed Values: binpack | random | spread. "
+      },
+      "ServiceRegistry":{
+        "ContainerName" : "String. The container name value, already specified in the task definition, to be used for your service discovery service. If the task definition that your service task specifies uses the bridge or host network mode, you must specify a containerName and containerPort combination from the task definition. If the task definition that your service task specifies uses the awsvpc network mode and a type SRV DNS record is used, you must specify either a containerName and containerPort combination or a port value, but not both.",
+        "ContainerPort" : "Integer. The port value, already specified in the task definition, to be used for your service discovery service. If the task definition your service task specifies uses the bridge or host network mode, you must specify a containerName and containerPort combination from the task definition. If the task definition your service task specifies uses the awsvpc network mode and a type SRV DNS record is used, you must specify either a containerName and containerPort combination or a port value, but not both.",
+        "Port" : "Integer. The port value used if your service discovery service specified an SRV record. This field may be used if both the awsvpc network mode and SRV records are used.",
+        "RegistryArn" : "String. The Amazon Resource Name (ARN) of the service registry. The currently supported service registry is AWS Cloud Map."
+      }
+    },
+    "AWS::ECS::TaskDefinition":{
+      "ContainerDefinition":{
+        "Command" : ["Type: List of String. The command that is passed to the container. " ],
+        "Cpu" : "Integer. The number of cpu units reserved for the container.",
+        "DisableNetworking" : "Boolean. When this parameter is true, networking is disabled within the container.",
+        "DnsSearchDomains" : ["list of strings. A list of DNS search domains that are presented to the container. This parameter maps to DnsSearch in the Create a container section of the Docker Remote API and the --dns-search option to docker run. Not supported for windows containers."],
+        "DnsServers" : ["List of strings. A list of DNS servers that are presented to the container. This parameter maps to Dns in the Create a container section of the Docker Remote API and the --dns option to docker run."],
+        "DockerLabels" : {"info":"Type: Map of String. A key/value map of labels to add to the container. This parameter maps to Labels in the Create a container section of the Docker Remote API and the --label option to docker run. e.g. a:b,c:d "},
+        "DockerSecurityOptions" : ["List of strings. A list of strings to provide custom labels for SELinux and AppArmor multi-level security systems. This field is not valid for containers in tasks using the Fargate launch type."],
+        "EntryPoint" : ["List of string. The entry point that is passed to the container. This parameter maps to Entrypoint in the Create a container section of the Docker Remote API and the --entrypoint option to docker run. " ],
+        "Environment" : ["Type: List of KeyValuePair. The environment variables to pass to a container. This parameter maps to Env in the Create a container section of the Docker Remote API and the --env option to docker run.##"],
+        "Essential" : "Boolean. If the essential parameter of a container is marked as true, and that container fails or stops for any reason, all other containers that are part of the task are stopped. If the essential parameter of a container is marked as false, then its failure does not affect the rest of the containers in a task. If this parameter is omitted, a container is assumed to be essential. All tasks must have at least one essential container. If you have an application that is composed of multiple containers, you should group containers that are used for a common purpose into components, and separate the different components into multiple task definitions.",
+        "ExtraHosts" : [" Type: List of HostEntry. A list of hostnames and IP address mappings to append to the /etc/hosts file on the container. This parameter maps to ExtraHosts in the Create a container section of the Docker Remote API and the --add-host option to docker run. This parameter is not supported for Windows containers or tasks that use the awsvpc network mode. ##"],
+        "HealthCheck" : {
+          "Command" : [ "*Type: List of String. A string array representing the command that the container runs to determine if it is healthy. The string array must start with CMD to execute the command arguments directly, or CMD-SHELL to run the command with the container's default shell. " ],
+          "Interval" : "Integer. The time period in seconds between each health check execution. You may specify between 5 and 300 seconds. The default value is 30 seconds.",
+          "Retries" : "Integer. The number of times to retry a failed health check before the container is considered unhealthy. You may specify between 1 and 10 retries. The default value is 3.",
+          "StartPeriod" : "Integer. The optional grace period within which to provide containers time to bootstrap before failed health checks count towards the maximum number of retries. You may specify between 0 and 300 seconds. The startPeriod is disabled by default.",
+          "Timeout" : "Integer. The time period in seconds to wait for a health check to succeed before it is considered a failure. You may specify between 2 and 60 seconds. The default value is 5."
+        }
+        ,
+        "Hostname" : "String. The hostname to use for your container. This parameter maps to Hostname in the Create a container section of the Docker Remote API and the --hostname option to docker run.",
+        "Image" : "String. The image used to start a container. This string is passed directly to the Docker daemon. Images in the Docker Hub registry are available by default. Other repositories are specified with either repository-url/image:tag or repository-url/image@digest . Up to 255 letters (uppercase and lowercase), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This parameter maps to Image in the Create a container section of the Docker Remote API and the IMAGE parameter of docker run.",
+        "Links" : ["List of strings. The link parameter allows containers to communicate with each other without the need for port mappings. Only supported if the network mode of a task definition is set to bridge. The name:internalName construct is analogous to name:alias in Docker links. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed. This parameter maps to Links in the Create a container section of the Docker Remote API and the --link option to docker run ."],
+        "LinuxParameters" : {
+          "Capabilities" : {
+            "Add" : ["List of String. The Linux capabilities for the container that have been added to the default configuration provided by Docker. Valid values: 'ALL' | 'AUDIT_CONTROL' | 'AUDIT_WRITE' | 'BLOCK_SUSPEND' | 'CHOWN' | 'DAC_OVERRIDE' | 'DAC_READ_SEARCH' | 'FOWNER' | 'FSETID' | 'IPC_LOCK' | 'IPC_OWNER' | 'KILL' | 'LEASE' | 'LINUX_IMMUTABLE' | 'MAC_ADMIN' | 'MAC_OVERRIDE' | 'MKNOD' | 'NET_ADMIN' | 'NET_BIND_SERVICE' | 'NET_BROADCAST' | 'NET_RAW' | 'SETFCAP' | 'SETGID' | 'SETPCAP' | 'SETUID' | 'SYS_ADMIN' | 'SYS_BOOT' | 'SYS_CHROOT' | 'SYS_MODULE' | 'SYS_NICE' | 'SYS_PACCT' | 'SYS_PTRACE' | 'SYS_RAWIO' | 'SYS_RESOURCE' | 'SYS_TIME' | 'SYS_TTY_CONFIG' | 'SYSLOG' | 'WAKE_ALARM'"],
+            "Drop" : ["List of string. The Linux capabilities for the container that have been removed from the default configuration provided by Docker. Valid values: 'ALL' | 'AUDIT_CONTROL' | 'AUDIT_WRITE' | 'BLOCK_SUSPEND' | 'CHOWN' | 'DAC_OVERRIDE' | 'DAC_READ_SEARCH' | 'FOWNER' | 'FSETID' | 'IPC_LOCK' | 'IPC_OWNER' | 'KILL' | 'LEASE' | 'LINUX_IMMUTABLE' | 'MAC_ADMIN' | 'MAC_OVERRIDE' | 'MKNOD' | 'NET_ADMIN' | 'NET_BIND_SERVICE' | 'NET_BROADCAST' | 'NET_RAW' | 'SETFCAP' | 'SETGID' | 'SETPCAP' | 'SETUID' | 'SYS_ADMIN' | 'SYS_BOOT' | 'SYS_CHROOT' | 'SYS_MODULE' | 'SYS_NICE' | 'SYS_PACCT' | 'SYS_PTRACE' | 'SYS_RAWIO' | 'SYS_RESOURCE' | 'SYS_TIME' | 'SYS_TTY_CONFIG' | 'SYSLOG' | 'WAKE_ALARM'" ]
+          },
+          "Devices" : ["Type: List of Device. Any host devices to expose to the container. This parameter maps to Devices in the Create a container section of the Docker Remote API and the --device option to docker run. If you are using tasks that use the Fargate launch type, the devices parameter is not supported.##"],
+          "InitProcessEnabled" : "Boolean. Run an init process inside the container that forwards signals and reaps processes. This parameter maps to the --init option to docker run. ",
+          "SharedMemorySize" : "Integer. The value for the size (in MiB) of the /dev/shm volume. This parameter maps to the --shm-size option to docker run.",
+          "Tmpfs" : ["Type: List of Tmpfs. The container path, mount options, and size (in MiB) of the tmpfs mount. This parameter maps to the --tmpfs option to docker run ##. "]
+        }
+        ,
+        "LogConfiguration" : {
+          "LogDriver" : "*String. Allowed Values: awslogs | fluentd | gelf | journald | json-file | splunk | syslog. For tasks using the Fargate launch type, the supported log drivers are awslogs and splunk.",
+          "Options" : {"info":"Type: Map of String e.g. a:b,c:d,e:f. The configuration options to send to the log driver. This parameter requires version 1.19 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: sudo docker version --format '{{.Server.APIVersion}}'"}
+        },
+        "Memory" : "Integer. The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the memory specified here, the container is killed. This parameter maps to Memory in the Create a container section of the Docker Remote API and the --memory option to docker run.If your containers are part of a task using the Fargate launch type, this field is optional and the only requirement is that the total amount of memory reserved for all containers within a task be lower than the task memory value. For containers that are part of a task using the EC2 launch type, you must specify a non-zero integer for one or both of memory or memoryReservation in container definitions. If you specify both, memory must be greater than memoryReservation. If you specify memoryReservation, then that value is subtracted from the available memory resources for the container instance on which the container is placed. Otherwise, the value of memory is used.",
+        "MemoryReservation" : "Integer. The soft limit (in MiB) of memory to reserve for the container. When system memory is under heavy contention, Docker attempts to keep the container memory to this soft limit. However, your container can consume more memory when it needs to, up to either the hard limit specified with the memory parameter (if applicable), or all of the available memory on the container instance, whichever comes first. This parameter maps to MemoryReservation in the Create a container section of the Docker Remote API and the --memory-reservation option to docker run.",
+        "MountPoints" : ["Type: List of MountPoint. This parameter maps to Volumes in the Create a container section of the Docker Remote API and the --volume option to docker run. Windows containers can mount whole directories on the same drive as $env:ProgramData. Windows containers cannot mount directories on a different drive, and mount point cannot be across drives. ##"],
+        "Name" : "String. The name of a container. If you are linking multiple containers together in a task definition, the name of one container can be entered in the links of another container to connect the containers. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed. This parameter maps to name in the Create a container section of the Docker Remote API and the --name option to docker run.",
+        "PortMappings" : ["Type: List of PortMapping. The list of port mappings for the container. Port mappings allow containers to access ports on the host container instance to send or receive traffic. Port mappings on Windows use the NetNAT gateway address rather than localhost. There is no loopback for port mappings on Windows, so you cannot access a container's mapped port from the host itself."],
+        "Privileged" : "Boolean. When this parameter is true, the container is given elevated privileges on the host container instance (similar to the root user). This parameter maps to Privileged in the Create a container section of the Docker Remote API and the --privileged option to docker run.",
+        "ReadonlyRootFilesystem" : "Boolean. When this parameter is true, the container is given read-only access to its root file system. This parameter maps to ReadonlyRootfs in the Create a container section of the Docker Remote API and the --read-only option to docker run.",
+        "RepositoryCredentials" : {
+          "CredentialsParameter" : "The Amazon Resource Name (ARN) of the secret containing the private repository credentials."
+        },
+        "Ulimits" : ["Type: List of Ulimit. A list of ulimits to set in the container. This parameter maps to Ulimits in the Create a container section of the Docker Remote API and the --ulimit option to docker run."],
+        "User" : "String. The user name to use inside the container. This parameter maps to User in the Create a container section of the Docker Remote API and the --user option to docker run. This parameter is not supported for Windows containers.",
+        "VolumesFrom" : ["Type: List of VolumeFrom. Data volumes to mount from another container. This parameter maps to VolumesFrom in the Create a container section of the Docker Remote API and the --volumes-from option to docker run."],
+        "WorkingDirectory" : "String. The working directory in which to run commands inside the container. This parameter maps to WorkingDir in the Create a container section of the Docker Remote API and the --workdir option to docker run."
+      },
+      "Device":{
+        "ContainerPath" : "String. The path inside the container at which to expose the host device.",
+        "HostPath" : "*String. The path for the device on the host container instance.",
+        "Permissions" : ["List of string. The explicit permissions to provide to the container for the device. By default, the container has permissions for read, write, and mknod for the device."]
+      },
+      "DockerVolumeConfiguration":{
+        "Autoprovision" : "Boolean. If this value is true, the Docker volume is created if it does not already exist.",
+        "Driver" : "String. The Docker volume driver to use. The driver value must match the driver name provided by Docker because it is used for task placement. If the driver was installed using the Docker plugin CLI, use docker plugin ls to retrieve the driver name from your container instance. If the driver was installed using another method, use Docker plugin discovery to retrieve the driver name. For more information, see Docker plugin discovery. This parameter maps to Driver in the Create a volume section of the Docker Remote API and the xxdriver option to docker volume create .",
+        "DriverOpts" : {"info":"Type: Map of String e.g. a:b, c:d, e:f. A map of Docker driver-specific options passed through. This parameter maps to DriverOpts in the Create a volume section of the Docker Remote API and the xxopt option to docker volume create ."},
+        "Labels" : {"info":"Type: Map of String e.g. a:b, c:d, e:f. Custom metadata to add to your Docker volume. This parameter maps to Labels in the Create a volume section of the Docker Remote API and the xxlabel option to docker volume create ."},
+        "Scope" : "String. Allowed Values: shared | task. The scope for the Docker volume that determines its lifecycle. Docker volumes that are scoped to a task are automatically provisioned when the task starts and destroyed when the task stops. Docker volumes that are scoped as shared persist after the task stops."
+      },
+      "HostEntry":{
+        "Hostname" : "*String. The hostname to use in the /etc/hosts entry.",
+        "IpAddress" : "*String. The IP address to use in the /etc/hosts entry."
+      },
+      "HostVolumeProperties":{
+        "SourcePath" : "String. When the host parameter is used, specify a sourcePath to declare the path on the host container instance that is presented to the container. If this parameter is empty, then the Docker daemon has assigned a host path for you. If the host parameter contains a sourcePath file location, then the data volume persists at the specified location on the host container instance until you delete it manually. If the sourcePath value does not exist on the host container instance, the Docker daemon creates it. If the location does exist, the contents of the source path folder are exported. If you are using the Fargate launch type, the sourcePath parameter is not supported."
+      },
+      "KeyValuePair":{
+        "Name" : "String",
+        "Value" : "String"
+      },
+      "MountPoint":{
+        "ContainerPath" : "String. The path on the container to mount the host volume at.",
+        "ReadOnly" : "Boolean. If this value is true, the container has read-only access to the volume. If this value is false, then the container can write to the volume. The default value is false.",
+        "SourceVolume" : "String. The name of the volume to mount. Must be a volume name referenced in the name parameter of task definition volume."
+      },
+      "PortMapping":{
+        "ContainerPort" : "Integer. The port number on the container that is bound to the user-specified or automatically assigned host port.",
+        "HostPort" : "Integer. The port number on the container instance to reserve for your container.",
+        "Protocol" : "String. Allowed Values: tcp | udp"
+      },
+      "Tmpfs":{
+        "ContainerPath" : "String. The absolute file path where the tmpfs volume is to be mounted.",
+        "MountOptions" : ["List of string. Valid values: 'defaults' | 'ro' | 'rw' | 'suid' | 'nosuid' | 'dev' | 'nodev' | 'exec' | 'noexec' | 'sync' | 'async' | 'dirsync' | 'remount' | 'mand' | 'nomand' | 'atime' | 'noatime' | 'diratime' | 'nodiratime' | 'bind' | 'rbind' | 'unbindable' | 'runbindable' | 'private' | 'rprivate' | 'shared' | 'rshared' | 'slave' | 'rslave' | 'relatime' | 'norelatime' | 'strictatime' | 'nostrictatime' | 'mode' | 'uid' | 'gid' | 'nr_inodes' | 'nr_blocks' | 'mpol'"],
+        "Size" : "Integer. The size (in MiB) of the tmpfs volume."
+      },
+      "Ulimit":{
+        "HardLimit" : "*Integer",
+        "Name" : "*String. Allowed Values: core | cpu | data | fsize | locks | memlock | msgqueue | nice | nofile | nproc | rss | rtprio | rttime | sigpending | stack ",
+        "SoftLimit" : "*Integer"
+      },
+      "Volume":{
+        "DockerVolumeConfiguration" : {
+          "Autoprovision" : "Boolean. If this value is true, the Docker volume is created if it does not already exist.",
+          "Driver" : "String. The Docker volume driver to use. The driver value must match the driver name provided by Docker because it is used for task placement. If the driver was installed using the Docker plugin CLI, use docker plugin ls to retrieve the driver name from your container instance. If the driver was installed using another method, use Docker plugin discovery to retrieve the driver name. For more information, see Docker plugin discovery. This parameter maps to Driver in the Create a volume section of the Docker Remote API and the xxdriver option to docker volume create .",
+          "DriverOpts" : {"info":"Type: Map of String e.g. a:b, c:d, e:f. A map of Docker driver-specific options passed through. This parameter maps to DriverOpts in the Create a volume section of the Docker Remote API and the xxopt option to docker volume create ."},
+          "Labels" : {"info":"Type: Map of String e.g. a:b, c:d, e:f. Custom metadata to add to your Docker volume. This parameter maps to Labels in the Create a volume section of the Docker Remote API and the xxlabel option to docker volume create ."},
+          "Scope" : "String. Allowed Values: shared | task. The scope for the Docker volume that determines its lifecycle. Docker volumes that are scoped to a task are automatically provisioned when the task starts and destroyed when the task stops. Docker volumes that are scoped as shared persist after the task stops."
+        },
+        "Host" : {
+          "SourcePath" : "String. When the host parameter is used, specify a sourcePath to declare the path on the host container instance that is presented to the container. If this parameter is empty, then the Docker daemon has assigned a host path for you. If the host parameter contains a sourcePath file location, then the data volume persists at the specified location on the host container instance until you delete it manually. If the sourcePath value does not exist on the host container instance, the Docker daemon creates it. If the location does exist, the contents of the source path folder are exported. If you are using the Fargate launch type, the sourcePath parameter is not supported."
+        },
+        "Name" : "String. The name of the volume. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed. This name is referenced in the sourceVolume parameter of container definition mountPoints."
+      },
+      "VolumeFrom":{
+        "ReadOnly" : "Boolean. If this value is true, the container has read-only access to the volume. If this value is false, then the container can write to the volume. The default value is false",
+        "SourceContainer" : "String. The name of another container within the same task definition from which to mount volumes."
+      }
+      
+      
+      
+      
+      
+      
+      
+      
     }
   }    
 

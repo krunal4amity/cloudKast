@@ -1,4 +1,13 @@
-<p>
-  Transform section is currently not supported. Metadata section only supports AWS::Cloudformation::Init
-  currently.
-</p>
+<form (submit)="onDone(myForm.value)" #myForm="ngForm" >
+<mat-form-field>
+  <input type="text" matInput ngModel placeholder="comma delimited list"  name="transform" required >
+</mat-form-field>
+<mat-icon [matTooltip]="transformInfo" >info</mat-icon>
+<br>
+<button color="primary" [disabled]="myForm.invalid" mat-icon-button type="submit" matTooltip="Add to Transform section." >
+  <mat-icon>done</mat-icon>
+</button>
+<button color="warn" [disabled]="myForm.invalid" mat-icon-button type="button" (click)="onRemove()" matTooltip="Remove Transform section entirely." >
+  <mat-icon>remove_all</mat-icon>
+</button>
+</form>

@@ -1,4 +1,4 @@
-<mat-card class="example-card" >
+
 <div *ngIf="isPresent">
     <mat-accordion>
     <mat-expansion-panel>
@@ -14,7 +14,7 @@
             <form action="" #conform="ngForm" (submit)="onDone(conform.value)">
                 <!-- <input type="hidden" ngModel name="index" [ngModel]="i" ><br> -->
                 <input type="text" #conname name="resourceName" placeholder="Logical ID" ngModel
-                matTooltip="Logical ID of the condition, a String value" required >
+                matTooltip="Logical ID of the condition, a String value" required > <br>
                 <input type="text" name="func" placeholder="Intrinsic Function" ngModel
                 matTooltip="Use any of these functions = Fn::And, Fn::Equals, Fn::If, 
                 Fn::Not, Fn::Or" required ><br>
@@ -34,4 +34,3 @@
     </mat-expansion-panel>
     </mat-accordion>
 </div>
-</mat-card>

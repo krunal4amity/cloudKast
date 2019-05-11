@@ -7,7 +7,7 @@
             <app-intrinsic-functions></app-intrinsic-functions><br>
             <app-intrinsic-functions></app-intrinsic-functions>
       </mat-drawer>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <mat-drawer #drawer class="example-sidenav-res" mode="side" opened>
           <button type="button" mat-button color="primary" (click)="function.toggle()"
           matTooltip="click to open intrinsic functions side panel. click again to close">
                 Intrinsic Functions
@@ -280,6 +280,16 @@
       <div *ngFor="let i of sns_topicpolicy" >
             <app-common-resource [myresource]="awsresource.sns_topicpolicy" [isTagged]="false" ></app-common-resource>
       </div>                        
+
+      <div *ngFor="let i of ecs_cluster" >
+            <app-common-resource [myresource]="awsresource.ecs_cluster" [isTagged]="false" ></app-common-resource>
+      </div>                        
+      <div *ngFor="let i of ecs_service" >
+            <app-common-resource [myresource]="awsresource.ecs_service" [isTagged]="false" ></app-common-resource>
+      </div>                        
+      <div *ngFor="let i of ecs_taskdefinition" >
+            <app-common-resource [myresource]="awsresource.ecs_taskdefinition" [isTagged]="false" ></app-common-resource>
+      </div>                                    
 
 
     </div>

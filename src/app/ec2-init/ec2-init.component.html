@@ -1,8 +1,13 @@
-<p>
-  Metadata section currently only supports AWS::CloudFormation::Init. 
-</p>
 
-<mat-accordion>
+<mat-drawer-container class="example-container" autosize >
+  <button mat-button color="primary" (click)="drawer.toggle()">Intrinsic Functions </button>
+  <mat-drawer #drawer class="example-sidenav" mode="side" position="end">
+    <app-intrinsic-functions class="example-card" ></app-intrinsic-functions>
+  </mat-drawer>
+
+
+
+<!-- <mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -15,7 +20,7 @@
     <app-intrinsic-functions></app-intrinsic-functions>
   </mat-expansion-panel>
 </mat-accordion>
-<br>
+<br> -->
 
 
 <mat-accordion>
@@ -203,3 +208,4 @@ matTooltip="copy the metadata object in json"
 
 <pre> {{myobj|json}} </pre>
 
+</mat-drawer-container>

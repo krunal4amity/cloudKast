@@ -1,4 +1,4 @@
-<mat-card class="example-card"> 
+
 <div *ngIf="isPresent" >
     <mat-accordion>
         <mat-expansion-panel>
@@ -13,6 +13,10 @@
     <mat-card  class="example-card" >Parameter
       <form #myForm="ngForm" (submit)="onDone(myForm.value)">
         <input name="resourceName" #paramname placeholder="Parameter Name" ngModel required> <br>
+        <input name="Type" placeholder="Type" ngModel list="paramtypes" >
+        <datalist id="paramtypes" label="Parameter Types" > 
+          <option *ngFor="let i of paramTypes" [value]="i"> {{i}} </option>
+        </datalist>
         <!-- <input name="AllowedPattern" placeholder="Allowed Pattern" ngModel pattern='[\\A-Z0-9]*'> <br> -->
         <div *ngFor="let j of resPropkeys">
           <input ngModel type="text" [name]="j" [placeholder]="j" [matTooltip]="resProp[j]" >
@@ -34,4 +38,4 @@
   </mat-expansion-panel>
   </mat-accordion>
 </div>
-</mat-card>
+

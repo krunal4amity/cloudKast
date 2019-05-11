@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JsonResultService } from '../json-result.service';
 import { UsefulUtilsService } from '../useful-utils.service';
 import {KeysPipePipe} from '../keys-pipe.pipe'
+//import {ResAttributes} from './ResAttributes'
 
 
 @Component({
@@ -26,10 +27,116 @@ export class IntrinsicFunctionsComponent implements OnInit {
   fnselectTip="e.g. The following example returns: 'grapes'. { \"Fn::Select\" : [ \"1\", [ \"apples\", \"grapes\", \"oranges\", \"mangoes\" ]]}. For the Fn::Select index value, you can use the Ref and Fn::FindInMap functions. For the Fn::Select list of objects, you can use the following functions: Fn::FindInMap, Fn::GetAtt, Fn::GetAZs, Fn::If, Fn::Split, Ref";
   fnsplitTip="e.g. The following example splits a string at each vertical bar (|). The function returns [\"a\", \"b\", \"c\"]. { \"Fn::Split\" : [ \"|\" , \"a|b|c\" ] }. If you split a string with consecutive delimiters, the resulting list will include an empty string. For the Fn::Split delimiter, you cannot use any functions. You must specify a string value. For the Fn::Split list of values, you can use the following functions: Fn::Base64,Fn::FindInMap,Fn::GetAtt,Fn::GetAZs,Fn::If,Fn::ImportValue,Fn::Join,Fn::Select,Fn::Sub,Ref"
   fnsubTip="The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify. e.g. { \"Fn::Sub\": [ \"www.${Domain}\", { \"Domain\": {\"Ref\" : \"RootDomainName\" }} ]}. For the String parameter, you cannot use any functions. You must specify a string value.For the VarName and VarValue parameters, you can use the following functions: Fn::Base64, Fn::FindInMap, Fn::GetAtt,Fn::GetAZs,Fn::If,Fn::ImportValue,Fn::Join,Fn::Select,Ref"
+  
+  ResAttributes = {
+    "AWS::EC2::Instance":["AvailabilityZone","PrivateDnsName","PublicDnsName","PrivateIp","PublicIp"],
+    "AWS::DynamoDB::Table":["Arn","StreamArn"],
+    "AWS::EC2::CapacityReservation":["AvailabilityZone","AvailableInstanceCount","InstanceType", "Tenancy", "TotalInstanceCount"],
+    "AWS::EC2::EIP":["AllocationId"],
+    "AWS::EC2::NetworkInterface":["PrimaryPrivateIpAddress","SecondaryPrivateIpAddresses"],
+    "AWS::EC2::SecurityGroup":["VpcId","GroupId"],
+    "AWS::EC2::Subnet":["AvailabilityZone","Ipv6CidrBlocks","NetworkAclAssociationId","VpcId"],
+    "AWS::EC2::SubnetNetworkAclAssociation":["AssociationId"],
+    "AWS::EC2::VPC":["CidrBlock","CidrBlockAssociations","DefaultNetworkAcl","DefaultSecurityGroup","Ipv6CidrBlocks"],
+    "AWS::AmazonMQ::Broker":["Arn","ConfigurationId","ConfigurationRevision"],
+    "AWS::AmazonMQ::Configuration":["Arn","Revision"],
+    "AWS::ApiGateway::DomainName":["DistributionDomainName"],
+    "AWS::ApiGateway::RestApi":["RootResourceId"],
+    "AWS::ApiGatewayV2::DomainName":["RegionalDomainName","RegionalHostedZoneId"],
+    "AWS::AppMesh::Mesh":["Arn","MeshName","Uid"],
+    "AWS::AppMesh::Route":["Arn","MeshName","RouteName","Uid","VirtualRouterName"],
+    "AWS::AppMesh::VirtualNode":["Arn","MeshName","Uid","VirtualNodeName"],
+    "AWS::AppMesh::VirtualRouter":["Arn","MeshName","Uid","VirtualRouterName"],
+    "AWS::AppMesh::VirtualService":["Arn","MeshName","Uid","VirtualServiceName"],
+    "AWS::AppStream::ImageBuilder":["StreamingUrl"],
+    "AWS::Cloud9::EnvironmentEC2":["Arn","Name"],
+    "AWS::CloudFormation::WaitCondition":["Data"],
+    "AWS::CloudFormation::Stack":["Outputs.NestedStackOutputName"],
+    "AWS::CloudFront::Distribution":["DomainName"],
+    "AWS::CloudFront::CloudFrontOriginAccessIdentity":["S3CanonicalUserId"],
+    "AWS::CloudTrail::Trail":["Arn","SnsTopicArn"],
+    "AWS::CloudWatch::Alarm":["Arn"],
+    "AWS::CodeBuild::Project":["Arn"],
+    "AWS::CodeCommit::Repository":["Arn","CloneUrlHttp","CloneUrlSsh","Name"],
+    "AWS::CodePipeline::Pipeline":["Version"],
+    "AWS::CodePipeline::Webhook":["Url"],
+    "AWS::Config::ConfigRule":["Arn","ConfigRuleId","Compliance.Type"],
+    "AWS::DAX::Cluster":["Arn","ClusterDiscoveryEndpoint"],
+    "AWS::DirectoryService::MicrosoftAD":["Alias","DnsIpAddresses"],
+    "AWS::DirectoryService::SimpleAD":["Alias","DnsIpAddresses"],
+    "AWS::DLM::LifecyclePolicy":["Arn"],
+    "AWS::DocDB::DBCluster":["ClusterResourceId","Endpoint","ReadEndpoint","Port"],
+    "AWS::DocDB::DBInstance":["Endpoint","Port"],
+    "AWS::ECR::Repository":["Arn"],
+    "AWS::ECS::Cluster":["Arn"],
+    "AWS::ECS::Service":["Name"],
+    "AWS::EKS::Cluster":["Arn","CertificateAuthorityData","Endpoint"],
+    "AWS::ElastiCache::CacheCluster":["ConfigurationEndpoint.Address","ConfigurationEndpoint.Port","RedisEndpoint.Address","RedisEndpoint.Port"],
+    "AWS::ElastiCache::ReplicationGroup":["ConfigurationEndPoint.Address","ConfigurationEndPoint.Port","PrimaryEndPoint.Address","PrimaryEndPoint.Port","ReadEndPoint.Addresses","ReadEndPoint.Ports","ReadEndPoint.Addresses.List","ReadEndPoint.Ports.List"],
+    "AWS::ElasticBeanstalk::Environment":["EndpointURL"],
+    "AWS::ElasticLoadBalancing::LoadBalancer":["CanonicalHostedZoneName","CanonicalHostedZoneNameID","DNSName","SourceSecurityGroup.GroupName","SourceSecurityGroup.OwnerAlias"],
+    "AWS::ElasticLoadBalancingV2::LoadBalancer":["DNSName","CanonicalHostedZoneID","LoadBalancerFullName","LoadBalancerName","SecurityGroups"],
+    "AWS::ElasticLoadBalancingV2::TargetGroup":["LoadBalancerArns","TargetGroupFullName","TargetGroupName"],
+    "AWS::Elasticsearch::Domain":["DomainArn","DomainEndpoint"],
+    "AWS::EMR::Cluster":["MasterPublicDNS"],
+    "AWS::Events::Rule":["Arn"],
+    "AWS::Greengrass::ConnectorDefinition":["Arn","Id","LatestVersionArn","Name"],
+    "AWS::Greengrass::CoreDefinition":["Arn","Id","LatestVersionArn","Name"],
+    "AWS::Greengrass::DeviceDefinition":["Arn","Id","LatestVersionArn", "Name"],
+    "AWS::Greengrass::FunctionDefinition":["Id"],
+    "AWS::Greengrass::FunctionDefinitionVersion":["Arn"],
+    "AWS::Greengrass::Group":["Arn","Id","LatestVersionArn","Name","RoleArn","RoleAttachedAt"],
+    "AWS::Greengrass::LoggerDefinition":["Arn","Id","LatestVersionArn","Name"],
+    "AWS::Greengrass::ResourceDefinition":["Arn","Id","LatestVersionArn","Name"],
+    "AWS::Greengrass::SubscriptionDefinition":["Arn","Id","LatestVersionArn","Name"],
+    "AWS::IAM::AccessKey":["SecretAccessKey"],
+    "AWS::IAM::Group":["Arn"],
+    "AWS::IAM::InstanceProfile":["Arn"],
+    "AWS::IAM::Role":["Arn"],
+    "AWS::IAM::User":["Arn"],
+    "AWS::IoT::Certificate":["Arn"],
+    "AWS::IoT::Policy":["Arn"],
+    "AWS::IoT::TopicRule":["Arn"],
+    "AWS::IoT1Click::Device":["Arn","DeviceId","Enabled"],
+    "AWS::IoT1Click::Placement":["PlacementName","ProjectName"],
+    "AWS::IoT1Click::Project":["ProjectName","Arn"],
+    "AWS::Kinesis::Stream":["Arn"],
+    "AWS::Kinesis::StreamConsumer":["ConsumerARN","ConsumerCreationTimestamp","ConsumerName","ConsumerStatus","StreamARN"],
+    "AWS::KinesisFirehose::DeliveryStream":["Arn"],
+    "AWS::KMS::Key":["Arn"],
+    "AWS::Lambda::Function":["Arn"],
+    "AWS::Lambda::Version":["Version"],
+    "AWS::Logs::Destination":["Arn"],
+    "AWS::Logs::LogGroup":["Arn"],
+    "AWS::OpsWorks::Instance":["AvailabilityZone","PrivateDnsName","PrivateIp","PublicDnsName","PublicIp"],
+    "AWS::OpsWorks::UserProfile":["SshUserName"],
+    "AWS::OpsWorksCM::Server":["Arn","Endpoint"],
+    "AWS:RAM::ResourceShare":["Arn"],
+    "AWS::Redshift::Cluster":["Endpoint.Address","Endpoint.Port"],
+    "AWS::RDS::DBCluster":["Endpoint.Address","Endpoint.Port","ReadEndpoint.Address"],
+    "AWS::RDS::DBInstance":["Endpoint.Address","Endpoint.Port"],
+    "AWS::RoboMaker::Fleet":["Arn"],
+    "AWS::RoboMaker::RobotApplication":["Arn","CurrentRevisionId"],
+    "AWS::RoboMaker::SimulationApplication":["Arn","CurrentRevisionId"],
+    "AWS::Route53::HostedZone":["NameServers"],
+    "AWS::Route53Resolver::ResolverEndpoint":["Arn","Direction","HostedVPCId","IpAddressCount","Name","ResolverEndpointId"],
+    "AWS::Route53Resolver::ResolverRule":["Arn","DomainName","ResolverEndpointId","ResolverRuleId","TargetIps"],
+    "AWS::Route53Resolver::ResolverRuleAssociation":["Name","ResolverRuleAssociationId","ResolverRuleId","VPCId"],
+    "AWS::S3::Bucket":["Arn","DomainName","DualStackDomainName","WebsiteURL"],
+    "AWS::Serverless::Function":["Arn"],
+    "AWS::ServiceDiscovery::HttpNamespace":["Arn","Id"],
+    "AWS::ServiceDiscovery::PrivateDnsNamespace":["Arn","Id"],
+    "AWS::ServiceDiscovery::PublicDnsNamespace":["Arn","Id"],
+    "AWS::ServiceDiscovery::Service":["Arn","Id","Name"],
+    "AWS::SNS::Topic":["TopicName"],
+    "AWS::StepFunctions::Activity":["Name"],
+    "AWS::StepFunctions::StateMachine":["Name"],
+    "AWS::SQS::Queue":["Arn","QueueName"]
+  }
 
   
   ngOnInit() {
-  }
+   }
 
   addFnjoinElement(){
     this.fnjoinCount+=1;
@@ -49,6 +156,10 @@ export class IntrinsicFunctionsComponent implements OnInit {
   getKeys(val){
     console.log(Object.keys(val))
     return Object.keys(val);
+  }
+
+  retResList(){
+    return Object.keys(this.jsonresult.jsonresult.Resources).length > 0 ? Object.keys(this.jsonresult.jsonresult.Resources) : [];
   }
 
   retReflist(){
@@ -246,7 +357,10 @@ export class IntrinsicFunctionsComponent implements OnInit {
       case "Fn::Sub":
         var subArr=[];
         subArr.push(value.sub);
-        subArr.push(this.utility.getProperJson(value.subvalue))
+        if(value.subvalue!=''){
+          subArr.push(this.utility.getProperJson(value.subvalue))
+        }
+
         this.funcobj={
           "Fn::Sub": this.utility.getProperJson(subArr)
         }
