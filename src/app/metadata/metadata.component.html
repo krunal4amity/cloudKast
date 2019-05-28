@@ -4,7 +4,7 @@
 <div class="example-meta-container">
     <mat-form-field>
       <input matInput [(ngModel)]="result.jsonresult.AWSTemplateFormatVersion" type="text" 
-        name="cfnversion" placeholder="Template Version"  readonly>
+        name="cfnversion" placeholder="Template Version" matTooltip="cannot be edited"  readonly>
       </mat-form-field> 
       <mat-form-field>
         <textarea matInput [(ngModel)]="result.jsonresult.Description" 

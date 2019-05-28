@@ -26,7 +26,7 @@ export class CommonResourceComponent implements OnInit {
   resPropkeys;
   reqColor="red";
   conColor="darkorange";
-  arrayTip="e.g. [ Obj1,Obj2..] OR str1,str2.."
+  arrayTip="semicolon (;) delimited items"
   objectTip="Object e.g. {\"a\":\"b\"} "
 
   constructor(public result:JsonResultService, 
@@ -179,7 +179,7 @@ export class CommonResourceComponent implements OnInit {
                   this.doCommonResAttributesArrayType(value.resourceName,prop,value[prop])
                 }
                 else{
-                  this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getArray(value[prop]);
+                  this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getSemicolonArray(value[prop]);
                 }
               }
               else {
@@ -211,7 +211,7 @@ export class CommonResourceComponent implements OnInit {
   doCommonResAttributesArrayType(resname, propname, propvalue){
     if(propname!=undefined){
       //this.result.jsonresult.Resources[resname][propname]={};
-      this.result.jsonresult.Resources[resname][propname]=this.utility.getArray(propvalue);
+      this.result.jsonresult.Resources[resname][propname]=this.utility.getSemicolonArray(propvalue);
     }
   }
 

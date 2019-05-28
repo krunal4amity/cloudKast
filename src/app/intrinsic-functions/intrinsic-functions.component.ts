@@ -387,8 +387,8 @@ export class IntrinsicFunctionsComponent implements OnInit {
       
       case "Fn::Equals":
           var equalArray=[];
-          equalArray.push(value.equal1);
-          equalArray.push(value.equal2);
+          equalArray.push(this.utility.getProperJson(value.equal1));
+          equalArray.push(this.utility.getProperJson(value.equal2));
           this.funcobj={
             "Fn::Equals":this.utility.getProperJson(equalArray)
           }

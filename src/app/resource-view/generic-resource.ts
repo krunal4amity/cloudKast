@@ -103,7 +103,7 @@ export class GenericResource{
             if(typeof(this.resObject["Properties"][prop])=="object"){
                 if(Array.isArray(this.resObject["Properties"][prop])){
                   //console.log("in array block")
-                  this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getArray(value[prop]);
+                  this.result.jsonresult.Resources[value.resourceName]["Properties"][prop]=this.utility.getSemicolonArray(value[prop]);
                 }
                 else {
                     //console.log("in object block")

@@ -42,6 +42,30 @@ export class UsefulUtilsService {
     }
   }
 
+  getSemicolonArray(val){
+    try{
+      if((val as String).includes("{")){
+        var kk=((val as String).split(";"));
+        var mm =[]
+        kk.forEach((i)=>{
+          if((i as String).includes("{")){
+            mm.push(JSON.parse(i));
+          }
+          else{
+            mm.push(i);
+          }
+        })
+        return mm;  
+      }
+      else{
+        return val.length!=0?((val as String).split(";")):undefined
+      }
+    }
+    catch(error){
+      alert("Oops! An Error occurred. Please check the input field type")
+    }    
+  }
+
   doUnescape(val){
     //var kk = this.getProperJson(val);
     if(typeof(val)=='string'){

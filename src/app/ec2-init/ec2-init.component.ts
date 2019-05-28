@@ -136,20 +136,45 @@ export class EC2InitComponent implements OnInit {
     this.commandsCount+=1; this.commandsArray.push(this.commandsCount);
   }
 
+  // getArray(val){
+  //   try {
+  //     if((val as String).includes("{")){
+  //       //console.log("in array of objects...")
+  //       return JSON.parse(val);
+  //     }
+  //      else{
+  //        //console.log("in array of strings...")
+  //        return val.length!=0?((val as String).split(",")):[];
+  //      } 
+  //   } catch (error) {
+  //       alert("Oops! An error occurred. Please check the input field type");
+  //   }
+  // }
+
   getArray(val){
-    try {
+    try{
       if((val as String).includes("{")){
-        //console.log("in array of objects...")
-        return JSON.parse(val);
+        var kk=((val as String).split(";"));
+        var mm =[]
+        kk.forEach((i)=>{
+          if((i as String).includes("{")){
+            mm.push(JSON.parse(i));
+          }
+          else{
+            mm.push(i);
+          }
+        })
+        return mm;  
       }
-       else{
-         //console.log("in array of strings...")
-         return val.length!=0?((val as String).split(",")):[];
-       } 
-    } catch (error) {
-        alert("Oops! An error occurred. Please check the input field type");
+      else{
+        return val.length!=0?((val as String).split(";")):undefined
+      }
     }
+    catch(error){
+      alert("Oops! An Error occurred. Please check the input field type")
+    }    
   }
+
 
   onSourcesDone(value){
     this.myobj["AWS::CloudFormation::Init"]["config"]["sources"]={};

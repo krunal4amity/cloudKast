@@ -1,3 +1,23 @@
 .example-card {
-    max-width: 400px;
+    width: 320px;
+    height: 350px;
+    float: left;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .example-header-image {
+    background-size: cover;
+    background-image: none
+  }
+
+  .example-video{
+    padding-left: 10px;
+    padding-right: 10px;
   }

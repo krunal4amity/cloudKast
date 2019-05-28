@@ -22,7 +22,7 @@ export class JsonResultService {
     Parameters:{},
     Mappings:{},
     Conditions:{},
-    Transform:{},
+    Transform:undefined,
     Resources:{},
     Outputs:{}
   }

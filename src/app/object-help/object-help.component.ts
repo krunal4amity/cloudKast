@@ -73,7 +73,7 @@ getLooper(loopval,formval,myobj){
     else{
       if(Array.isArray(loopval[j])){
         //myobj[j]=(formval[j] as String).split("|");
-        myobj[j]=this.util.getArray(formval[j]);
+        myobj[j]=this.util.getSemicolonArray(formval[j]);
       }
       else{
         myobj[j]={}

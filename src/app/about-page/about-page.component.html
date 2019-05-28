@@ -1,28 +1,55 @@
 <img src="../../assets/img/cloudkast-logo.jpg"  height="50" width="250" alt="logo">
 
-<p mat-body-strong>
-  Creating AWS cloudformation templates just got easy!! CloudKast is a UI based AWS cloudformation 
-  template generator. It provides insighful description <mat-icon>info</mat-icon> for each property 
-  of AWS resources e.g. valid values it can hold, whether required, conditional or optional. Properties that are custom objects are available to be created and edited 
-  using 'Property Dealer' <mat-icon>edit</mat-icon>  that is accessible against each property. 'Function
-  manager' is a helper utility to generate intrinsic functions on the go. Each AWS resource is provided 
-  with a <mat-icon>file_copy</mat-icon> that allows copying the resource's JSON. The generated 
-  cloudformation template can also be validated against an AWS account by providing AWS credentials. 
-  
-</p>
-<p mat-body >
-  Parsing JSON-formatted text files to see the resources that are in your template and their relationships can be difficult.
+<h4 mat-line>
+  Authoring AWS CloudFormation templates is a dreadful task (and so is writing any long piece of complex
+  json or yaml for that matter).   Parsing JSON-formatted text files to see the resources that are in your template and their relationships can be difficult.
   When you author template resources in a text editor, you must manually edit JSON or YAML, which can be tedious and error-prone.
-  By using CloudKast, you spend less time manually coding your templates and more time designing your AWS infrastructure.
-</p>
-
-
-
-<br>
+This has led to emergence of many enterprise and community driven tools in the market over the last few years. These tools can be broadly
+divided into the following categories:
 <mat-list role="list">
-  <h3 mat-caption>Features not supported</h3>
-  <li>Custom Resources</li>
-  <li>Metadata Section</li>
-  <li>Transform Section</li>
-  <li>configset under AWS::CloudFormation::Init for EC2</li>
-</mat-list>
+    <li>IDE plugins e.g. Jetbrains plugin for CloudFormation etc.</li>
+    <li>GUI based tools e.g. AWS CloudFormation designer</li>
+    <li>DSLs e.g. GoFormation, cfndsl, SparkleFormation, Troposphere etc.</li>
+  </mat-list>
+  All these existing tools, however useful, end up pushing up the entry barrier even higher and thus 
+  fall short in one criterion: <i>Quick Adaptability.</i>
+</h4>
+
+<h4 mat-line >
+  Ever wished if you could generate AWS CloudFormation templates just the way you generate
+      AWS IAM policies using AWS policy generator? Well, now you can with CloudKast. CloudKast is an online AWS cloudformation template generator.  
+      CloudKast is well suited for busy developers, junior administrators and cloud architects alike.
+   The following are the features
+  provided by CloudKast:
+  <mat-list role="list">
+    <li>An intuitive form-based UI interface to generate CloudFormation templates online.</li>
+    <li>Tooltips next to each field providing short description along with valid values it can hold wherever applicable.</li>
+    <li>Resource section provides colored info icons next to each property indicating whether the property/attribute is required, conditional or optional.</li>
+    <li>Form validation for each section to ensure that 'required' fields are filled in.</li>
+    <li>An 'intrinsic function' widget to generate functions.</li>
+    <li>Autopopulating certain function fields with valid values e.g. Fn::GetAtt and Ref get auto-populated with respective parameters, resources or resources' attributes.</li>
+    <li>A 'Property Dealer' widget next to each custom property of a resource i.e. properties that do not hold primitive values. </li>
+    <li>Import functionality to import existing templates for further modification. </li>
+    <li>A copy button next to each section, to be mainly used while modifying an imported template.</li>
+    <li>'Download' option to download the template to local comupter.</li>
+    <li>Upload option to upload the template securely to an AWS s3 bucket.</li>
+    <li>Validate the template securely by providing AWS credentials of your AWS account. </li>
+    <li>A sleek, simple and easy-to-use UI interface</li>
+    <li>Provides 'How-To' videos to further reduce the little learning curve required. </li>
+    <li>Runs fully within the browser memory with no backend. </li>
+    <li>Only supports JSON.</li>
+    </mat-list>
+</h4>
+
+<h4 mat-line>
+    CloudKast is still in <u>development preview</u>  and periodically updated with more AWS resources. If you come across any issues/bugs or want to request
+    an enhancement, we would love to hear from you. Send it to email ID provided in the upper right corner. Please note the 
+    following features that are currently not supported:
+    <mat-list role="list">
+        <li>Serverless Application Model</li>
+        <li>Metadata Section</li>
+        <li>Transform Section</li>
+      </mat-list>
+</h4>
+
+

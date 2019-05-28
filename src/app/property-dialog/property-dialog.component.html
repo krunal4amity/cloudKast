@@ -1,4 +1,5 @@
 <mat-card>Property Dealer
+  <mat-icon color="warn" [matTooltip]="prophelp" >help</mat-icon>
   <form id="propform" #propform="ngForm" (submit)="onDone(propform.value)" >
       <select  #resname name="resname" form="propform" ngModel>
         <optgroup  [label]="curRes" >
@@ -24,7 +25,7 @@
                     <div *ngIf="getDepth(selProp[w][x]) >0  && getTypeof(selProp[w][x])=='object'">
                       <div *ngFor="let k of getKeys(isArray(selProp[w][x])?[]:selProp[w][x])">
                           <input *ngIf="getTypeof(selProp[w][x][k])=='string' || isArray(selProp[w][x][k])" 
-                          type="text" [name]="k" [placeholder]="k" ngModel [matTooltip]="isArray(selProp[w][x][k])?selProp[w][x][k][0]:selProp[w][x][k]" style="margin-left: 40px" >         
+                          type="text" [name]="k" [placeholder]="k" ngModel [matTooltip]="isArray(selProp[w][x][k])?selProp[w][x][k][0]:selProp[w][x][k]" style="margin-left: 40px" >
                       </div>
                     </div>
                   </div>

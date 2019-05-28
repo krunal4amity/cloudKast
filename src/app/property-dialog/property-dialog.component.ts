@@ -11,7 +11,11 @@ export class PropertyDialogComponent implements OnInit {
 
   resKeys:String[];
   propKeys:String[];
+  reqColor="red";
+  conColor="darkorange";
   propSent=false;
+  //prophelp="Properties that include '*' in the tooltip are 'required' properties. Properties that include '**' in the tooltip are 'conditional' properties. Properties that include none of these in the tooltip are optional properties. Tooltips also indicate the type of property e.g. string, boolean, list of strings, list of custom object. Properties that are of type array denoated by 'List of strings' or 'List of <custom type>' in the tooltip. Pleaes click on the 'plus' sign above to populate another 'Property Dealer' widget to generate values of custom objects to be inserted as a value in another property. List of strings are to be entered as is separated by commas. List of custom types are to be enterred within sqaure brackets. Use the function widget below to generate function values."
+  prophelp="Tooltip guide: Required properties(starting with *), Conditional properties(starting with **). \n A property of type array should start with 'List of <string|<object>>' \n Enter list of items delimited by semicolon(;) for a property of type array. \nUse the 'plus' icon above to open an additional property dealer widget. Use the function widget below to generate functions. "
   selProp:Object;
   isCopyReady:Boolean=false;
   @Input('curRes') curRes:string;
@@ -45,6 +49,39 @@ onDone(value){
   this.propSent=true;
 }
 
+isRequired(value){
+  if(this.getTypeof(value)=='object'){
+    if(this.isArray(value)){
+      if(value[0].includes("*")){
+        if(value[0].startsWith("**")){
+          return {"color":this.conColor, "required":false};
+        }else{
+          return {"color":this.reqColor, "required":true};
+        }
+      }
+    }
+    else{
+      if(value['info'].includes("*")){
+        if(value['info'].startsWith("**")){
+          return {"color":this.conColor, "required": false};
+        }else{
+          return {"color":this.reqColor, "required":true};
+        }
+      }
+    }
+  }
+  else{
+    if(value.includes("*")){
+      if(value.startsWith("**")){
+        return {"color":this.conColor, "required": false};
+      }else{
+        return {"color":this.reqColor, "required":true};
+      }
+    }
+  }
+  return {"color":"grey", "required": false};
+}
+
 getSelProp(value){
   var a1=Object.values(this.mainObj.comProp);
   var a2:Object;
@@ -72,7 +109,7 @@ getLooper(loopval,formval,myobj){
     else{
       if(Array.isArray(loopval[j])){
         //myobj[j]=(formval[j] as String).split("|");
-        myobj[j]=this.util.getArray(formval[j]);
+        myobj[j]=this.util.getSemicolonArray(formval[j]);
       }
       else{
         myobj[j]={}

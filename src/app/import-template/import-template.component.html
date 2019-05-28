@@ -57,7 +57,7 @@ matTooltip="Please select the cloudformation template json file" > Import file <
   <mat-expansion-panel *ngIf="fileImported">
       <mat-expansion-panel-header>
           <mat-panel-title>Mappings:</mat-panel-title>
-          <mat-panel-description> Number of Mappings : {{getKeys(selProp['Mappings']).length}} </mat-panel-description>
+          <mat-panel-description> Number of Mappings : {{getSectionCount(selProp['Mappings'])}} </mat-panel-description>
       </mat-expansion-panel-header>
   <form *ngIf="fileImported"  #mapform="ngForm" (submit)="onMappingSubmit(mapform.value)">
     <div *ngFor="let i of getKeys(selProp['Mappings'])" >
@@ -79,7 +79,7 @@ matTooltip="Please select the cloudformation template json file" > Import file <
   <mat-expansion-panel *ngIf="fileImported">
       <mat-expansion-panel-header>
           <mat-panel-title>Conditions:</mat-panel-title>
-          <mat-panel-description> Number of Conditions : {{getKeys(selProp['Conditions']).length}} </mat-panel-description>
+          <mat-panel-description> Number of Conditions : {{getSectionCount(selProp['Conditions'])}} </mat-panel-description>
       </mat-expansion-panel-header>    
   <form *ngIf="fileImported"  #conform="ngForm" (submit)="onConditionSubmit(conform.value)">
 
@@ -103,7 +103,7 @@ matTooltip="Please select the cloudformation template json file" > Import file <
   <mat-expansion-panel *ngIf="fileImported">
       <mat-expansion-panel-header>
           <mat-panel-title>Resources:</mat-panel-title>
-          <mat-panel-description> Number of Resources : {{getKeys(selProp['Resources']).length}} </mat-panel-description>
+          <mat-panel-description> Number of Resources : {{getSectionCount(selProp['Resources'])}} </mat-panel-description>
       </mat-expansion-panel-header>    
   <form *ngIf="fileImported"  #resform="ngForm" (submit)="onResourceSubmit(resform.value)">
     <div *ngFor="let i of getKeys(selProp['Resources'])" >
@@ -126,7 +126,7 @@ matTooltip="Please select the cloudformation template json file" > Import file <
   <mat-expansion-panel *ngIf="fileImported"> 
       <mat-expansion-panel-header>
           <mat-panel-title>Outputs:</mat-panel-title>
-          <mat-panel-description> Number of Outputs : {{getKeys(selProp['Outputs']).length}} </mat-panel-description>
+          <mat-panel-description> Number of Outputs : {{getSectionCount(selProp['Outputs'])}} </mat-panel-description>
       </mat-expansion-panel-header>    
   <form *ngIf="fileImported"  #outform="ngForm" (submit)="onOutputSubmit(outform.value)">
     Outputs:  <br>

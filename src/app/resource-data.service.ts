@@ -14,7 +14,7 @@ export class ResourceDataService {
         "Key":"*The name of an input parameter that is in the associated SSM document.",
         "Value":["*The value of an input parameter. List of String values"]
       },
-      "BlockDeviceMapping":{
+      "BlockDeviceMapping_ec2":{
         "DeviceName":"*The name of the device within Amazon EC2. Recommended for EBS Volumes: /dev/sd[f-p], /dev/sd[f-p][1-6](only for paravirtual).",
         "Ebs":{
           "DeleteOnTermination":"Boolean. Determines whether to delete the volume on instance termination. The default value is true.",
@@ -24,7 +24,7 @@ export class ResourceDataService {
           "VolumeSize":"**Integer. The size of the volume, in GiBs.Constraints: 1-16,384 for gp2, 4-16,384 for io1, 500-16,384 for st1, 500-16,384 for sc1, and 1-1,024 for standard. If you specify a snapshot, the volume size must be equal to or larger than the snapshot size.Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the snapshot size.",
           "VolumeType":"The volume type. If you set the type to io1, you must also set the Iops property. The volume type. This can be gp2 for General Purpose SSD, io1 for Provisioned IOPS SSD, st1 for Throughput Optimized HDD, sc1 for Cold HDD, or standard for Magnetic volumes.Defaults: If no volume type is specified, the default is standard in us-east-1, eu-west-1, eu-central-1, us-west-2, us-west-1, sa-east-1, ap-northeast-1, ap-northeast-2, ap-southeast-1, ap-southeast-2, ap-south-1, us-gov-west-1, and cn-north-1. In all other Regions, EBS defaults to gp2. standard | io1 | gp2 | sc1 | st1"
         },
-        "NoDevice":"Boolean. This property can be used to unmap a defined device.",
+        "NoDevice":"This property can be used to unmap a defined device. Suppresses the specified device included in the block device mapping of the AMI. To suppress a device, specify an empty string {}.",
         "VirtualName":"**The name of the virtual device. The name must be in the form ephemeralX where X is a number starting from zero (0); for example, ephemeral0. You can specify either VirtualName or Ebs, but not both."
       },
       "CreditSpecification":{
@@ -36,19 +36,19 @@ export class ResourceDataService {
       "ElasticInferenceAccelerator":{
         "Type":"*The type of elastic inference accelerator. The possible values are eia1.medium, eia1.large, and eia1.xlarge."
       },
-      "LaunchTemplateSpecification":{
+      "LaunchTemplateSpecification_ec2":{
         "LaunchTemplateId":"**The ID of the launch template.You must specify either LaunchTemplateId or LaunchTemplateName, but not both.",
         "LaunchTemplateName":"**You must specify either LaunchTemplateId or LaunchTemplateName, but not both",
         "Version":"*The version number. AWS CloudFormation does not support specifying $Latest, or $Default for the template version number."
       },
-      "LicenseSpecification":{
+      "LicenseSpecification_ec2":{
         "LicenseConfigurationArn":"*The Amazon Resource Name (ARN) of license configuration to associate with the instance."
       },
-      "MountPoint":{
+      "MountPoint_ec2":{
         "Device":"*How the device is exposed to the instance (such as /dev/sdh, or xvdh).",
         "VolumeId":"*The ID of the Amazon EBS volume. The volume and instance must be within the same Availability Zone and the instance must be running."
       },
-      "NetworkInterface":{
+      "NetworkInterface_ec2":{
         "AssociatePublicIpAddress":"Boolean. Indicates whether the network interface receives a public IP address. You can associate a public IP address with a network interface only if it has a device index of eth0 and if it is a new network interface (not an existing one). In other words, if you specify true, don't specify a network interface ID.",
         "DeleteOnTermination":"Boolean. Whether to delete the network interface when the instance terminates.",
         "Description":"",
@@ -66,12 +66,19 @@ export class ResourceDataService {
         "AssociationParameters":["List of Amazon EC2 Instance SsmAssociations AssociationParameters"],
         "DocumentName":"*The name of an SSM document to associate with the instance."
       },
-      "CreationPolicy":{
+      "CreationPolicy_ec2":{
         "ResourceSignal" : {    
           "Count" : "Integer. Default :1 . The number of success signals AWS CloudFormation must receive before it sets the resource status as CREATE_COMPLETE. If the resource receives a failure signal or doesn't receive the specified number of signals before the timeout period expires, the resource creation fails and AWS CloudFormation rolls the stack back.",
           "Timeout" : "The length of time that AWS CloudFormation waits for the number of signals that was specified in the Count property. The timeout period starts after AWS CloudFormation starts creating the resource, and the timeout expires no sooner than the time you specify but can occur shortly thereafter. The maximum time that you can specify is 12 hours. The value must be in ISO8601 duration format, in the form: 'PT#H#M#S', where each # is the number of hours, minutes, and seconds, respectively. For best results, specify a period of time that gives your instances plenty of time to get up and running. A shorter timeout can cause a rollback. Default: PT5M (5 minutes)"
         }
-      }
+      },
+      "InstanceIpv6Address_ec2":{
+        "Ipv6Address" : "*String, The IPv6 Address."
+      },
+      "PrivateIpAddressSpecification_ec2":{
+        "Primary" : "*Boolean. Indicates whether the private IPv4 address is the primary private IPv4 address. Only one IPv4 address can be designated as primary",
+        "PrivateIpAddress" : "*String"
+      }           
     },
     "AWS::EC2::SecurityGroup":{
       "SecurityGroupEgress":{

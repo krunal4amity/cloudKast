@@ -20,7 +20,7 @@
         <!-- <input name="AllowedPattern" placeholder="Allowed Pattern" ngModel pattern='[\\A-Z0-9]*'> <br> -->
         <div *ngFor="let j of resPropkeys">
           <input ngModel type="text" [name]="j" [placeholder]="j" [matTooltip]="resProp[j]" >
-          <mat-icon *ngIf="j=='AllowedPattern'" color="warn"  [matTooltip]="regexTooltip" >info</mat-icon>
+          <mat-icon *ngIf="j=='AllowedPattern'" color="warn"  [matTooltip]="regexTooltip" >warning</mat-icon>
         </div>
         <button [disabled]="myForm.invalid" type="submit" mat-icon-button>
           <mat-icon>done</mat-icon>
