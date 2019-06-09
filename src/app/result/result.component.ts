@@ -3,6 +3,7 @@ import { JsonResultService, CloudFormation } from '../json-result.service';
 //import { saveAs } from 'file-saver';
 var AWS = require('aws-sdk');
 //var FileSaver = require('file-saver');
+var yaml = require('js-yaml')
 
 @Component({
   selector: 'app-result',
@@ -19,6 +20,9 @@ export class ResultComponent implements OnInit {
   showSpinner=false;
   uploadColor="";
   validateColor="";
+  isYamlOn=false;
+  isJsonOn=true;
+  yamlTemplate;
   
 
   getDownloadHref(){
@@ -32,6 +36,34 @@ export class ResultComponent implements OnInit {
     //FileSaver.saveAs(blob, "cloudfurner.json");
     //var file = new File([JSON.stringify(this.jsonresult.jsonresult)], "hello world.txt", {type: "text/plain;charset=utf-8"});
     //saveAs(file);
+    var data = str + encodeURI(this.yamlTemplate);
+    link.setAttribute('href',data);
+    link.setAttribute('download',"cloudkast.yaml")
+    link.click();
+  }
+
+  convertToYaml(){
+    this.isYamlOn=true;
+    this.isJsonOn=false;
+    this.yamlTemplate=yaml.safeDump(this.jsonresult.jsonresult,{"skipInvalid":true})
+  }
+
+  copyToClipboardJson(){
+    var textArea= document.createElement("textarea");
+    textArea.value = JSON.stringify(this.jsonresult.jsonresult);
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+  }
+
+  copyToClipboardYaml(){
+    var textArea= document.createElement("textarea");
+    textArea.value = this.yamlTemplate
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
   }
 
    validateTemplate(value){

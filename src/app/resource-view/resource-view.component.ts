@@ -127,6 +127,38 @@ export class ResourceViewComponent implements OnInit {
   ecs_service=[];
   ecs_taskdefinition=[];
 
+  //cloudtrail
+  cloudtrail_trail=[]
+
+  //cloudwatch
+  cw_alarm=[]
+  cw_dashboard=[]
+
+  //CloudWatch Logs
+  cwlogs_destination=[]
+  cwlogs_loggroup=[]
+  cwlogs_logstream=[]
+  cwlogs_metricfilter=[]
+  cwlogs_subscriptionfilter=[]
+
+  //CloudWatch Events
+  cwevents_eventbuspolicy=[]
+  cwevents_rule=[]
+
+  //EKS
+  eks_cluster=[]
+
+  //EFS
+  efs_filesystem=[]
+  efs_mounttarget=[]
+
+  //S3
+  s3_bucket=[]
+  s3_bucketpolicy=[]
+
+  //ecr
+  ecr_repository=[]
+
   serviceAddition(subresource:SubResource){
     //console.log(`${subresource.resourcename} ${subresource.resourcecount} ${subresource.resourcesyntax}`);
     subresource.resourcecount = subresource.resourcecount + 1;
@@ -247,6 +279,46 @@ export class ResourceViewComponent implements OnInit {
       if(this.resource_detail[2]=="Cluster") this.ecs_cluster.push(subresource.resourcecount);
       if(this.resource_detail[2]=="Service") this.ecs_service.push(subresource.resourcecount);
       if(this.resource_detail[2]=="TaskDefinition") this.ecs_taskdefinition.push(subresource.resourcecount);
+        break;
+      
+      case "CloudTrail":
+      if(this.resource_detail[2]=="Trail") this.cloudtrail_trail.push(subresource.resourcecount);
+        break;
+
+      case "CloudWatch":
+      if(this.resource_detail[2]=="Alarm") this.cw_alarm.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="Dashboard") this.cw_dashboard.push(subresource.resourcecount);
+        break;
+
+      case "Logs":
+      if(this.resource_detail[2]=="Destination") this.cwlogs_destination.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="LogGroup") this.cwlogs_loggroup.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="LogStream") this.cwlogs_logstream.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="MetricFilter") this.cwlogs_metricfilter.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="SubscriptionFilter") this.cwlogs_subscriptionfilter.push(subresource.resourcecount);
+        break;
+
+      case "Events":
+      if(this.resource_detail[2]=="EventBusPolicy") this.cwevents_eventbuspolicy.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="Rule") this.cwevents_rule.push(subresource.resourcecount);
+        break;
+
+      case "EKS":
+      if(this.resource_detail[2]=="Cluster") this.eks_cluster.push(subresource.resourcecount);
+        break;
+
+      case "EFS":
+      if(this.resource_detail[2]=="FileSystem") this.efs_filesystem.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="MountTarget") this.efs_mounttarget.push(subresource.resourcecount);
+        break;
+
+      case "S3":
+      if(this.resource_detail[2]=="Bucket") this.s3_bucket.push(subresource.resourcecount);
+      if(this.resource_detail[2]=="BucketPolicy") this.s3_bucketpolicy.push(subresource.resourcecount);
+        break;
+
+      case "ECR":
+      if(this.resource_detail[2]=="Repository") this.ecr_repository.push(subresource.resourcecount);
         break;
 
       default:

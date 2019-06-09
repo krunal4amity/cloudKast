@@ -291,6 +291,62 @@
             <app-common-resource [myresource]="awsresource.ecs_taskdefinition" [isTagged]="false" ></app-common-resource>
       </div>                                    
 
+      <div *ngFor="let i of cloudtrail_trail" >
+            <app-common-resource [myresource]="awsresource.cloudtrail_trail" [isTagged]="true" ></app-common-resource>
+      </div>
+
+      <div *ngFor="let i of cw_alarm" >
+            <app-common-resource [myresource]="awsresource.cw_alarm" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+      <div *ngFor="let i of cw_dashboard" >
+            <app-common-resource [myresource]="awsresource.cw_dashboard" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+
+      <div *ngFor="let i of cwlogs_destination" >
+            <app-common-resource [myresource]="awsresource.cwlogs_destination" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+      <div *ngFor="let i of cwlogs_loggroup" >
+            <app-common-resource [myresource]="awsresource.cwlogs_loggroup" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+      <div *ngFor="let i of cwlogs_logstream" >
+            <app-common-resource [myresource]="awsresource.cwlogs_logstream" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+      <div *ngFor="let i of cwlogs_metricfilter" >
+            <app-common-resource [myresource]="awsresource.cwlogs_metricfilter" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+      <div *ngFor="let i of cwlogs_subscriptionfilter" >
+            <app-common-resource [myresource]="awsresource.cwlogs_subscriptionfilter" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+
+      <div *ngFor="let i of cwevents_eventbuspolicy" >
+            <app-common-resource [myresource]="awsresource.cwevents_eventbuspolicy" [isTagged]="false" ></app-common-resource>
+      </div>                                    
+      <div *ngFor="let i of cwevents_rule" >
+            <app-common-resource [myresource]="awsresource.cwevents_rule" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+
+      <div *ngFor="let i of eks_cluster" >
+            <app-common-resource [myresource]="awsresource.eks_cluster" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+
+      <div *ngFor="let i of efs_filesystem" >
+            <app-common-resource [myresource]="awsresource.efs_filesystem" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of efs_mounttarget" >
+            <app-common-resource [myresource]="awsresource.efs_mounttarget" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+
+      <div *ngFor="let i of s3_bucket" >
+            <app-common-resource [myresource]="awsresource.s3_bucket" [isTagged]="true" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of s3_bucketpolicy" >
+            <app-common-resource [myresource]="awsresource.s3_bucketpolicy" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+
+      <div *ngFor="let i of ecr_repository" >
+            <app-common-resource [myresource]="awsresource.ecr_repository" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      
 
     </div>
 </mat-drawer-container>

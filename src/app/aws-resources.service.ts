@@ -1015,6 +1015,197 @@ elbv2_targetgroup={
       }
   }
   
+  cloudtrail_trail={
+    "Type" : "AWS::CloudTrail::Trail",
+    "Properties" : {
+        "CloudWatchLogsLogGroupArn" : "**String. Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.",
+        "CloudWatchLogsRoleArn" : "**String. Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.",
+        "EnableLogFileValidation" : "Boolean. Specifies whether log file validation is enabled. The default is false. When you disable log file integrity validation, the chain of digest files is broken after one hour. CloudTrail will not create digest files for log files that were delivered during a period in which log file integrity validation was disabled. For example, if you enable log file integrity validation at noon on January 1, disable it at noon on January 2, and re-enable it at noon on January 10, digest files will not be created for the log files delivered from noon on January 2 to noon on January 10. The same applies whenever you stop CloudTrail logging or delete a trail.",
+        "EventSelectors" : ["Type: List of EventSelector. Use event selectors to further specify the management and data event settings for your trail. By default, trails created without specific event selectors will be configured to log all read and write management events, and no data events. When an event occurs in your account, CloudTrail evaluates the event selector for all trails. For each trail, if the event matches any event selector, the trail processes and logs the event. If the event doesn't match any event selector, the trail doesn't log the event.  ##"],
+        "IncludeGlobalServiceEvents" : "Boolean. Specifies whether the trail is publishing events from global services such as IAM to the log files.",
+        "IsLogging" : "*Boolean. Whether the CloudTrail is currently logging AWS API calls.",
+        "IsMultiRegionTrail" : "Boolean. Specifies whether the trail applies only to the current region or to all regions. The default is false. If the trail exists only in the current region and this value is set to true, shadow trails (replications of the trail) will be created in the other regions. If the trail exists in all regions and this value is set to false, the trail will remain in the region where it was created, and its shadow trails in other regions will be deleted. As a best practice, consider using trails that log events in all regions.",
+        "KMSKeyId" : "String. Specifies the KMS key ID to use to encrypt the logs delivered by CloudTrail. The value can be an alias name prefixed by 'alias/', a fully specified ARN to an alias, a fully specified ARN to a key, or a globally unique identifier. ",
+        "S3BucketName" : "*String. Specifies the name of the Amazon S3 bucket designated for publishing log files.",
+        "S3KeyPrefix" : "String. Specifies the Amazon S3 key prefix that comes after the name of the bucket you have designated for log file delivery. ",
+        "SnsTopicName" : "String. Specifies the name of the Amazon SNS topic defined for notification of log file delivery. The maximum length is 256 characters.",
+        "TrailName" : "String. Specifies the name of the trail or trail ARN. e.g. arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail"
+      }
+  }
+  
+  cw_alarm={
+    "Type" : "AWS::CloudWatch::Alarm",
+    "Properties" : {
+        "ActionsEnabled" : "Boolean. Indicates whether actions should be executed during any changes to the alarm state.",
+        "AlarmActions" : ["Type: List of String. Maximum : 5. The list of actions to execute when this alarm transitions into an ALARM state from any other state. Specify each action as an Amazon Resource Name (ARN). "],
+        "AlarmDescription" : "String. Description of the alarm.",
+        "AlarmName" : "String. The name of the alarm. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the alarm name. If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+        "ComparisonOperator" : "*String. Allowed Values: GreaterThanOrEqualToThreshold | GreaterThanThreshold | LessThanOrEqualToThreshold | LessThanThreshold. The arithmetic operation to use when comparing the specified statistic and threshold. The specified statistic value is used as the first operand.",
+        "DatapointsToAlarm" : "Integer. The number of datapoints that must be breaching to trigger the alarm. This is used only if you are setting an 'M out of N' alarm. In that case, this value is the M. ",
+        "Dimensions" : ["Type: List of Dimension. The dimensions for the metric associated with the alarm. For an alarm based on a math expression, you can't specify Dimensions. Instead, you use Metrics.  ## "],
+        "EvaluateLowSampleCountPercentile" : "String. Used only for alarms based on percentiles. If ignore, the alarm state does not change during periods with too few data points to be statistically significant. If evaluate or this parameter is not used, the alarm is always evaluated and possibly changes state no matter how many data points are available.",
+        "EvaluationPeriods" : "*Integer. The number of periods over which data is compared to the specified threshold.",
+        "ExtendedStatistic" : "String. The percentile statistic for the metric associated with the alarm. Specify a value between p0.0 and p100. Pattern: p(\\d{1,2}(\\.\\d{0,2})?|100)",
+        "InsufficientDataActions" : ["List of string. The actions to execute when this alarm transitions to the INSUFFICIENT_DATA state from any other state. Each action is specified as an Amazon Resource Name (ARN)."],
+        "MetricName" : "String. The name of the metric associated with the alarm. This is required for an alarm based on a metric. For an alarm based on a math expression, you use Metrics instead and you can't specify MetricName.",
+        "Metrics" : [ "Type: List of MetricDataQuery. An array that enables you to create an alarm based on the result of a metric math expression. Each item in the array either retrieves a metric or performs a math expression. If you specify the Metrics parameter, you cannot specify MetricName, Dimensions, Period, Namespace, Statistic, or ExtendedStatistic.  ##"],
+        "Namespace" : "String. The namespace of the metric associated with the alarm. This is required for an alarm based on a metric. For an alarm based on a math expression, you can't specify Namespace and you use Metrics instead.",
+        "OKActions" : ["List of string. The actions to execute when this alarm transitions to the OK state from any other state. Each action is specified as an Amazon Resource Name (ARN)." ],
+        "Period" : "Integer. The period, in seconds, over which the statistic is applied. This is required for an alarm based on a metric. For an alarm based on a math expression, you can't specify Period, and instead you use the Metrics parameter.",
+        "Statistic" : "String. Allowed Values: Average | Maximum | Minimum | SampleCount | Sum. The statistic for the metric associated with the alarm, other than percentile. For percentile statistics, use ExtendedStatistic.",
+        "Threshold" : "*Double. The value to compare with the specified statistic.",
+        "TreatMissingData" : "String. Sets how this alarm is to handle missing data points. Valid values are breaching, notBreaching, ignore, and missing. If you omit this parameter, the default behavior of missing is used.",
+        "Unit" : "Allowed Values: Bits | Bits/Second | Bytes | Bytes/Second | Count | Count/Second | Gigabits | Gigabits/Second | Gigabytes | Gigabytes/Second | Kilobits | Kilobits/Second | Kilobytes | Kilobytes/Second | Megabits | Megabits/Second | Megabytes | Megabytes/Second | Microseconds | Milliseconds | None | Percent | Seconds | Terabits | Terabits/Second | Terabytes | Terabytes/Second"
+      }
+  }
+  cw_dashboard={
+    "Type" : "AWS::CloudWatch::Dashboard",
+    "Properties" : {
+        "DashboardBody" : "*String. The detailed information about the dashboard in JSON format, including the widgets to include and their location on the dashboard. This parameter is required.",
+        "DashboardName" : "String. The name of the dashboard. The name must be between 1 and 255 characters. If you do not specify a name, one will be generated automatically."
+      }
+  }
+
+  cwlogs_destination={
+    "Type" : "AWS::Logs::Destination",
+    "Properties" : {
+        "DestinationName" : "*String",
+        "DestinationPolicy" : {"info":"*An IAM policy document that governs which AWS accounts can create subscription filters against this destination. Please use IAM policy generator to generate the policy."},
+        "RoleArn" : "*String. The ARN of an IAM role that permits CloudWatch Logs to send data to the specified AWS resource.",
+        "TargetArn" : "*String. The Amazon Resource Name (ARN) of the physical target to where the log events are delivered (for example, a Kinesis stream)."
+      }
+  }
+  
+  
+  cwlogs_loggroup={
+    "Type" : "AWS::Logs::LogGroup",
+    "Properties" : {
+        "LogGroupName" : "String. The name of the log group. If you don't specify a name, AWS CloudFormation generates a unique ID for the log group.",
+        "RetentionInDays" : "Integer. The number of days to retain the log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653."
+      }
+  }
+
+  cwlogs_logstream={
+    "Type" : "AWS::Logs::LogStream",
+    "Properties" : {
+        "LogGroupName" : "*String",
+        "LogStreamName" : "String"
+      }
+  }
   
 
+  cwlogs_metricfilter={
+    "Type" : "AWS::Logs::MetricFilter",
+    "Properties" : {
+        "FilterPattern" : "*String. A filter pattern for extracting metric data out of ingested log events.",
+        "LogGroupName" : "*String. The name of an existing log group that you want to associate with this metric filter. ",
+        "MetricTransformations" : ["Type: List of MetricTransformation##"]
+      }
+  }
+
+  cwlogs_subscriptionfilter={
+    "Type" : "AWS::Logs::SubscriptionFilter",
+    "Properties" : {
+        "DestinationArn" : "*String",
+        "FilterPattern" : "*String. The filtering expressions that restrict what gets delivered to the destination AWS resource. ",
+        "LogGroupName" : "*String. The log group to associate with the subscription filter. All log events that are uploaded to this log group are filtered and delivered to the specified AWS resource if the filter pattern matches the log events.",
+        "RoleArn" : "String. The ARN of an IAM role that grants CloudWatch Logs permissions to deliver ingested log events to the destination stream."
+      }
+  }
+  
+  cwevents_eventbuspolicy={
+    "Type" : "AWS::Events::EventBusPolicy",
+    "Properties" : {
+        "Action" : "*String. The action that you are enabling the other account to perform. Currently, this must be events:PutEvents.",
+        "Condition" : {"info":"Condition is a JSON string that you can use to limit the event bus permissions that you're granting only to accounts that fulfill the condition. Currently, the only supported condition is membership in a certain AWS organization. If you specify Condition with an AWS organization ID and specify '*' as the value for Principal, you grant permission to all the accounts in the named organization. ##"},
+        "Principal" : "*String. The 12-digit AWS account ID that you are permitting to put events to your default event bus. Specify '*' to permit any account to put events to your default event bus. If you specify '*'' without specifying Condition, avoid creating rules that may match undesirable events. To create more secure rules, make sure that the event pattern for each rule contains an account field with a specific account ID from which to receive events. Rules with an account field do not match any events sent from other accounts.",
+        "StatementId" : "*String. An identifier string for the external account that you're granting permissions to. If you later want to revoke the permission for this external account, you must specify this StatementId."
+      }
+  }
+  
+  cwevents_rule={
+    "Type" : "AWS::Events::Rule",
+    "Properties" : {
+        "Description" : "String",
+        "EventPattern" : {"info":"Describes which events CloudWatch Events routes to the specified target. For more information, see Event Patterns in CloudWatch Events in the Amazon CloudWatch Events User Guide. "},
+        "Name" : "String. The name of the rule. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the rule name. If you specify a name, you can't perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+        "RoleArn" : "String. The Amazon Resource Name (ARN) of the role that is used for target invocation.",
+        "ScheduleExpression" : "String. The scheduling expression that determines when and how often the rule runs.",
+        "State" : "String. Indicates whether the rule is enabled. Allowed Values: DISABLED | ENABLED",
+        "Targets" : ["Type: List of Target. The resources that CloudWatch Events routes events to and invokes when the rule is triggered.  If you're setting the event bus of another account as the target and that account granted permission to your account through an organization instead of directly by the account ID, you must specify a RoleArn with proper permissions in the Target structure. ##" ]
+      }
+  }
+  
+  eks_cluster={
+    "Type" : "AWS::EKS::Cluster",
+    "Properties" : {
+        "Name" : "String",
+        "ResourcesVpcConfig" : {"info":"*Type: ResourcesVpcConfig. The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes. You must specify at least two subnets. You can specify up to five security groups, but we recommend that you use a dedicated security group for your cluster control plane. ##"},
+        "RoleArn" : "*String. The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to other AWS API operations on your behalf. ",
+        "Version" : "String. The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available in Amazon EKS is used."
+      }
+  }
+
+  efs_filesystem={
+    "Type" : "AWS::EFS::FileSystem",
+    "Properties" : {
+        "Encrypted" : "**Boolean. A Boolean value that, if true, creates an encrypted file system. When creating an encrypted file system, you have the option of specifying a KmsKeyId for an existing AWS Key Management Service (AWS KMS) customer master key (CMK). If you don't specify a CMK, then the default CMK for Amazon EFS, /aws/elasticfilesystem, is used to protect the encrypted file system.",
+        "FileSystemTags" : ["Type: List of ElasticFileSystemTag. A value that specifies to create one or more tags associated with the file system. Each tag is a user-defined key-value pair. Name your file system on creation by including a 'Key':'Name','Value':'{value}' key-value pair. ##"],
+        "KmsKeyId" : "String. The ID of the AWS KMS CMK to be used to protect the encrypted file system. This parameter is only required if you want to use a nondefault CMK. If this parameter is not specified, the default CMK for Amazon EFS is used. If KmsKeyId is specified, the Encrypted parameter must be set to true.",
+        "PerformanceMode" : "String. The performance mode of the file system. We recommend generalPurpose performance mode for most file systems. File systems using the maxIO performance mode can scale to higher levels of aggregate throughput and operations per second with a tradeoff of slightly higher latencies for most file operations. The performance mode can't be changed after the file system has been created. Allowed Values: generalPurpose | maxIO",
+        "ProvisionedThroughputInMibps" : "**Double. The throughput, measured in MiB/s, that you want to provision for a file system that you're creating. Valid values are 1-1024. Required if ThroughputMode is set to provisioned. The upper limit for throughput is 1024 MiB/s. You can get this limit increased by contacting AWS Support.",
+        "ThroughputMode" : "String. The throughput mode for the file system to be created. There are two throughput modes to choose from for your file system: bursting and provisioned. If you set ThroughputMode to provisioned, you must also set a value for ProvisionedThroughPutInMibps. You can decrease your file system's throughput in Provisioned Throughput mode or change between the throughput modes as long as it’s been more than 24 hours since the last decrease or throughput mode change. Allowed Values: bursting | provisioned"
+      }
+  }
+
+  efs_mounttarget={
+    "Type" : "AWS::EFS::MountTarget",
+    "Properties" : {
+        "FileSystemId" : "*String. The ID of the file system for which to create the mount target.",
+        "IpAddress" : "String. Valid IPv4 address within the address range of the specified subnet.",
+        "SecurityGroups" : ["Type: List of String. Up to five VPC security group IDs, of the form sg-xxxxxxxx. These must be for the same VPC as subnet specified."],
+        "SubnetId" : "*String"
+      }
+  }
+  
+  s3_bucket={
+    "Type" : "AWS::S3::Bucket",
+    "Properties" : {
+        "AccelerateConfiguration" : {"info":"Type: AccelerateConfiguration. Configures the transfer acceleration state for an Amazon S3 bucket.##"},
+        "AccessControl" : "String. A canned access control list (ACL) that grants predefined permissions to the bucket. valid values : private | public-read | public-read-write | aws-exec-read | authenticated-read | bucket-owner-read | bucket-owner-full-control | log-delivery-write",
+        "AnalyticsConfigurations" : ["Type: List of AnalyticsConfiguration. Specifies the configuration and any analyses for the analytics filter of an Amazon S3 bucket. ##"],
+        "BucketEncryption" : {"info":"Type: BucketEncryption. Specifies default encryption for a bucket using server-side encryption with Amazon S3-managed keys (SSE-S3) or AWS KMS-managed keys (SSE-KMS) bucket. ##"},
+        "BucketName" : "String. A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the bucket name.",
+        "CorsConfiguration" : {"info":"Type: CorsConfiguration. Describes the cross-origin access configuration for objects in an Amazon S3 bucket. ##"},
+        "InventoryConfigurations" : ["Type: List of InventoryConfiguration. Specifies the inventory configuration for an Amazon S3 bucket.##"],
+        "LifecycleConfiguration" : {"info":"Type: LifecycleConfiguration. Specifies the lifecycle configuration for objects in an Amazon S3 bucket.##"},
+        "LoggingConfiguration" : {"info":"Type: LoggingConfiguration. Settings that define where logs are stored. ##"},
+        "MetricsConfigurations" : ["List of MetricsConfiguration,Specifies a metrics configuration for the CloudWatch request metrics (specified by the metrics configuration ID) from an Amazon S3 bucket. If you're updating an existing metrics configuration, note that this is a full replacement of the existing metrics configuration.##"],
+        "NotificationConfiguration" : {"info":"Type: NotificationConfiguration. Configuration that defines how Amazon S3 handles bucket notifications.##"},
+        "PublicAccessBlockConfiguration" : {"info":"Type: PublicAccessBlockConfiguration. Configuration that defines how Amazon S3 handles public access.##"},
+        "ReplicationConfiguration" : {"info":"Type: ReplicationConfiguration. Configuration for replicating objects in an S3 bucket. To enable replication, you must also enable versioning by using the VersioningConfiguration property. Amazon S3 can store replicated objects in only one destination bucket. The destination bucket must already exist and be in a different AWS Region than your source bucket.##"},
+        "VersioningConfiguration" : {"info":"Type: VersioningConfiguration. Enables multiple versions of all objects in this bucket. You might enable versioning to prevent objects from being deleted or overwritten by mistake or to archive objects so that you can retrieve previous versions of them.##"},
+        "WebsiteConfiguration" : {"info":"Type: WebsiteConfiguration. Information used to configure the bucket as a static website. ##"}
+      }
+  }
+
+  s3_bucketpolicy={
+    "Type" : "AWS::S3::BucketPolicy",
+    "Properties" : {
+        "Bucket" : "*String. The name of the Amazon S3 bucket to which the policy applies.",
+        "PolicyDocument" : {"info":"*Type: Json. A policy document containing permissions to add to the specified bucket. Please use AWS Policy Generator to generate policies."}
+      }
+  }  
+
+
+  ecr_repository={
+    "Type" : "AWS::ECR::Repository",
+    "Properties" : {
+        "LifecyclePolicy" : {"info":"Lifecycle Policy ##"},
+        "RepositoryName" : "String. The name to use for the repository. The repository name may be specified on its own (such as nginx-web-app) or it can be prepended with a namespace to group the repository into a category (such as project-a/nginx-web-app). If you don't specify a name,",
+        "RepositoryPolicyText" : {"info":"Type : Json. Create a policy using AWS IAM policy generator"}
+      }
+  }
+  
+  
 }

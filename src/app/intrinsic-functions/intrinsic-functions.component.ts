@@ -15,6 +15,8 @@ export class IntrinsicFunctionsComponent implements OnInit {
   
   constructor(public jsonresult:JsonResultService, public utility:UsefulUtilsService) { }
 
+  tagCount=0;
+  tagArray=[];
   funcobj={};
   fnjoinArray=[];
   fnjoinCount=0;
@@ -138,6 +140,21 @@ export class IntrinsicFunctionsComponent implements OnInit {
   ngOnInit() {
    }
 
+   addTag(){
+    this.tagCount+=1;
+    this.tagArray.push(this.tagCount);
+  }
+
+  getTagArray(value){
+    var tags=[];
+    this.tagArray.forEach((i)=>{
+    tags.push({
+        "Key":value[`tagKey${i}`]? this.utility.getProperJson(value[`tagKey${i}`]):undefined,
+        "Value":value[`tagValue${i}`]?this.utility.getProperJson(value[`tagValue${i}`]):undefined
+    })
+    });
+    return tags.length==0?undefined:tags
+  }
   addFnjoinElement(){
     this.fnjoinCount+=1;
     this.fnjoinArray.push(this.fnjoinCount);
@@ -370,7 +387,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
         this.funcobj={
           "Fn::Transform": {
             "Name":value.traname,
-            "Parameters":this.utility.getProperJson(value.trapara)
+            "Parameters":this.getTagArray(value)
           } 
         }
         break; 

@@ -16,7 +16,7 @@ export class TransformComponent implements OnInit {
   }
 
   onDone(value){
-    this.jsonresult.jsonresult.Transform= this.util.getArray(value.transform);
+    this.jsonresult.jsonresult.Transform= (value.transform as String).split(",");
   }
 
   onRemove(){

@@ -24,10 +24,13 @@ export class CommonResourceComponent implements OnInit {
   currentService:String;
   currentResource:String;
   resPropkeys;
+  isNewProp=false;
+  newProp=[];
   reqColor="red";
   conColor="darkorange";
   arrayTip="semicolon (;) delimited items"
-  objectTip="Object e.g. {\"a\":\"b\"} "
+  objectTip="Json Object e.g. {\"a\":\"b\"} "
+  newPropTip="Add a new custom Property. Useful in conjunction with Transform section or for certain resources e.g. AWS::CloudFormation::CustomResource. Adding custom attributes is not supported. Note: Existing standard properties cannot be added except for 'Tags'."
 
   constructor(public result:JsonResultService, 
     public utility:UsefulUtilsService, 
@@ -139,6 +142,17 @@ export class CommonResourceComponent implements OnInit {
     console.log(res);
   }
   
+  addNewProperty(value){
+    if(this.resObject.Properties.hasOwnProperty(value)){
+      alert(`Property by name ${value} already exists.`)
+      return
+    }
+
+    if(value != ''){
+      this.resObject.Properties[value]=undefined
+      this.newProp.push(value);
+    }
+  }
 
 
   copyToClipboard(value){
@@ -167,7 +181,7 @@ export class CommonResourceComponent implements OnInit {
     }
 
   onDone(value){
-      //console.log(value);
+      console.log(value);
       this.isCopyReady=true;
       this.result.jsonresult.Resources[value.resourceName]={};
       this.result.jsonresult.Resources[value.resourceName]["Properties"]={}
@@ -199,7 +213,12 @@ export class CommonResourceComponent implements OnInit {
             }
           }
       })
+
+      if(this.tagArray.length==0  && value["Tags"]!='' ){
+        this.result.jsonresult.Resources[value.resourceName]["Properties"]["Tags"]=this.utility.getProperJson(value["Tags"])
+      }else{
       this.result.jsonresult.Resources[value.resourceName]["Properties"]["Tags"]=this.getTagArray(value);
+      }
 
       if(this.resObject["Type"]=="AWS::EC2::Instance"){
         this.result.jsonresult.Resources[value.resourceName]["Properties"]["Metadata"]=undefined;

@@ -18,7 +18,19 @@
         <option value="Fn::If"></option>
         <option value="Fn::Not"></option>
         <option value="Fn::Or"></option>
+        <option value="Fn::Transform"></option>
     </datalist>
+
+    <div *ngIf="funcname.value=='Fn::Transform'" >
+      <input type="text" ngModel name="traname">
+      <button type="button" mat-raised-button (click)="addTag()" matTooltip="Add a list of key-value pair for Parameters." >
+          <mat-icon>add</mat-icon>
+        </button><br>
+        <div *ngFor="let i of tagArray" >
+            <input name="tagKey{{i}}" placeholder="Key" ngModel>
+            <input name="tagValue{{i}}" placeholder="Value" ngModel>
+      </div>
+    </div>
 
     <div *ngIf="funcname.value=='Ref'" >
       <select name="refvalue" form="funcform" ngModel #refvalue>

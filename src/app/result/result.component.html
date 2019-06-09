@@ -43,4 +43,9 @@
     <mat-spinner  *ngIf="(s3message.length==0 || message.length==0) && showSpinner" ></mat-spinner>
     <span [ngStyle]="{'color':uploadColor}" *ngIf="s3message.length!=0"> {{s3message}} </span> <br>
     <span [ngStyle]="{'color':validateColor}" *ngIf="message.length!=0"> {{message}} </span> <br>
-    <pre>{{jsonresult.jsonresult | json}}</pre>
+    <button type="button" color="primary"  [disabled]="isJsonOn"  mat-raised-button (click)="isJsonOn=true;isYamlOn=false" >json</button>
+    <button type="button" color="accent"  [disabled]="isYamlOn"  mat-raised-button (click)="convertToYaml();isYamlOn=true;isJsonOn=false"  > yaml(beta) </button>
+    <button *ngIf="isJsonOn"  mat-icon-button color="primary" matTooltip="copy Json" (click)="copyToClipboardJson()"> <mat-icon>file_copy</mat-icon> </button>
+    <button *ngIf="isYamlOn" mat-icon-button color="accent" matTooltip="copy yaml" (click)="copyToClipboardYaml()"> <mat-icon>file_copy</mat-icon> </button>
+    <pre *ngIf="isJsonOn" >{{jsonresult.jsonresult | json}}</pre>
+    <pre *ngIf="isYamlOn" > {{yamlTemplate}}  </pre>

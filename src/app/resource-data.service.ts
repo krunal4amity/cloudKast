@@ -885,15 +885,300 @@ export class ResourceDataService {
       "VolumeFrom":{
         "ReadOnly" : "Boolean. If this value is true, the container has read-only access to the volume. If this value is false, then the container can write to the volume. The default value is false",
         "SourceContainer" : "String. The name of another container within the same task definition from which to mount volumes."
+      } 
+    },
+    "AWS::CloudTrail::Trail":{
+      "EventSelector":{
+        "DataResources" : ["Type: List of DataResource. CloudTrail supports data event logging for Amazon S3 objects and AWS Lambda functions. You can specify up to 250 resources for an individual event selector, but the total number of data resources cannot exceed 250 across all event selectors in a trail. This limit does not apply if you configure resource logging for all data events.## "],
+        "IncludeManagementEvents" : "Boolean. Specify if you want your event selector to include management events for your trail.",
+        "ReadWriteType" : "String. Allowed Values: All | ReadOnly | WriteOnly"
+      },
+      "DataResource":{
+        "Type" : "*String. The resource type in which you want to log data events. You can specify AWS::S3::Object or AWS::Lambda::Function resources. ",
+        "Values" : ["Type: List of String. An array of Amazon Resource Name (ARN) strings or partial ARN strings for the specified objects. To log data events for all objects in all S3 buckets in your AWS account, specify the prefix as arn:aws:s3:::. To log data events for all objects in an S3 bucket, specify the bucket and an empty object prefix such as arn:aws:s3:::bucket-1/. The trail logs data events for all objects in this S3 bucket. To log data events for specific objects, specify the S3 bucket and object prefix such as arn:aws:s3:::bucket-1/example-images. The trail logs data events for objects in this S3 bucket that match the prefix.To log data events for all functions in your AWS account, specify the prefix as arn:aws:lambda. To log data events for a specific Lambda function, specify the function ARN."]
       }
-      
-      
-      
-      
-      
-      
-      
-      
+    },
+    "AWS::CloudWatch::Alarm":{
+      "Dimension":{
+        "Name" : "*String",
+        "Value" : "*String"
+      },
+      "Metric":{
+        "Dimensions" : [ "Type: List of Dimensions##"],
+        "MetricName" : "String",
+        "Namespace" : "String"
+      },
+      "MetricDataQuery":{
+        "Expression" : "String. The math expression to be performed on the returned data, if this object is performing a math expression. This expression can use the Id of the other metrics to refer to those metrics, and can also use the Id of other expressions to use the result of those expressions.",
+        "Id" : "*String. A short name used to tie this object to the results in the response. This name must be unique within a single call to GetMetricData. If you are performing math expressions on this set of data, this name represents that data and can serve as a variable in the mathematical expression. The valid characters are letters, numbers, and underscore. The first character must be a lowercase letter.",
+        "Label" : "String. A human-readable label for this metric or expression. This is especially useful if this is an expression, so that you know what the value represents. If the metric or expression is shown in a CloudWatch dashboard widget, the label is shown. If Label is omitted, CloudWatch generates a default.",
+        "MetricStat" : {
+          "Metric" : "*Type: Metric.## ",
+          "Period" : "*Integer. The period, in seconds, to use when retrieving the metric",
+          "Stat" : "*String. The statistic to return. It can include any CloudWatch statistic or extended statistic.",
+          "Unit" : "String. Allowed Values: Bits | Bits/Second | Bytes | Bytes/Second | Count | Count/Second | Gigabits | Gigabits/Second | Gigabytes | Gigabytes/Second | Kilobits | Kilobits/Second | Kilobytes | Kilobytes/Second | Megabits | Megabits/Second | Megabytes | Megabytes/Second | Microseconds | Milliseconds | None | Percent | Seconds | Terabits | Terabits/Second | Terabytes | Terabytes/Second"
+        }
+        ,
+        "ReturnData" : "Boolean. This option indicates whether to return the timestamps and raw data values of this metric. If you are performing this call just to do math expressions and do not also need the raw data returned, you can specify False. If you omit this, the default of True is used."
+      }      
+    },
+    "AWS::Logs::MetricFilter":{
+      "MetricTransformation":{
+        "DefaultValue" : "Double. (Optional) The value to emit when a filter pattern does not match a log event. This value can be null.",
+        "MetricName" : "*String",
+        "MetricNamespace" : "*String",
+        "MetricValue" : "*String. The value that is published to the CloudWatch metric. For example, if you're counting the occurrences of a particular term like Error, specify 1 for the metric value. If you're counting the number of bytes transferred, reference the value that is in the log event by using $ followed by the name of the field that you specified in the filter pattern, such as $size."
+      }      
+    },
+    "AWS::Events::EventBusPolicy":{
+      "Condition":{
+        "Key" : "String. Specifies the key for the condition. Currently the only supported key is aws:PrincipalOrgID.",
+        "Type" : "String. Specifies the type of condition. Currently the only supported value is StringEquals.",
+        "Value" : "String. Specifies the value for the key. Currently, this must be the ID of the organization."
+      }
+    },
+    "AWS::Events::Rule":{
+      "Target":{
+        "Arn" : "String",
+        "EcsParameters" : {
+          "TaskCount" : "Integer. The number of tasks to create based on TaskDefinition. The default is 1.",
+          "TaskDefinitionArn" : "*String. The ARN of the task definition to use. If no task revision is supplied, it defaults to the most recent revision at the time of resource creation."
+        },
+        "Id" : "*String. The ID of the target.",
+        "Input" : "String. Valid JSON text passed to the target. If you use this property, nothing from the event text itself is passed to the target.",
+        "InputPath" : "String. When you don't want to pass the entire matched event, InputPath describes which part of the event to pass to the target.",
+        "InputTransformer" : {
+          "InputPathsMap" : "Type: Map of String. {Key : Value, ...}. Map of JSON paths to be extracted from the event. You can then insert these in the template in InputTemplate to produce the output you want to be sent to the target. InputPathsMap is an array key-value pairs, where each value is a valid JSON path. You can have as many as 10 key-value pairs. You must use JSON dot notation, not bracket notation. The keys cannot start with 'AWS'",
+          "InputTemplate" : "*String. Input template where you specify placeholders that will be filled with the values of the keys from InputPathsMap to customize the data sent to the target. Enclose each InputPathsMaps value in brackets: <value> The InputTemplate must be valid JSON."
+        },
+        "KinesisParameters" :{
+          "PartitionKeyPath" : "*String. The JSON path to be extracted from the event and used as the partition key. "
+        },
+        "RoleArn" : "String",
+        "RunCommandParameters" : {
+          "RunCommandTargets" : ["Type: List of RunCommandTarget. The criteria (either InstanceIds or a tag) that specifies which EC2 instances the command is sent to. ##" ]
+        },
+        "SqsParameters" : {
+          "MessageGroupId" : "*String. The FIFO message group ID to use as the target."
+        }        
+      },
+      "RunCommandTarget":{
+        "Key" : "*String. Can be either tag: tag-key or InstanceIds.",
+        "Values" : ["*List of strings. If Key is tag: tag-key, Values is a list of tag values. If Key is InstanceIds, Values is a list of Amazon EC2 instance IDs." ]
+      }
+    },
+    "AWS::EKS::Cluster":{
+      "ResourcesVpcConfig":{
+        "SecurityGroupIds" : ["Type: List of String. Specify one or more security groups for the cross-account elastic network interfaces that Amazon EKS creates to use to allow communication between your worker nodes and the Kubernetes control plane. If you don't specify a security group, the default security group for your VPC is used."],
+        "SubnetIds" : ["* Type: List of string. Specify subnets for your Amazon EKS worker nodes. Amazon EKS creates cross-account elastic network interfaces in these subnets to allow communication between your worker nodes and the Kubernetes control plane."]
+      }      
+    },
+    "AWS::EFS::FileSystem":{
+      "ElasticFileSystemTag":{
+        "Key" : "*String",
+        "Value" : "*String"
+      }      
+    },
+    "AWS::S3::Bucket":{
+      "AccelerateConfiguration":{
+        "AccelerationStatus" : "*String. Allowed Values: Enabled | Suspended. "
+      },
+      "AnalyticsConfiguration":{
+        "Id" : "*String",
+        "Prefix" : "String. The prefix that an object must have to be included in the analytics results.",
+        "StorageClassAnalysis" : {
+          "DataExport" : {
+            "Destination" : {
+              "BucketAccountId" : "String. The account ID that owns the destination bucket. If no account ID is provided, the owner will not be validated prior to exporting data.",
+              "BucketArn" : "*String. The Amazon Resource Name (ARN) of the bucket to which data is exported.",
+              "Format" : "*String. Specifies the file format used when exporting data to Amazon S3.",
+              "Prefix" : "String. The prefix to use when exporting data. The prefix is prepended to all results."
+            },
+            "OutputSchemaVersion" : "*String. The version of the output schema to use when exporting data. Must be V_1."
+          }          
+        },
+        "TagFilters" : ["Type: List of TagFilter. The tags to use when evaluating an analytics filter. The analytics only includes objects that meet the filter's criteria. If no filter is specified, all of the contents of the bucket are included in the analysis.##" ]
+      },
+      "TagFilter":{
+        "Key" : "*String",
+        "Value" : "*String"
+      },
+      "BucketEncryption":{
+        "ServerSideEncryptionConfiguration" : ["*Type: List of ServerSideEncryptionRule. Specifies the default server-side-encryption configuration.##" ]
+      },
+      "ServerSideEncryptionRule":{
+        "ServerSideEncryptionByDefault" : {
+          "KMSMasterKeyID" : "String. KMS master key ID to use for the default encryption. This parameter is allowed if and only if SSEAlgorithm is set to aws:kms.",
+          "SSEAlgorithm" : "*String. Allowed Values: AES256 | aws:kms"
+        }        
+      },
+      "CorsConfiguration":{
+        "CorsRules" : ["*Type: List of CorsRule. A set of allowed origins and methods." ]
+      },
+      "CorsRule":{
+        "AllowedHeaders" : ["Type: List of String. Headers that are specified in the Access-Control-Request-Headers header. These headers are allowed in a preflight OPTIONS request. In response to any preflight OPTIONS request, Amazon S3 returns any requested headers that are allowed."],
+        "AllowedMethods" : ["*Type: List of String. An HTTP method that you allow the origin to execute. Valid values are GET, PUT, HEAD, POST, and DELETE." ],
+        "AllowedOrigins" : ["*Type: List of String. One or more origins you want customers to be able to access the bucket from."],
+        "ExposedHeaders" : ["Type: List of String. One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript XMLHttpRequest object)."],
+        "Id" : "String. A unique identifier for this rule. The value must be no more than 255 characters.",
+        "MaxAge" : "Integer. The time in seconds that your browser is to cache the preflight response for the specified resource."
+      },
+      "InventoryConfiguration":{
+        "Destination" : {
+          "BucketAccountId" : "String. The account ID that owns the destination bucket. If no account ID is provided, the owner will not be validated prior to exporting data.",
+          "BucketArn" : "*String. The Amazon Resource Name (ARN) of the bucket to which data is exported.",
+          "Format" : "*String. Specifies the file format used when exporting data to Amazon S3.",
+          "Prefix" : "String. The prefix to use when exporting data. The prefix is prepended to all results."
+        },
+        "Enabled" : "*Boolean. Specifies whether the inventory is enabled or disabled. If set to True, an inventory list is generated. If set to False, no inventory list is generated.",
+        "Id" : "*String. The ID used to identify the inventory configuration.",
+        "IncludedObjectVersions" : "*String. Allowed Values: All | Current. Object versions to include in the inventory list. If set to All, the list includes all the object versions, which adds the version-related fields VersionId, IsLatest, and DeleteMarker to the list. If set to Current, the list does not contain these version-related fields.",
+        "OptionalFields" : ["List of string. Contains the optional fields that are included in the inventory results."],
+        "Prefix" : "String. The prefix that is prepended to all inventory results.",
+        "ScheduleFrequency" : "*String. Specifies the schedule for generating inventory results."
+      },
+      "LifecycleConfiguration":{
+        "Rules" : ["*Type: List of Rule. ##"]
+      },
+      "Rule":{
+        "AbortIncompleteMultipartUpload" : {
+          "DaysAfterInitiation" : "*Integer. Specifies the number of days after which Amazon S3 aborts an incomplete multipart upload."
+        },
+        "ExpirationDate" : "**Type: Timestamp. Indicates when objects are deleted from Amazon S3 and Amazon S3 Glacier. The date value must be in ISO 8601 format. The time is always midnight UTC. If you specify an expiration and transition time, you must use the same time unit for both properties (either in days or by date). The expiration time must also be later than the transition time. You must specify at least one of the following properties: AbortIncompleteMultipartUpload, ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions.",
+        "ExpirationInDays" : "**Integer. Indicates the number of days after creation when objects are deleted from Amazon S3 and Amazon S3 Glacier. If you specify an expiration and transition time, you must use the same time unit for both properties (either in days or by date). The expiration time must also be later than the transition time.",
+        "Id" : "String. Unique identifier for the rule. The value can't be longer than 255 characters.",
+        "NoncurrentVersionExpirationInDays" : "**Integer. For buckets with versioning enabled (or suspended), specifies the time, in days, between when a new version of the object is uploaded to the bucket and when old versions of the object expire. When object versions expire, Amazon S3 permanently deletes them. If you specify a transition and expiration time, the expiration time must be later than the transition time.",
+        "NoncurrentVersionTransition" : {
+          "StorageClass" : "*String. Allowed Values: DEEP_ARCHIVE | GLACIER | INTELLIGENT_TIERING | ONEZONE_IA | STANDARD_IA",
+          "TransitionInDays" : "*Integer. Specifies the number of days an object is noncurrent before Amazon S3 can perform the associated action. For information about the noncurrent days calculations."
+        },
+        "NoncurrentVersionTransitions" : ["**Type: List of NoncurrentVersionTransition. "],
+        "Prefix" : "String. Object key prefix that identifies one or more objects to which this rule applies.",
+        "Status" : "*String. If Enabled, the rule is currently being applied. If Disabled, the rule is not currently being applied. Allowed Values: Disabled | Enabled",
+        "TagFilters" : ["Type: List of TagFilters. "],
+        "Transition" : {
+          "StorageClass" : "*String. Allowed Values: DEEP_ARCHIVE | GLACIER | INTELLIGENT_TIERING | ONEZONE_IA | STANDARD_IA",
+          "TransitionDate" : "**Timestamp. Indicates when objects are transitioned to the specified storage class. The date value must be in ISO 8601 format. The time is always midnight UTC.",
+          "TransitionInDays" : "**Integer. Indicates the number of days after creation when objects are transitioned to the specified storage class. The value must be a positive integer."
+        },
+        "Transitions" : ["Type: List of Transition" ]
+      },
+      "NoncurrentVersionTransition":{
+        "StorageClass" : "*String. Allowed Values: DEEP_ARCHIVE | GLACIER | INTELLIGENT_TIERING | ONEZONE_IA | STANDARD_IA",
+        "TransitionInDays" : "*Integer. Specifies the number of days an object is noncurrent before Amazon S3 can perform the associated action. For information about the noncurrent days calculations."
+      },
+      "Transition": {
+        "StorageClass" : "*String. Allowed Values: DEEP_ARCHIVE | GLACIER | INTELLIGENT_TIERING | ONEZONE_IA | STANDARD_IA",
+        "TransitionDate" : "**Timestamp. Indicates when objects are transitioned to the specified storage class. The date value must be in ISO 8601 format. The time is always midnight UTC.",
+        "TransitionInDays" : "**Integer. Indicates the number of days after creation when objects are transitioned to the specified storage class. The value must be a positive integer."
+      },
+      "LoggingConfiguration":{
+        "DestinationBucketName" : "String. The name of the bucket where Amazon S3 should store server access log files. You can store log files in any bucket that you own. By default, logs are stored in the bucket where the LoggingConfiguration property is defined.",
+        "LogFilePrefix" : "String. A prefix for all log object keys. If you store log files from multiple Amazon S3 buckets in a single bucket, you can use a prefix to distinguish which log files came from which bucket."
+      },
+      "MetricsConfiguration":{
+        "Id" : "*String",
+        "Prefix" : "String. The prefix that an object must have to be included in the metrics results.",
+        "TagFilters" : ["Type: List of TagFilters"]
+      },
+      "NotificationConfiguration":{
+        "LambdaConfigurations" : [ "List of LambdaConfiguration, ..." ],
+        "QueueConfigurations" : [ "List of QueueConfiguration"],
+        "TopicConfigurations" : [ "List of TopicConfiguration, ..." ]
+      },
+      "LambdaConfiguration":{
+        "Event" : "*String. The Amazon S3 bucket event for which to invoke the AWS Lambda function. s3:ObjectCreated:*, s3:ObjectCreated:Put, s3:ObjectCreated:Post, s3:ObjectCreated:Copy , s3:ObjectCreated:CompleteMultipartUpload, s3:ObjectRemoved:*, s3:ObjectRemoved:Delete, s3:ObjectRemoved:DeleteMarkerCreated, s3:ObjectRestore:Post, s3:ObjectRestore:Completed, s3:ReducedRedundancyLostObject",
+        "Filter" : {
+          "S3Key" : {
+            "Rules" : ["*List of  FilterRule, ..." ]
+          }          
+        },
+        "Function" : "*String. The Amazon Resource Name (ARN) of the AWS Lambda function that Amazon S3 invokes when the specified event type occurs."
+      },
+      "FilterRule":{
+        "Name" : "*String. The object key name prefix or suffix identifying one or more objects to which the filtering rule applies. The maximum length is 1,024 characters. Overlapping prefixes and suffixes are not supported. Allowed Values: prefix | suffix",
+        "Value" : "*String. The value that the filter searches for in object key names."
+      },
+      "QueueConfiguration":{
+        "Event" : "*String. The Amazon S3 bucket event about which you want to publish messages to Amazon SQS. s3:ObjectCreated:*, s3:ObjectCreated:Put, s3:ObjectCreated:Post, s3:ObjectCreated:Copy , s3:ObjectCreated:CompleteMultipartUpload, s3:ObjectRemoved:*, s3:ObjectRemoved:Delete, s3:ObjectRemoved:DeleteMarkerCreated, s3:ObjectRestore:Post, s3:ObjectRestore:Completed, s3:ReducedRedundancyLostObject",
+        "Filter" : {
+          "S3Key" : {
+            "Rules" : ["Type: List of FilterRule, ..." ]
+          }          
+        },
+        "Queue" : "*String. The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon S3 publishes a message when it detects events of the specified type."
+      },
+      "TopicConfiguration":{
+        "Event" : "*String. The Amazon S3 bucket event about which to send notifications. Available events from s3: s3:ObjectCreated:*, s3:ObjectCreated:Put, s3:ObjectCreated:Post, s3:ObjectCreated:Copy , s3:ObjectCreated:CompleteMultipartUpload, s3:ObjectRemoved:*, s3:ObjectRemoved:Delete, s3:ObjectRemoved:DeleteMarkerCreated, s3:ObjectRestore:Post, s3:ObjectRestore:Completed, s3:ReducedRedundancyLostObject",
+        "Filter" : {
+          "S3Key" : {
+            "Rules" : ["Type: List of FilterRule, ..." ]
+          }          
+        },
+        "Topic" : "*String. The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events of the specified type."
+      },
+      "PublicAccessBlockConfiguration":{
+        "BlockPublicAcls" : "Boolean. Specifies whether Amazon S3 should block public access control lists (ACLs) for this bucket and objects in this bucket. Setting this element to TRUE causes the following behavior: PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public., PUT Object calls fail if the request includes a public ACL.",
+        "BlockPublicPolicy" : "Boolean. Specifies whether Amazon S3 should block public bucket policies for this bucket. Setting this element to TRUE causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access.",
+        "IgnorePublicAcls" : "Boolean. Specifies whether Amazon S3 should ignore public ACLs for this bucket and objects in this bucket. Setting this element to TRUE causes Amazon S3 to ignore all public ACLs on this bucket and objects in this bucket.",
+        "RestrictPublicBuckets" : "Boolean. Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy. Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked."
+      },
+      "ReplicationConfiguration":{
+        "Role" : "*String. The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that Amazon S3 assumes when replicating objects. ",
+        "Rules" : ["*Type: List of  ReplicationRule, ..." ]
+      },
+      "ReplicationRule":{
+        "Destination" : {
+          "AccessControlTranslation" : {
+            "Owner" : "*String. Specifies the replica ownership. Allowed Values: Destination"
+          },
+          "Account" : "*String. Destination bucket owner account ID. In a cross-account scenario, if you direct Amazon S3 to change replica ownership to the AWS account that owns the destination bucket by specifying the AccessControlTranslation property, this is the account ID of the destination bucket owner. If you specify the AccessControlTranslation property, the Account property is required.",
+          "Bucket" : "*String. The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to store replicas of the object identified by the rule.",
+          "EncryptionConfiguration" : {
+            "ReplicaKmsKeyID" : "*String. Specifies the AWS KMS Key ID (Key ARN or Alias ARN) for the destination bucket. Amazon S3 uses this key to encrypt replica objects."
+          },
+          "StorageClass" : "String. Allowed Values: DEEP_ARCHIVE | GLACIER | INTELLIGENT_TIERING | ONEZONE_IA | REDUCED_REDUNDANCY | STANDARD | STANDARD_IA"
+        },
+        "Id" : "String. A unique identifier for the rule. The maximum value is 255 characters. If you don't specify a value, AWS CloudFormation generates a random ID.",
+        "Prefix" : "String. An object keyname prefix that identifies the object or objects to which the rule applies. The maximum prefix length is 1,024 characters. To include all objects in a bucket, specify an empty string.",
+        "SourceSelectionCriteria" : {
+          "SseKmsEncryptedObjects" : {
+            "Status" : "*String. Allowed Values: Disabled | Enabled. Specifies whether Amazon S3 replicates objects created with server-side encryption using an AWS KMS-managed key."
+          }          
+        },
+        "Status" : "*String. Allowed Values: Disabled | Enabled. Specifies whether the rule is enabled or not."
+      },
+      "VersioningConfiguration":{
+        "Status" : "String. Allowed Values: Enabled | Suspended"
+      },
+      "WebsiteConfiguration":{
+        "ErrorDocument" : "String",
+        "IndexDocument" : "String",
+        "RedirectAllRequestsTo" : {
+          "HostName" : "*String. Name of the host where requests are redirected.",
+          "Protocol" : "*String. Protocol to use when redirecting requests. The default is the protocol that is used in the original request. Allowed Values: http | https"
+        },
+        "RoutingRules" : ["Type: List of RoutingRule"]
+      },
+      "RoutingRule":{
+        "RedirectRule" : {
+          "HostName" : "String",
+          "HttpRedirectCode" : "String. The HTTP redirect code to use on the response. Not required if one of the siblings is present.",
+          "Protocol" : "String. Allowed Values: http | https",
+          "ReplaceKeyPrefixWith" : "String. The object key prefix to use in the redirect request. For example, to redirect requests for all pages with prefix docs/ (objects in the docs/ folder) to documents/, you can set a condition block with KeyPrefixEquals set to docs/ and in the Redirect set ReplaceKeyPrefixWith to /documents. Not required if one of the siblings is present. Can be present only if ReplaceKeyWith is not provided.",
+          "ReplaceKeyWith" : "String. The specific object key to use in the redirect request. For example, redirect request to error.html. Not required if one of the siblings is present. Can be present only if ReplaceKeyPrefixWith is not provided."
+        },
+        "RoutingRuleCondition" : {
+          "HttpErrorCodeReturnedEquals" : "**String. The HTTP error code when the redirect is applied. In the event of an error, if the error code equals this value, then the specified redirect is applied. Required when parent element Condition is specified and sibling KeyPrefixEquals is not specified. If both are specified, then both must be true for the redirect to be applied.",
+          "KeyPrefixEquals" : "**String. The object key name prefix when the redirect is applied. For example, to redirect requests for ExamplePage.html, the key prefix will be ExamplePage.html. To redirect request for all pages with the prefix docs/, the key prefix will be /docs, which identifies all objects in the docs/ folder. Required when the parent element Condition is specified and sibling HttpErrorCodeReturnedEquals is not specified. If both conditions are specified, both must be true for the redirect to be applied."
+        }        
+      }                                                                               
+    },
+    "AWS::ECR::Repository":{
+      "LifecyclePolicy":{
+        "LifecyclePolicyText" : "String. The JSON repository policy text to apply to the repository.",
+        "RegistryId" : "String. The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed."
+      }      
     }
   }    
 

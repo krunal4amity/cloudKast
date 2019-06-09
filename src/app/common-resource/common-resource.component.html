@@ -13,7 +13,21 @@
             <input matInput #resname name="resourceName" placeholder="Resource Name" value="SampleName" ngModel required>
         </mat-form-field>
         <mat-icon [ngStyle]="{'color':reqColor}" >info</mat-icon> <br>
-        <span> <br> <u>Properties: </u> <br> </span>
+        <span> 
+           <br> <u>Properties: </u> <button mat-icon-button type="button" [matTooltip]="newPropTip" (click)="isNewProp=true" > 
+             <mat-icon>add</mat-icon> </button> <br>  
+        </span>
+        <div *ngIf="isNewProp" >
+            <mat-form-field  >
+                <input matInput type="text" name="newProp" #newProp  placeholder="New Property Name">
+              </mat-form-field>
+              <button  mat-icon-button type="button" (click)="addNewProperty(newProp.value);isNewProp=false" > <mat-icon>add</mat-icon> </button>
+        </div>
+        <div *ngFor="let n of newProp" >
+          <mat-form-field>
+            <input matInput ngModel [name]="n" [placeholder]="n" type="text">
+          </mat-form-field>
+        </div>
         <div *ngFor="let j of resPropkeys" >
            <span *ngIf="j=='CreationPolicy' || j=='UpdatePolicy'" > <br> <u> Specific Attributes: </u> <br> </span>
            <span *ngIf="j=='DeletionPolicy'" > <br> <u>Common Attributes:</u> <br> </span> <br>
