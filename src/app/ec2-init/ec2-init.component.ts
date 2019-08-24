@@ -309,4 +309,8 @@ export class EC2InitComponent implements OnInit {
     document.execCommand("copy");
     document.body.removeChild(textArea);
   }
+
+  copyToYamlClipboard(){
+    this.util.copyToClipboardYaml(this.myobj);
+  }
 }

@@ -26,8 +26,13 @@
                 </button>
               </form>
               <button [disabled]="!isCopyReady" mat-icon-button 
-                matTooltip="copy the json output of the condition" 
+                matTooltip="copy json" 
                 (click)="copyToClipboard(conform.value)"> 
+                <mat-icon>file_copy</mat-icon> 
+              </button>
+              <button [disabled]="!isCopyReady" mat-icon-button color="accent"
+                matTooltip="copy yaml" 
+                (click)="copyToYamlClipboard(conform.value)"> 
                 <mat-icon>file_copy</mat-icon> 
               </button>
         </mat-card>

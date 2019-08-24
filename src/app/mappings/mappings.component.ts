@@ -85,4 +85,8 @@ export class MappingsComponent implements OnInit {
     document.execCommand("copy");
     document.body.removeChild(textArea);
   }
+
+  copyToYamlClipboard(value){
+    this.util.copyToClipboardYaml(this.result.jsonresult.Mappings[value.resourceName])
+  }
 }

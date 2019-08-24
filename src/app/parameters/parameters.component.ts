@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonResultService } from '../json-result.service';
+import { UsefulUtilsService } from '../useful-utils.service';
 
 @Component({
   selector: 'app-parameters',
@@ -32,7 +33,7 @@ export class ParametersComponent implements OnInit {
   resPropkeys=Object.keys(this.resProp);
   
 
-  constructor(public result:JsonResultService) { }
+  constructor(public result:JsonResultService, public util:UsefulUtilsService) { }
 
   ngOnInit() {
   }
@@ -60,6 +61,9 @@ export class ParametersComponent implements OnInit {
     document.body.removeChild(textArea);
   }
 
+  copyToClipboardYaml(value){
+    this.util.copyToClipboardYaml(this.result.jsonresult.Parameters[value.resourceName])
+  }
   
   onDone(value){
     console.log(value);

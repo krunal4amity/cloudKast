@@ -24,11 +24,15 @@ export class IntrinsicFunctionsComponent implements OnInit {
   fnselectCount=0;
   fnandArray=[];
   fnandCount=0;
+  fnorArray=[];
+  fnorCount=0;
   fnimportvalueTip="The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.You can use the following functions in the Fn::ImportValue function. The value of these functions can't depend on a resource. Fn::Base64, Fn::FindInMap, Fn::If, Fn::Join, Fn:Select, Fn::Split, Fn::Sub, Ref";
   fnjoinTip="e.g. The following example returns: a:b:c. \"Fn::Join\" : [ \":\", [ \"a\", \"b\", \"c\" ] ]. For the Fn::Join delimiter, you cannot use any functions. You must specify a string value. For the Fn::Join list of values, you can use the following functions: Fn::Base64, Fn::FindInMap, Fn::GetAtt, Fn::GetAZs, Fn::If, Fn::ImportValue, Fn::Join, Fn::Split, Fn::Select, Fn::Sub, Ref";
   fnselectTip="e.g. The following example returns: 'grapes'. { \"Fn::Select\" : [ \"1\", [ \"apples\", \"grapes\", \"oranges\", \"mangoes\" ]]}. For the Fn::Select index value, you can use the Ref and Fn::FindInMap functions. For the Fn::Select list of objects, you can use the following functions: Fn::FindInMap, Fn::GetAtt, Fn::GetAZs, Fn::If, Fn::Split, Ref";
   fnsplitTip="e.g. The following example splits a string at each vertical bar (|). The function returns [\"a\", \"b\", \"c\"]. { \"Fn::Split\" : [ \"|\" , \"a|b|c\" ] }. If you split a string with consecutive delimiters, the resulting list will include an empty string. For the Fn::Split delimiter, you cannot use any functions. You must specify a string value. For the Fn::Split list of values, you can use the following functions: Fn::Base64,Fn::FindInMap,Fn::GetAtt,Fn::GetAZs,Fn::If,Fn::ImportValue,Fn::Join,Fn::Select,Fn::Sub,Ref"
   fnsubTip="The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify. e.g. { \"Fn::Sub\": [ \"www.${Domain}\", { \"Domain\": {\"Ref\" : \"RootDomainName\" }} ]}. For the String parameter, you cannot use any functions. You must specify a string value.For the VarName and VarValue parameters, you can use the following functions: Fn::Base64, Fn::FindInMap, Fn::GetAtt,Fn::GetAZs,Fn::If,Fn::ImportValue,Fn::Join,Fn::Select,Ref"
+  fnAndTip="Fn::And acts as an AND operator. The minimum number of conditions that you can include is 2, and the maximum is 10."
+  fnOrTip="Fn::Or acts as an AND operator. The minimum number of conditions that you can include is 2, and the maximum is 10."
   
   ResAttributes = {
     "AWS::EC2::Instance":["AvailabilityZone","PrivateDnsName","PublicDnsName","PrivateIp","PublicIp"],
@@ -170,6 +174,11 @@ export class IntrinsicFunctionsComponent implements OnInit {
     this.fnandArray.push(this.fnandCount);
   }
 
+  addFnOrElement(){
+    this.fnorCount+=1;
+    this.fnorArray.push(this.fnorCount);
+  }
+
   getKeys(val){
     console.log(Object.keys(val))
     return Object.keys(val);
@@ -188,6 +197,14 @@ export class IntrinsicFunctionsComponent implements OnInit {
 
   retMaps(){
     return Object.keys(this.jsonresult.jsonresult.Mappings);
+  }
+
+  retMapKeys(val){   
+    return Object.keys(this.jsonresult.jsonresult.Mappings[val])
+  }
+
+  retMapSecKeys(val1,val2){
+    return Object.keys(this.jsonresult.jsonresult.Mappings[val1][val2])
   }
 
   onReset(){
@@ -372,14 +389,20 @@ export class IntrinsicFunctionsComponent implements OnInit {
         break;    
 
       case "Fn::Sub":
+        var subParam = ""
         var subArr=[];
-        subArr.push(value.sub);
         if(value.subvalue!=''){
+          subArr.push(value.sub)
           subArr.push(this.utility.getProperJson(value.subvalue))
+          this.funcobj = {
+            "Fn::Sub": this.utility.getProperJson(subArr)
+          }
         }
-
-        this.funcobj={
-          "Fn::Sub": this.utility.getProperJson(subArr)
+        else{
+          subParam = value.sub
+          this.funcobj = {
+            "Fn::Sub": subParam
+          }
         }
         break;                
 
@@ -431,10 +454,12 @@ export class IntrinsicFunctionsComponent implements OnInit {
         break;
 
       case "Fn::Or":
-          var fnorarray=[];
-          fnorarray.push(this.utility.getProperJson(value.fnor));
+          var orArray=[];
+          this.fnorArray.forEach((i)=>{
+            orArray.push(this.utility.getProperJson(value[`element${i}`]));
+          });
           this.funcobj={
-            "Fn::Or":this.utility.getProperJson(fnorarray)
+            "Fn::Or": this.utility.getProperJson(orArray)
           }
         break;
   

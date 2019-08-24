@@ -164,6 +164,10 @@ export class CommonResourceComponent implements OnInit {
     document.body.removeChild(textArea);
   }
 
+  copyToYamlClipboard(value){
+    this.utility.copyToClipboardYaml(this.result.jsonresult.Resources[value.resourceName])
+  }
+
   onRemove(value){
       this.isPresent=false;
       for(var i=0;i<RESOURCE_DATA.length;i++){
@@ -181,7 +185,7 @@ export class CommonResourceComponent implements OnInit {
     }
 
   onDone(value){
-      console.log(value);
+      //console.log(value);
       this.isCopyReady=true;
       this.result.jsonresult.Resources[value.resourceName]={};
       this.result.jsonresult.Resources[value.resourceName]["Properties"]={}
@@ -214,7 +218,7 @@ export class CommonResourceComponent implements OnInit {
           }
       })
 
-      if(this.tagArray.length==0  && value["Tags"]!='' ){
+      if(this.tagArray.length==0  && value["Tags"]!=undefined ){
         this.result.jsonresult.Resources[value.resourceName]["Properties"]["Tags"]=this.utility.getProperJson(value["Tags"])
       }else{
       this.result.jsonresult.Resources[value.resourceName]["Properties"]["Tags"]=this.getTagArray(value);

@@ -57,13 +57,24 @@
     </div>
 
     <div *ngIf="funcname.value=='Fn::FindInMap'">
-      <input type="text" ngModel name="maps" placeholder="Mapping element" 
-      matTooltip="list of maps from Mappings element" > <br>
-      <input type="text" ngModel name="topkey" placeholder="TopLevelKey"
-      matTooltip="The top-level key name. Its value is a list of key-value pairs."> <br>
-      <input type="text" ngModel name="secondkey" placeholder="SecondLevelkey"
-      matTooltitp="The second-level key name, which is set to one of the keys 
-      from the list assigned to TopLevelKey." >
+      <input type="text" ngModel name="maps" placeholder="Mapping element" #mapname list="maplist">
+      <datalist id="maplist" label="Maps" >
+        <option *ngFor="let i of retMaps()" [value]="i" > {{i}} </option>
+      </datalist>
+      <mat-icon matTooltip="Only maps that have been added to the template will be populated here" >info</mat-icon>
+      <br>
+      <div *ngIf="mapname.value != ''" >
+        <input type="text" ngModel name="topkey" placeholder="TopLevelKey" #topkey list="keylist">
+        <datalist id="keylist" label="Keys">
+          <option *ngFor="let j of retMapKeys(mapname.value)" > {{j}} </option>
+        </datalist>
+        <div *ngIf="topkey.value != '' " >
+          <input type="text" ngModel name="secondkey" placeholder="SecondLevelKey" list="secKeyList">
+          <datalist id="secKeyList"  lable="SecondKeys" >
+            <option *ngFor="let k of retMapSecKeys(mapname.value,topkey.value)"> {{k}} </option>
+          </datalist>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="funcname.value=='Fn::GetAtt'">
@@ -119,11 +130,14 @@
     <div *ngIf="funcname.value=='Fn::Sub'">
         <input type="text" ngModel name="sub" placeholder="Substitute" >
         <mat-icon [matTooltip]="fnsubTip" >info</mat-icon><br>
-        <input type="text" ngModel name="subvalue" placeholder="Subvalue">
+        <input type="text" ngModel name="subvalue" placeholder="Subvalue" 
+        matTooltip="If you're substituting only template parameters e.g. ${MyVarName}, this field must be left blank." >
     </div>
 
     <div *ngIf="funcname.value=='Fn::And'" >
-      <button mat-raised-button color="primary" type="button" (click)="addFnAndElement()">Add Element</button><br>
+      <button mat-raised-button color="primary" type="button" (click)="addFnAndElement()">Add Condition</button>
+      <mat-icon [matTooltip]="fnAndTip" >info</mat-icon>
+      <br>
       <div *ngFor="let i of fnandArray">
         <input type="text" name="element{{i}}" ngModel >
       </div>
@@ -145,7 +159,12 @@
     </div>
 
     <div *ngIf="funcname.value=='Fn::Or'" >
-      <input type="text" name="fnor" ngModel placeholder="Condition">
+      <button mat-raised-button color="primary" type="button" (click)="addFnOrElement()">Add Condition</button>
+      <mat-icon [matTooltip]="fnOrTip" >info</mat-icon>
+      <br>
+      <div *ngFor="let i of fnorArray">
+        <input type="text" name="element{{i}}" ngModel >
+      </div>
     </div>
     <button mat-icon-button color="primary" type="submit" matTooltip="Generate function">
       <mat-icon>done</mat-icon>

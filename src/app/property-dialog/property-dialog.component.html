@@ -19,7 +19,7 @@
                   <div *ngFor="let x of getKeys(isArray(selProp[w])?[]:selProp[w])">
                     <input *ngIf="getTypeof(selProp[w][x])=='string' || isArray(selProp[w][x]) " 
                      type="text" [name]="x" [placeholder]="x" ngModel [matTooltip]="isArray(selProp[w][x])?selProp[w][x][0]:selProp[w][x]" style="margin-left: 20px" >
-                    <mat-chip *ngIf="getTypeof(selProp[w][x])=='object' && !isArray(selProp[w][x])">
+                    <mat-chip *ngIf="getTypeof(selProp[w][x])=='object' && !isArray(selProp[w][x])" style="margin-left: 20px">
                       {{x}}
                     </mat-chip>
                     <div *ngIf="getDepth(selProp[w][x]) >0  && getTypeof(selProp[w][x])=='object'">

@@ -50,4 +50,8 @@ export class ConditionsComponent implements OnInit {
     document.body.removeChild(textArea);
   }
 
+  copyToYamlClipboard(value){
+    this.util.copyToClipboardYaml(this.result.jsonresult.Conditions[value.resourceName]);
+  }
+
 }

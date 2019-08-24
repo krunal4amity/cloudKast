@@ -54,4 +54,8 @@ export class OutputsComponent implements OnInit {
     document.execCommand("copy");
     document.body.removeChild(textArea);
   }
+
+  copyToYamlClipboard(value){
+    this.util.copyToClipboardYaml(this.result.jsonresult.Outputs[value.resourceName]);
+  }
 }

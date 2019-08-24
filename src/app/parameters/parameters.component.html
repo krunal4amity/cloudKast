@@ -30,10 +30,15 @@
         </button>
       </form>
       <button [disabled]="!isCopyReady" mat-icon-button 
-        matTooltip="copy the json output of the parameters" 
+        matTooltip="copy json" 
         (click)="copyToClipboard(myForm.value)"> 
         <mat-icon>file_copy</mat-icon> 
       </button>
+      <button [disabled]="!isCopyReady" mat-icon-button color="accent"
+        matTooltip="copy yaml (beta)" 
+        (click)="copyToClipboardYaml(myForm.value)"> 
+      <mat-icon>file_copy</mat-icon> 
+    </button>
     </mat-card>
   </mat-expansion-panel>
   </mat-accordion>

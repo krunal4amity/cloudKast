@@ -26,8 +26,8 @@ export class ResultComponent implements OnInit {
   
 
   getDownloadHref(){
-    var str = "data:text/plain;charset=utf-8,"
-    var data =  str + encodeURI(JSON.stringify(this.jsonresult.jsonresult));
+    var str = "data:text/json;charset=utf-8,"
+    var data =  str + encodeURIComponent(JSON.stringify(this.jsonresult.jsonresult));
     var link = document.createElement('a');
     link.setAttribute('href', data);
     link.setAttribute('download',"cloudkast.json")
@@ -36,7 +36,7 @@ export class ResultComponent implements OnInit {
     //FileSaver.saveAs(blob, "cloudfurner.json");
     //var file = new File([JSON.stringify(this.jsonresult.jsonresult)], "hello world.txt", {type: "text/plain;charset=utf-8"});
     //saveAs(file);
-    var data = str + encodeURI(this.yamlTemplate);
+    var data = str + encodeURIComponent(this.yamlTemplate);
     link.setAttribute('href',data);
     link.setAttribute('download',"cloudkast.yaml")
     link.click();
