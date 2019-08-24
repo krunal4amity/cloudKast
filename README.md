@@ -1,12 +1,10 @@
-#CloudKast
 ![CloudKast Logo](src/assets/img/cloudkast-logo.jpg)
-[CloudKast](https://krunal4amity.github.io)
 
-**CloudKast** is on online AWS CloudFormation template generator.
+**CloudKast** is on online AWS CloudFormation template generator. It is available at [CloudKast](https://krunal4amity.github.io).
 
 ---
 ## How to add a new AWS resource
-1. Start with the file *src/app/resource-view/resource-list.ts*. For the service and its all resources, append a json as shown below to the *RESOURCE_DATA* array.
+1. Start with the file `src/app/resource-view/resource-list.ts`. For the service and its all resources, append a json as shown below to the *RESOURCE_DATA* array.
 
 ```javascript
     {
@@ -42,12 +40,12 @@
 ```
 
 4. Open `src/app/aws-resources.service.ts` file and add each resource variable. You can follow the naming convetion as *resource-short-name_service-name*. As its value, you can copy the JSON syntax from AWS CloudFormation document and paste it. Now replace each properties value by its description according to the rules shown below.
--if the property is of type `string` then just copy the property description starting with *string*.
--if the property is of type `object` then create an json object with an `info` key and have property description as its value. Start with the word with *Type:<object type>* replacing its respective object type. Each such property is a complex property in most cases (i.e. it's not a primitive property). For each such property you can suffix the property description with double hash (##). This will make a little pencil icon appear next to this property so that its specific object can be created. One case where this is not needed is when the property is a policy document, in which case the user needs to make use of aws policy generator to generate the policy and copy to CloudKast's respective policy document field. See an example snippet below.
--if the property is of type `array` then create an array with first element of the array as the property description. Start the description with *List of <object type>*.
--if the property is a *required* property then start the description with an asterik (*).
--if the property is a *conditional* property then start the description with double asterik (**).
--if the property is a complex property (e.g. another object or an array of objects) , suffix the description with double hash (##). 
+- if the property is of type `string` then just copy the property description starting with *string*.
+- if the property is of type `object` then create an json object with an `info` key and have property description as its value. Start with the word with *Type:<object type>* replacing its respective object type. Each such property is a complex property in most cases (i.e. it's not a primitive property). For each such property you can suffix the property description with double hash (##). This will make a little pencil icon appear next to this property so that its specific object can be created. One case where this is not needed is when the property is a policy document, in which case the user needs to make use of aws policy generator to generate the policy and copy to CloudKast's respective policy document field. See an example snippet below.
+- if the property is of type `array` then create an array with first element of the array as the property description. Start the description with *List of <object type>*.
+- if the property is a *required* property then start the description with an asterik (*).
+- if the property is a *conditional* property then start the description with double asterik (**).
+- if the property is a complex property (e.g. another object or an array of objects) , suffix the description with double hash (##). 
 
 ```javascript
   efs_mounttarget={
@@ -63,8 +61,8 @@
 
 
 5. Open `src/app/resource-data.service.ts` file. This files stores property description for each complex property (i.e. properties that are objects themselves and are not of primitve type). Inside `comProp` object variable, create another object with the key being the name of the service and value being another object - the complex property in this case (you can copy the complex property's syntax from the aws cloudformation documentation). Make sure that if the property is another object itself then its syntax is added to the same parent object. If a property is an array of objects, then a create a separate property under the same service. Follow the rules as mentioned in the point above to mark the property required or conditional. There are following caveats though. E.g. in the snippet below, we would call `AccelerateConfiguration`, `AnalyticsConfiguration` and `TagFilters` parent properties. `StorageClassAnalysis` is a separate object, hence its syntax has been added to the syntax of `AnalyticsConfiguration` itself. `TagFilters` is an array of objects, hence a separate parent object has been created for it.
--If a property is of type object (not array of objects), then marking whether it is required or optional is not supported.
--if a parent property shares the same name with a property in another service, then it could cause conflicts. In that case, make sure that you name the parent property differently. E.g. `BlockDeviceMapping` is a common parent property for both `AWS::EC2::Instance` and `AWS::AutoScaling::LaunchConfiguration` hence you could choose naming the one under `AWS::EC2::Instance` different such as `BlockDeviceMapping_ec2`. 
+- If a property is of type object (not array of objects), then marking whether it is required or optional is not supported.
+- if a parent property shares the same name with a property in another service, then it could cause conflicts. In that case, make sure that you name the parent property differently. E.g. `BlockDeviceMapping` is a common parent property for both `AWS::EC2::Instance` and `AWS::AutoScaling::LaunchConfiguration` hence you could choose naming the one under `AWS::EC2::Instance` different such as `BlockDeviceMapping_ec2`. 
 
 ```javascript
     "AWS::S3::Bucket":{
@@ -96,11 +94,12 @@
 
 6. Add a div element to `src/app/resource-view/resource-view.component.html` as shown below. For resources that don't have Tag property, please assign `isTagged` to `false`.  
 
+```
       <div *ngFor="let i of s3_bucket" >
             <app-common-resource [myresource]="awsresource.s3_bucket" [isTagged]="true" ></app-common-resource>
       </div>                                          
       <div *ngFor="let i of s3_bucketpolicy" >
             <app-common-resource [myresource]="awsresource.s3_bucketpolicy" [isTagged]="false" ></app-common-resource>
       </div>                                          
-
+```
 
