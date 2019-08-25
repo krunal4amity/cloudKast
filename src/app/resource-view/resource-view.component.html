@@ -346,7 +346,68 @@
       <div *ngFor="let i of ecr_repository" >
             <app-common-resource [myresource]="awsresource.ecr_repository" [isTagged]="false" ></app-common-resource>
       </div>                                          
+
+      <div *ngFor="let i of cfn_customresource" >
+            <app-common-resource [myresource]="awsresource.cfn_customresource" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of cfn_macro" >
+            <app-common-resource [myresource]="awsresource.cfn_macro" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of cfn_stack" >
+            <app-common-resource [myresource]="awsresource.cfn_stack" [isTagged]="true" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of cfn_waitcondition" >
+            <app-common-resource [myresource]="awsresource.cfn_waitcondition" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of cfn_waitconditionhandle" >
+            <app-common-resource [myresource]="awsresource.cfn_waitconditionhandle" [isTagged]="false" ></app-common-resource>
+      </div>                           
       
+      <div *ngFor="let i of lambda_alias" >
+            <app-common-resource [myresource]="awsresource.lambda_alias" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of lambda_eventsourcemapping" >
+            <app-common-resource [myresource]="awsresource.lambda_eventsourcemapping" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of lambda_function" >
+            <app-common-resource [myresource]="awsresource.lambda_function" [isTagged]="true" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of lambda_layerversion" >
+            <app-common-resource [myresource]="awsresource.lambda_layerversion" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of lambda_layerversionpermission" >
+            <app-common-resource [myresource]="awsresource.lambda_layerversionpermission" [isTagged]="false" ></app-common-resource>
+      </div>                           
+      <div *ngFor="let i of lambda_permission" >
+            <app-common-resource [myresource]="awsresource.lambda_permission" [isTagged]="false" ></app-common-resource>
+      </div>                                          
+      <div *ngFor="let i of lambda_version" >
+            <app-common-resource [myresource]="awsresource.lambda_version" [isTagged]="false" ></app-common-resource>
+      </div>                           
+
+      <div *ngFor="let i of ram_resourceshare" >
+            <app-common-resource [myresource]="awsresource.ram_resourceshare" [isTagged]="true" ></app-common-resource>
+      </div>                                         
+
+      <div *ngFor="let i of sm_resourcepolicy" >
+            <app-common-resource [myresource]="awsresource.sm_resourcepolicy" [isTagged]="false" ></app-common-resource>
+      </div>                           
+      <div *ngFor="let i of sm_rotationschedule" >
+            <app-common-resource [myresource]="awsresource.sm_rotationschedule" [isTagged]="false" ></app-common-resource>
+      </div>                           
+      <div *ngFor="let i of sm_secret" >
+            <app-common-resource [myresource]="awsresource.sm_secret" [isTagged]="true" ></app-common-resource>
+      </div>                           
+      <div *ngFor="let i of sm_secrettargetattachment" >
+            <app-common-resource [myresource]="awsresource.sm_secrettargetattachment" [isTagged]="false" ></app-common-resource>
+      </div>                           
+
+      <div *ngFor="let i of cb_project" >
+            <app-common-resource [myresource]="awsresource.cb_project" [isTagged]="true" ></app-common-resource>
+      </div>                           
+      <div *ngFor="let i of cb_sourcecredential" >
+            <app-common-resource [myresource]="awsresource.cb_sourcecredential" [isTagged]="false" ></app-common-resource>
+      </div>                           
 
     </div>
 </mat-drawer-container>

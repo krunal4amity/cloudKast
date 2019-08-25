@@ -1207,5 +1207,214 @@ elbv2_targetgroup={
       }
   }
   
+  cfn_customresource={
+    "Type" : "AWS::CloudFormation::CustomResource",
+    "Properties" : {
+        "ServiceToken" : "*String, The service token that was given to the template developer by the service provider to access the service, such as an Amazon SNS topic ARN or Lambda function ARN. The service token must be from the same region in which you are creating the stack."
+      }
+  }
+  
+  cfn_macro={
+    "Type" : "AWS::CloudFormation::Macro",
+    "Properties" : {
+        "Description" : "String. A description of the macro.",
+        "FunctionName" : "*String. The Amazon Resource Name (ARN) of the underlying AWS Lambda function that you want AWS CloudFormation to invoke when the macro is run.",
+        "LogGroupName" : "String. The Amazon CloudWatch log group to which AWS CloudFormation sends error logging information when invoking the macro's underlying AWS Lambda function.",
+        "LogRoleARN" : "String. The ARN of the role AWS CloudFormation should assume when sending log entries to CloudWatch logs.",
+        "Name" : "*String. The name of the macro. The name of the macro must be unique across all macros in the account."
+      }
+  }
+  
+  cfn_stack={
+    "Type" : "AWS::CloudFormation::Stack",
+    "Properties" : {
+        "NotificationARNs" : ["List of strings. The Simple Notification Service (SNS) topic ARNs to publish stack related events. You can find your SNS topic ARNs using the SNS console or your Command Line Interface (CLI). Maximum : 5"],
+        "Parameters" : {"info":"** Type: map of string. The set value pairs that represent the parameters passed to CloudFormation when this nested stack is created. Each parameter has a name corresponding to a parameter defined in the embedded template and a value representing the value that you want to set for the parameter. Note: If you use the Ref function to pass a parameter value to a nested stack, comma-delimited list parameters must be of type String. In other words, you cannot pass values that are of type CommaDelimitedList to nested stacks. Whether an update causes interruptions depends on the resources that are being updated. An update never causes a nested stack to be replaced."},
+        "TemplateURL" : "*String, Location of file containing the template body. The URL must point to a template (max size: 460,800 bytes) that is located in an Amazon S3 bucket.",
+        "TimeoutInMinutes" : "Integer, The length of time, in minutes, that CloudFormation waits for the nested stack to reach the CREATE_COMPLETE state. The default is no timeout. When CloudFormation detects that the nested stack has reached the CREATE_COMPLETE state, it marks the nested stack resource as CREATE_COMPLETE in the parent stack and resumes creating the parent stack. If the timeout period expires before the nested stack reaches CREATE_COMPLETE, CloudFormation marks the nested stack as failed and rolls back both the nested stack and parent stack."
+      }
+  }
+
+  cfn_waitcondition={
+    "Type" : "AWS::CloudFormation::WaitCondition",
+    "Properties" : {
+        "Count" : "Integer. The number of success signals that CloudFormation must receive before it continues the stack creation process. When the wait condition receives the requisite number of success signals, CloudFormation resumes the creation of the stack. If the wait condition does not receive the specified number of success signals before the Timeout period expires, CloudFormation assumes that the wait condition has failed and rolls the stack back.",
+        "Handle" : "String. A reference to the wait condition handle used to signal this wait condition. Use the Ref intrinsic function to specify an AWS::CloudFormation::WaitConditionHandle resource. Anytime you add a WaitCondition resource during a stack update, you must associate the wait condition with a new WaitConditionHandle resource. Do not reuse an old wait condition handle that has already been defined in the template. If you reuse a wait condition handle, the wait condition might evaluate old signals from a previous create or update stack command.",
+        "Timeout" : "String. The length of time (in seconds) to wait for the number of signals that the Count property specifies. Timeout is a minimum-bound property, meaning the timeout occurs no sooner than the time you specify, but can occur shortly thereafter. The maximum time that can be specified for this property is 12 hours (43200 seconds).",
+        "CreationPolicy":{"info":"Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured. ## "} 
+      }
+  }
+
+  cfn_waitconditionhandle={
+    "Type" : "AWS::CloudFormation::WaitConditionHandle",
+    "Properties" : {
+      }
+  }
+  
+  lambda_alias={
+    "Type" : "AWS::Lambda::Alias",
+    "Properties" : {
+        "Description" : "String",
+        "FunctionName" : "*String. Name formats = 1. Function name - MyFunction  2. Function ARN - arn:aws:lambda:us-west-2:123456789012:function:MyFunction  3. Partial ARN - 123456789012:function:MyFunction. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.  ",
+        "FunctionVersion" : "*String. The function version that the alias invokes.",
+        "Name" : "*String. The name of the alias",
+        "RoutingConfig" : ["List of VersionWeight."]
+      }
+  }
+
+  lambda_eventsourcemapping={
+    "Type" : "AWS::Lambda::EventSourceMapping",
+    "Properties" : {
+        "BatchSize" : "Integer. The maximum number of items to retrieve in a single batch. Amazon Kinesis - Default 100. Max 10,000. Amazon DynamoDB Streams - Default 100. Max 1,000. Amazon Simple Queue Service - Default 10. Max 10.",
+        "Enabled" : "Boolean. Disables the event source mapping to pause polling and invocation.",
+        "EventSourceArn" : "*String. The Amazon Resource Name (ARN) of the event source. Amazon Kinesis - The ARN of the data stream or a stream consumer. Amazon DynamoDB Streams - The ARN of the stream. Amazon Simple Queue Service - The ARN of the queue.",
+        "FunctionName" : "*String. The name of the Lambda function. Name formats = 1. Function name - MyFunction  2. Function ARN - arn:aws:lambda:us-west-2:123456789012:function:MyFunction  3. Partial ARN - 123456789012:function:MyFunction. 4. Version or Alias ARN - arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD.  The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.  ",
+        "StartingPosition" : "String. The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB Streams sources. AT_TIMESTAMP is only supported for Amazon Kinesis streams. Allowed Values: AT_TIMESTAMP | LATEST | TRIM_HORIZON"
+      }
+  }
+  
+  lambda_function={
+    "Type" : "AWS::Lambda::Function",
+    "Properties" : {
+        "Code" : {"info":"Type:Code ##"},
+        "DeadLetterConfig" : {"info":"Type : DeadLetterConfig.  A dead letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. ##"},
+        "Description" : "String",
+        "Environment" : {"info":"Type: Environment. Environment variables that are accessible from function code during execution.##"},
+        "FunctionName" : "String. The name of the Lambda function, up to 64 characters in length. If you don't specify a name, AWS CloudFormation generates one. If you specify a name, you cannot perform updates that require replacement of this resource. You can perform updates that require no or some interruption. If you must replace the resource, specify a new name.",
+        "Handler" : "*String. The name of the method within your code that Lambda calls to execute your function. The format includes the file name.",
+        "KmsKeyArn" : "String. The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables. If it's not provided, AWS Lambda uses a default service key.",
+        "Layers" : ["List of strings. A list of function layers to add to the function's execution environment. Specify each layer by its ARN, including the version."],
+        "MemorySize" : "Integer. The amount of memory that your function has access to. Increasing the function's memory also increases its CPU allocation. The default value is 128 MB. The value must be a multiple of 64 MB.",
+        "ReservedConcurrentExecutions" : "Integer. The number of simultaneous executions to reserve for the function.",
+        "Role" : "*String. The Amazon Resource Name (ARN) of the function's execution role.",
+        "Runtime" : "*String. Allowed Values: dotnetcore1.0 | dotnetcore2.1 | go1.x | java8 | nodejs10.x | nodejs8.10 | provided | python2.7 | python3.6 | python3.7 | ruby2.5",
+        "Timeout" : "Integer. The amount of time that Lambda allows a function to run before stopping it. The default is 3 seconds. The maximum allowed value is 900 seconds.",
+        "TracingConfig" : {"info":"Type: TracingConfig. Set Mode to Active to sample and trace a subset of incoming requests with AWS X-Ray.##"},
+        "VpcConfig" : {"info":"Type: VpcConfig. For network connectivity to AWS resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can only access resources and the internet through that VPC. "}
+      }
+  }
+
+  lambda_layerversion={
+    "Type" : "AWS::Lambda::LayerVersion",
+    "Properties" : {
+        "CompatibleRuntimes" : ["List of strings. A list of compatible function runtimes. Used for filtering with ListLayers and ListLayerVersions." ],
+        "Content" : {"info":"*Type: Content ##"},
+        "Description" : "String",
+        "LayerName" : "String. The name or Amazon Resource Name (ARN) of the layer.",
+        "LicenseInfo" : "String. The layer's software license. It can be any of the following: 1. An SPDX license identifier. For example, MIT. 2. The URL of a license hosted on the internet. For example, https://opensource.org/licenses/MIT. 3. The full text of the license. Maximum:512"
+      }
+  }
+
+  lambda_layerversionpermission={
+    "Type" : "AWS::Lambda::LayerVersionPermission",
+    "Properties" : {
+        "Action" : "*String. The API action that grants access to the layer. For example, lambda:GetLayerVersion.",
+        "LayerVersionArn" : "*String. The Amazon Resource Name (ARN) of the layer.",
+        "OrganizationId" : "String. With the principal set to *, grant permission to all accounts in the specified organization.",
+        "Principal" : "*String. An account ID, or * to grant permission to all AWS accounts."
+      }
+  }
+  
+  lambda_permission={
+    "Type" : "AWS::Lambda::Permission",
+    "Properties" : {
+        "Action" : "*String. The action that the principal can use on the function. For example, lambda:InvokeFunction or lambda:GetFunction.",
+        "EventSourceToken" : "String. For Alexa Smart Home functions, a token that must be supplied by the invoker.",
+        "FunctionName" : "*String. The name of the Lambda function, version, or alias. The name of the Lambda function. Name formats = 1. Function name - MyFunction  2. Function ARN - arn:aws:lambda:us-west-2:123456789012:function:MyFunction  3. Partial ARN - 123456789012:function:MyFunction. 4. Version or Alias ARN - arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD.  The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.  ",
+        "Principal" : "*String. The AWS service or account that invokes the function. If you specify a service, use SourceArn or SourceAccount to limit who can invoke the function through that service.",
+        "SourceAccount" : "String. For AWS services, the ID of the account that owns the resource. Use this instead of SourceArn to grant permission to resources that are owned by another account (for example, all of an account's Amazon S3 buckets). Or use it together with SourceArn to ensure that the resource is owned by the specified account. For example, an Amazon S3 bucket could be deleted by its owner and recreated by another account.",
+        "SourceArn" : "String. For AWS services, the ARN of the AWS resource that invokes the function. For example, an Amazon S3 bucket or Amazon SNS topic."
+      }
+  }
+    
+  lambda_version={
+    "Type" : "AWS::Lambda::Version",
+    "Properties" : {
+        "CodeSha256" : "String. Only publish a version if the hash value matches the value that's specified. Use this option to avoid publishing a version if the function code has changed since you last updated it.",
+        "Description" : "String",
+        "FunctionName" : "String. The name of the Lambda function, version, or alias. The name of the Lambda function. Name formats = 1. Function name - MyFunction  2. Function ARN - arn:aws:lambda:us-west-2:123456789012:function:MyFunction  3. Partial ARN - 123456789012:function:MyFunction. 4. Version or Alias ARN - arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD.  The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length."
+      }
+  }
+    
+  ram_resourceshare={
+    "Type" : "AWS::RAM::ResourceShare",
+    "Properties" : {
+        "AllowExternalPrincipals" : "Boolean. Indicates whether principals outside your AWS organization can be associated with a resource share.",
+        "Name" : "String. The name of the resource share",
+        "Principals" : ["Type: List of String. The principals to associate with the resource share. The possible values are IDs of AWS accounts, the ARN of an OU or organization from AWS Organizations."],
+        "ResourceArns" : ["Type: List of String. The Amazon Resource Names (ARN) of the resources to associate with the resource share."]
+      }
+  }
+  
+  sm_resourcepolicy={
+    "Type" : "AWS::SecretsManager::ResourcePolicy",
+    "Properties" : {
+        "ResourcePolicy" : {"info":"*Specifies a JSON object that's constructed according to the grammar and syntax for a resource-based policy. The policy identifies who can access or manage this secret and its versions. Please use aws policy generator to generate this policy."},
+        "SecretId" : "*String. Specifies the Amazon Resource Name (ARN) or the friendly name of the secret that you want to attach a resource-based permissions policy to. If you use this property to change the SecretId for an existing resource-based policy, it removes the policy from the original secret, and then attaches the policy to the secret with the specified SecretId. This results in changing the permissions for two secrets."
+      }
+  }
+
+  sm_rotationschedule={
+    "Type" : "AWS::SecretsManager::RotationSchedule",
+    "Properties" : {
+        "RotationLambdaARN" : "String. Specifies the ARN of the Lambda function that can rotate the secret. If you don't specify this parameter, then the secret must already have the ARN of a Lambda function configured.",
+        "RotationRules" : {"info":"Type: RotationRules. Specifies a structure that defines the rotation schedule for this secret.##"},
+        "SecretId" : "*String. Specifies the Amazon Resource Name (ARN) or the friendly name of the secret that you want to rotate."
+      }
+  }
+
+  sm_secret={
+    "Type" : "AWS::SecretsManager::Secret",
+    "Properties" : {
+        "Description" : "String",
+        "GenerateSecretString" : {"info":"Type: GenerateSecretString. You can return that string directly to use as the secret value, or you can specify both the SecretStringTemplate and the GenerateSecretKeyparameters. Secrets Manager uses the value in GenerateSecretKeyparameters. Secrets Manager uses the value in GenerateSecretKey as the key name and combines it with the randomly generated password to make a JSON key-value pair. It then inserts that pair into the JSON structure that's specified in the SecretStringTemplateparameter.##"},
+        "KmsKeyId" : "String. Specifies the ARN, Key ID, or alias of the AWS KMS customer master key (CMK) that's used to encrypt the SecretString or SecretBinary values for versions of this secret. If you don't specify this value, then Secrets Manager defaults to the AWS account's CMK (the one named aws/secretsmanager). If an AWS KMS CMK with that name doesn't yet exist, Secrets Manager creates it for you automatically the first time it needs to encrypt a version's SecretString or SecretBinary fields.",
+        "Name" : "String. The friendly name of the secret. You can use forward slashes in the name to represent a path hierarchy. For example, /prod/databases/dbserver1 could represent the secret for a server named dbserver1 in the folder databases in the folder prod.",
+        "SecretString" : "String. Specifies a literal string to use as the secret value for the secret. You can use any text you like, but remember that Lambda rotation functions require a specific JSON structure to be present in this field. Alternatively, instead of hardcoding the password in this string parameter, we recommend that you use the GenerateSecretString parameter instead."
+      }
+  }
+  
+  sm_secrettargetattachment={
+    "Type" : "AWS::SecretsManager::SecretTargetAttachment",
+    "Properties" : {
+        "SecretId" : "*String. The Amazon Resource Name (ARN) or the friendly name of the secret that contains the credentials that you want to use with the specified service or database. To reference a secret that's also created in this template, use the see Ref function with the secret's logical ID.",
+        "TargetId" : "*String. The ARN of the service or database whose credentials are stored in the specified secret.",
+        "TargetType" : "*String. A string used by the Secrets Manager console to determine how to parse the structure of the secret text and place the values in the proper fields of the console user interface. If you created this secret using the Secrets Manager console then we recommend that you do not modify this value. If this is a custom secret, then this field is available for your use. As a best practice, do not store any sensitive information in this field. Instead, store sensitive information in the SecretString or SecretBinary fields to ensure that it is encrypted."
+      }
+  }
+  
+  cb_project={
+    "Type" : "AWS::CodeBuild::Project",
+    "Properties" : {
+        "Artifacts" : {"info":"*Artifacts is a property of the AWS::CodeBuild::Project resource that specifies output settings for artifacts generated by an AWS CodeBuild build.##"} ,
+        "BadgeEnabled" : "**Boolean. Indicates whether AWS CodeBuild generates a publicly accessible URL for your project's build badge. Including build badges with your project is currently not supported if the source type is CodePipeline. If you specify CODEPIPELINE for the Source property, do not specify the BadgeEnabled property.",
+        "Cache" : {"info":"Type:ProjectCache. Settings that AWS CodeBuild uses to store and reuse build dependencies.##"},
+        "Description" : "String",
+        "EncryptionKey" : "String. The alias or Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that CodeBuild uses to encrypt the build output. If you don't specify a value, CodeBuild uses the AWS-managed CMK for Amazon Simple Storage Service (Amazon S3).",
+        "Environment" : {"info":"*Type:Environment. The build environment settings for the project, such as the environment type or the environment variables to use for the build environment.##"},
+        "LogsConfig" : {"info":"Type:LogsConfig. Information about logs for the build project. A project can create logs in Amazon CloudWatch Logs, an S3 bucket, or both.##"},
+        "Name" : "String. The name of the build project. The name must be unique across all of the projects in your AWS account.",
+        "QueuedTimeoutInMinutes" : "Integer. The number of minutes a build is allowed to be queued before it times out.",
+        "SecondaryArtifacts" : ["List of Artifacts. A list of Artifacts objects. Each artifacts object specifies output settings that the project generates during a build.##"],
+        "SecondarySources" : ["List of Source. ##" ],
+        "SecondarySourceVersions" : ["Type: List of ProjectSourceVersion. An array of ProjectSourceVersion objects. If secondarySourceVersions is specified at the build level, then they take over these secondarySourceVersions (at the project level).##"],
+        "ServiceRole" : "*String. The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account.",
+        "Source" : {"info":"*The source code settings for the project, such as the source code's repository type and location.##"},
+        "SourceVersion" : "String. A version of the build input to be built for this project. If not specified, the latest version is used. If specified, it must be one of: 1. For AWS CodeCommit: the commit ID to use 2.For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a pull request ID is specified, it must use the format pr/pull-request-ID (for example pr/25). If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used 3.For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used 4.For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP file to use.",
+        "TimeoutInMinutes" : "Integer. How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related build that did not get marked as completed. The default is 60 minutes.",
+        "Triggers" : {"info":"Type: ProjectTriggers. For an existing AWS CodeBuild build project that has its source code stored in a GitHub repository, enables AWS CodeBuild to begin automatically rebuilding the source code every time a code change is pushed to the repository.##"},
+        "VpcConfig" : {"info":"VpcConfig specifies settings that enable AWS CodeBuild to access resources in an Amazon VPC. ##"}
+      }
+  }
+
+  cb_sourcecredential={
+    "Type" : "AWS::CodeBuild::SourceCredential",
+    "Properties" : {
+        "AuthType" : "*String. The type of authentication used by the credentials. Valid options are OAUTH, BASIC_AUTH, or PERSONAL_ACCESS_TOKEN. Allowed Values: BASIC_AUTH | OAUTH | PERSONAL_ACCESS_TOKEN",
+        "ServerType" : "*String. Allowed Values: BITBUCKET | GITHUB | GITHUB_ENTERPRISE",
+        "Token" : "*String. For GitHub or GitHub Enterprise, this is the personal access token. For Bitbucket, this is the app password.",
+        "Username" : "String. The Bitbucket username when the authType is BASIC_AUTH. This parameter is not valid for other types of source providers or connections."
+      }
+  }
   
 }

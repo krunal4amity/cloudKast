@@ -1179,7 +1179,156 @@ export class ResourceDataService {
         "LifecyclePolicyText" : "String. The JSON repository policy text to apply to the repository.",
         "RegistryId" : "String. The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed."
       }      
-    }
+    },
+    "AWS::CloudFormation::WaitCondition":{
+      "CreationPolicy":{
+        "ResourceSignal" : {    
+          "Count" : "Integer. Default :1 . The number of success signals AWS CloudFormation must receive before it sets the resource status as CREATE_COMPLETE. If the resource receives a failure signal or doesn't receive the specified number of signals before the timeout period expires, the resource creation fails and AWS CloudFormation rolls the stack back.",
+          "Timeout" : "The length of time that AWS CloudFormation waits for the number of signals that was specified in the Count property. The timeout period starts after AWS CloudFormation starts creating the resource, and the timeout expires no sooner than the time you specify but can occur shortly thereafter. The maximum time that you can specify is 12 hours. The value must be in ISO8601 duration format, in the form: 'PT#H#M#S', where each # is the number of hours, minutes, and seconds, respectively. For best results, specify a period of time that gives your instances plenty of time to get up and running. A shorter timeout can cause a rollback. Default: PT5M (5 minutes)"
+        }
+      }
+    },
+    "AWS::Lambda::Alias":{
+      "VersionWeight":{
+        "FunctionVersion" : "*String. The name of the second alias",
+        "FunctionWeight" : "*Double. The percentage of traffic that's routed to the second alias."
+      }      
+    },
+    "AWS::Lambda::Function":{
+      "DeadLetterConfig":{
+        "TargetArn" : "String. The Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic."
+      },
+      "Code":{
+        "S3Bucket" : "**String. An Amazon S3 bucket in the same AWS Region as your function. The bucket can be in a different AWS account.",
+        "S3Key" : "**String. The Amazon S3 key of the deployment package.",
+        "S3ObjectVersion" : "**String. For versioned objects, the version of the deployment package object to use.",
+        "ZipFile" : "**String. (Node.js and Python) The source code of your Lambda function. If you include your function source inline with this parameter, AWS CloudFormation places it in a file named index and zips it to create a deployment package. For the Handler property, the first part of the handler identifier must be index. For example, index.handler. Your source code can contain up to 4096 characters. For JSON, you must escape quotes and special characters such as newline (\n) with a backslash. f you specify a function that interacts with an AWS CloudFormation custom resource, you don't have to write your own functions to send responses to the custom resource that invoked the function. AWS CloudFormation provides a response module (cfn-response) that simplifies sending responses."
+      },
+      "Environment":{
+        "Variables" : "Map of string. Environment variable key-value pairs."
+      },
+      "TracingConfig":{
+        "Mode" : "String. Allowed Values: Active | PassThrough"
+      },
+      "VpcConfig":{
+        "SecurityGroupIds" : ["List of strings. A list of security group ids"],
+        "SubnetIds" : ["list of strings. A list of VPC subnet ids"]
+      }
+    },
+    "AWS::Lambda::LayerVersion":{
+      "Content":{
+        "S3Bucket" : "*String",
+        "S3Key" : "*String",
+        "S3ObjectVersion" : "String"
+      }      
+    },
+    "AWS::SecretsManager::RotationSchedule":{
+      "RotationRules":{
+        "AutomaticallyAfterDays" : "Integer. Specifies the number of days after the previous rotation before Secrets Manager triggers the next automatic rotation."
+      }      
+    },
+    "AWS::SecretsManager::Secret":{
+      "GenerateSecretString":{
+        "ExcludeCharacters" : "String. A string that includes characters that should not be included in the generated password. The default is that all characters from the included sets can be used. The string can be a minimum length of 0 characters and a maximum length of 7168 characters.",
+        "ExcludeLowercase" : "Boolean. Specifies that the generated password should not include lowercase letters. The default if you don't include this switch parameter is False, and the generated password can include lowercase letters.",
+        "ExcludeNumbers" : "Boolean. Specifies that the generated password should not include digits. The default if you don't include this switch parameter is False, and the generated password can include digits.",
+        "ExcludePunctuation" : "Boolean. Specifies that the generated password should not include punctuation characters. The default if you do not include this switch parameter is that punctuation characters can be included.",
+        "ExcludeUppercase" : "Boolean. Specifies that the generated password should not include uppercase letters. The default if you do not include this switch parameter is False, and the generated password can include uppercase letters.",
+        "GenerateStringKey" : "String. The JSON key name that's used to add the generated password to the JSON structure specified by the SecretStringTemplateparameter. If you specify this parameter, then you must also specify SecretStringTemplate.",
+        "IncludeSpace" : "Boolean. Specifies that the generated password can include the space character. The default if you do not include this switch parameter is False, and the generated password doesn't include space characters.",
+        "PasswordLength" : "Integer. The desired length of the generated password. The default value if you do not include this parameter is 32 characters.",
+        "RequireEachIncludedType" : "Boolean. Specifies whether the generated password must include at least one of every allowed character type. If you don't include this switch, the default value is True, and the generated password includes at least one of every character type.",
+        "SecretStringTemplate" : "String. A properly structured JSON string that the generated password can be added to. If you specify this parameter, then you must also specify GenerateStringKey. That key is combined with the generated random string and inserted into the JSON structure that's specified by this parameter. The merged JSON string is returned as the completed SecretStringof the secret. The default if you don't include this parameter is that the generated random password string is returned by itself, and isn't embeded in a JSON structure."
+      }      
+    },
+    "AWS::CodeBuild::Project":{
+      "Artifacts":{
+        "ArtifactIdentifier" : "String",
+        "EncryptionDisabled" : "Boolean. Set to true if you do not want your output artifacts encrypted. This option is valid only if your artifacts type is Amazon Simple Storage Service (Amazon S3). If this is set with another artifacts type, an invalidInputException is thrown.",
+        "Location" : "**String. If type is set to CODEPIPELINE, AWS CodePipeline ignores this value if specified. This is because AWS CodePipeline manages its build output locations instead of AWS CodeBuild. If type is set to NO_ARTIFACTS, this value is ignored if specified, because no build output is produced.If type is set to S3, this is the name of the output bucket. If you specify CODEPIPELINE or NO_ARTIFACTS for the Type property, don't specify this property. For all of the other types, you must specify this property.",
+        "Name" : "**String. Along with path and namespaceType, the pattern that AWS CodeBuild uses to name and store the output artifact:",
+        "NamespaceType" : "String. Allowed Values: BUILD_ID | NONE. Along with path and name, the pattern that AWS CodeBuild uses to determine the name and location to store the output artifact: If type is set to CODEPIPELINE, AWS CodePipeline ignores this value if specified. This is because AWS CodePipeline manages its build output names instead of AWS CodeBuild. If type is set to NO_ARTIFACTS, this value is ignored if specified, because no build output is produced. If type is set to S3, valid values include:BUILD_ID: Include the build ID in the location of the build output artifact.NONE: Do not include the build ID. This is the default if namespaceType is not specified. ",
+        "OverrideArtifactName" : "Boolean. If set to true a name specified in the buildspec file overrides the artifact name. The name specified in a buildspec file is calculated at build time and uses the Shell command language. For example, you can append a date and time to your artifact name so that it is always unique.",
+        "Packaging" : "String. Allowed Values: NONE | ZIP. The type of build output artifact to create:",
+        "Path" : "String. Along with namespaceType and name, the pattern that AWS CodeBuild uses to name and store the output artifact:",
+        "Type" : "*String. Allowed Values: CODEPIPELINE | NO_ARTIFACTS | S3"
+      },
+      "CloudWatchLogsConfig":{
+        "GroupName" : "String",
+        "Status" : "*String. Allowed Values: DISABLED | ENABLED. The current status of the logs in Amazon CloudWatch Logs for a build project.",
+        "StreamName" : "String. The prefix of the stream name of the Amazon CloudWatch Logs."
+      },
+      "Environment(CodeBuild)":{
+        "Certificate" : "String. The certificate to use with this build project.",
+        "ComputeType" : "*String. The type of compute environment. This determines the number of CPU cores and memory the build environment uses. BUILD_GENERAL1_SMALL: Use up to 3 GB memory and 2 vCPUs for builds. BUILD_GENERAL1_MEDIUM: Use up to 7 GB memory and 4 vCPUs for builds. BUILD_GENERAL1_LARGE: Use up to 15 GB memory and 8 vCPUs for builds.",
+        "EnvironmentVariables" : ["Type: List of EnvironmentVariable ##"],
+        "Image" : "*String. The image tag or image digest that identifies the Docker image to use for this build project. For an image tag: registry/repository:tag. For example, to specify an image with the tag 'latest,' use registry/repository:latest. For an image digest: registry/repository@digest. For example, to specify an image with the digest 'sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf' use registry/repository@sha256:cbbf2f9a99b47fc460d422812b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf.",
+        "ImagePullCredentialsType" : "String. Allowed Values: CODEBUILD | SERVICE_ROLE. CODEBUILD specifies that AWS CodeBuild uses its own credentials. This requires that you modify your ECR repository policy to trust AWS CodeBuild's service principal. SERVICE_ROLE specifies that AWS CodeBuild uses your build project's service role.",
+        "PrivilegedMode" : "Boolean. Enables running the Docker daemon inside a Docker container. Set to true only if the build project is used to build Docker images. Otherwise, a build that attempts to interact with the Docker daemon fails.",
+        "RegistryCredential" : {"info":"Type:RegistryCredential. specifies information about credentials that provide access to a private Docker registry.##"},
+        "Type" : "*String. Allowed Values: LINUX_CONTAINER | WINDOWS_CONTAINER"
+      },
+      "EnvironmentVariable":{
+        "Name" : "*String. The name or key of the environment variable.",
+        "Type" : "String. Allowed Values: PARAMETER_STORE | PLAINTEXT",
+        "Value" : "*String. The value of the environment variable. We strongly discourage the use of environment variables to store sensitive values, especially AWS secret key IDs and secret access keys. Environment variables can be displayed in plain text using the AWS CodeBuild console and the AWS Command Line Interface (AWS CLI)."
+      },
+      "GitSubmodulesConfig":{
+        "FetchSubmodules" : "*Boolean. Set to true to fetch Git submodules for your AWS CodeBuild build project."
+      },
+      "LogsConfig":{
+        "CloudWatchLogs" : "Type: CloudWatchLogsConfig",
+        "S3Logs" : "Type: S3LogsConfig"
+      },
+      "ProjectCache":{
+        "Location" : "String. NO_CACHE or LOCAL: This value is ignored. S3: This is the S3 bucket name/prefix.",
+        "Modes" : ["Type: List of strings. Allowed Values: LOCAL_SOURCE_CACHE  || LOCAL_DOCKER_LAYER_CACHE  || LOCAL_CUSTOM_CACHE"],
+        "Type" : "*String. Allowed Values: LOCAL | NO_CACHE | S3. NO_CACHE: The build project does not use any cache. S3: The build project reads and writes from and to S3.LOCAL: The build project stores a cache locally on a build host that is only available to that build host."
+      },
+      "ProjectSourceVersion":{
+        "SourceIdentifier" : "*String",
+        "SourceVersion" : "String"
+      },
+      "ProjectTriggers":{
+        "FilterGroups" : ["Type: List of WebhookFilter ##" ],
+        "Webhook" : "Boolean. Specifies whether or not to begin automatically rebuilding the source code every time a code change is pushed to the repository."
+      },
+      "WebhookFilter":{
+        "ExcludeMatchedPattern" : "Boolean. Used to indicate that the pattern determines which webhook events do not trigger a build. If true, then a webhook event that does not match the pattern triggers a build. If false, then a webhook event that matches the pattern triggers a build.",
+        "Pattern" : "*String. For a WebHookFilter that uses EVENT type, a comma-separated string that specifies one or more events. For example, the webhook filter PUSH, PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED allows all push, pull request created, and pull request updated events to trigger a build. For a WebHookFilter that uses any of the other filter types, a regular expression pattern. For example, a WebHookFilter that uses HEAD_REF for its type and the pattern ^refs/heads/ triggers a build when the head reference is a branch with a reference name refs/heads/branch-name.",
+        "Type" : "*String. Allowed Values: ACTOR_ACCOUNT_ID | BASE_REF | EVENT | FILE_PATH | HEAD_REF"
+      },
+      "RegistryCredential":{
+        "Credential" : "*String. The Amazon Resource Name (ARN) or name of credentials created using AWS Secrets Manager.",
+        "CredentialProvider" : "*String. Allowed Values: SECRETS_MANAGER. The service that created the credentials to access a private Docker registry. The valid value, SECRETS_MANAGER, is for AWS Secrets Manager."
+      },
+      "S3LogsConfig":{
+        "EncryptionDisabled" : "Boolean. Set to true if you do not want your S3 build log output encrypted. By default S3 build logs are encrypted.",
+        "Location" : "String. The ARN of an S3 bucket and the path prefix for S3 logs. If your Amazon S3 bucket name is my-bucket, and your path prefix is build-log, then acceptable formats are my-bucket/build-log or arn:aws:s3:::my-bucket/build-log.",
+        "Status" : "*String. Allowed Values: DISABLED | ENABLED"
+      },
+      "Source":{
+        "Auth" : {
+          "Resource" : "String. The resource value that applies to the specified authorization type.",
+          "Type" : "*String. The authorization type to use. The only valid value is OAUTH, which represents the OAuth authorization type."
+        },
+        "BuildSpec" : "String. The build specification for the project. If this value is not provided, then the source code must contain a buildspec file named buildspec.yml at the root level. If this value is provided, it can be either a single string containing the entire build specification, or the path to an alternate buildspec file relative to the value of the built-in environment variable CODEBUILD_SRC_DIR. The alternate buildspec file can have a name other than buildspec.yml, for example myspec.yml or build_spec_qa.yml or similar.",
+        "GitCloneDepth" : "Integer. The depth of history to download. Minimum value is 0. If this value is 0, greater than 25, or not provided, then the full history is downloaded with each build project. If your source type is Amazon S3, this value is not supported.",
+        "GitSubmodulesConfig" : {
+          "FetchSubmodules" : "*Boolean. Set to true to fetch Git submodules for your AWS CodeBuild build project."
+        },
+        "InsecureSsl" : "Boolean. This is used with GitHub Enterprise only. Set to true to ignore SSL warnings while connecting to your GitHub Enterprise project repository. The default value is false. InsecureSsl should be used for testing purposes only. It should not be used in a production environment.",
+        "Location" : "String. Information about the location of the source code to be built. ",
+        "ReportBuildStatus" : "Boolean. Set to true to report the status of a build's start and finish to your source provider. This option is valid only when your source provider is GitHub, GitHub Enterprise, or Bitbucket. If this is set and you use a different source provider, an invalidInputException is thrown.",
+        "SourceIdentifier" : "String",
+        "Type" : "String. Allowed Values: BITBUCKET | CODECOMMIT | CODEPIPELINE | GITHUB | GITHUB_ENTERPRISE | NO_SOURCE | S3"
+      },
+      "VpcConfig(CodeBuild)":{
+        "SecurityGroupIds" : ["List of Strings." ],
+        "Subnets" : [ "List of strings." ],
+        "VpcId" : "String. The id of the vpc."
+      }
+    }    
   }    
 
 }

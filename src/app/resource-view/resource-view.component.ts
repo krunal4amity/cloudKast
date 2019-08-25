@@ -159,6 +159,35 @@ export class ResourceViewComponent implements OnInit {
   //ecr
   ecr_repository=[]
 
+  //cloudformation
+  cfn_customresource=[]
+  cfn_macro=[]
+  cfn_stack=[]
+  cfn_waitcondition=[]
+  cfn_waitconditionhandle=[]
+
+  //lambda
+  lambda_alias=[]
+  lambda_eventsourcemapping=[]
+  lambda_function=[]
+  lambda_layerversion=[]
+  lambda_layerversionpermission=[]
+  lambda_permission=[]
+  lambda_version=[]
+
+  //RAM
+  ram_resourceshare=[]
+
+  //secretsmanager
+  sm_resourcepolicy=[]
+  sm_rotationschedule=[]
+  sm_secret=[]
+  sm_secrettargetattachment=[]
+
+  //codebuild
+  cb_project=[]
+  cb_sourcecredential=[]
+
   serviceAddition(subresource:SubResource){
     //console.log(`${subresource.resourcename} ${subresource.resourcecount} ${subresource.resourcesyntax}`);
     subresource.resourcecount = subresource.resourcecount + 1;
@@ -320,6 +349,35 @@ export class ResourceViewComponent implements OnInit {
       case "ECR":
       if(this.resource_detail[2]=="Repository") this.ecr_repository.push(subresource.resourcecount);
         break;
+
+      case "CloudFormation":
+        if(this.resource_detail[2]=="CustomResource") this.cfn_customresource.push(subresource.resourcecount);
+        if(this.resource_detail[2]=="Macro") this.cfn_macro.push(subresource.resourcecount);
+        if(this.resource_detail[2]=="Stack") this.cfn_stack.push(subresource.resourcecount);
+        if(this.resource_detail[2]=="WaitCondition") this.cfn_waitcondition.push(subresource.resourcecount);
+        if(this.resource_detail[2]=="WaitConditionHandle") this.cfn_waitconditionhandle.push(subresource.resourcecount);
+
+      case "Lambda":
+          if(this.resource_detail[2]=="Alias") this.lambda_alias.push(subresource.resourcecount);
+          if(this.resource_detail[2]=="EventSourceMapping") this.lambda_eventsourcemapping.push(subresource.resourcecount);
+          if(this.resource_detail[2]=="Function") this.lambda_function.push(subresource.resourcecount);
+          if(this.resource_detail[2]=="LayerVersion") this.lambda_layerversion.push(subresource.resourcecount);
+          if(this.resource_detail[2]=="LayerVersionPermission") this.lambda_layerversionpermission.push(subresource.resourcecount);
+          if(this.resource_detail[2]=="Permission") this.lambda_permission.push(subresource.resourcecount);
+          if(this.resource_detail[2]=="Version") this.lambda_version.push(subresource.resourcecount);
+
+      case "RAM":
+        if(this.resource_detail[2]=="ResourceShare") this.ram_resourceshare.push(subresource.resourcecount)
+
+      case "SecretsManager":
+        if(this.resource_detail[2]=="ResourcePolicy") this.sm_resourcepolicy.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="RotationSchedule") this.sm_rotationschedule.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="Secret") this.sm_secret.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="SecretTargetAttachment") this.sm_secrettargetattachment.push(subresource.resourcecount)
+
+      case "CodeBuild":
+        if(this.resource_detail[2]=="Project") this.cb_project.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="SourceCredential") this.cb_sourcecredential.push(subresource.resourcecount)        
 
       default:
         break;
