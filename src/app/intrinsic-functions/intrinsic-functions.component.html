@@ -128,7 +128,8 @@
     </div>
 
     <div *ngIf="funcname.value=='Fn::Sub'">
-        <input type="text" ngModel name="sub" placeholder="Substitute" >
+        <!-- <input type="text" ngModel name="sub" placeholder="Substitute" > -->
+        <textarea name="sub" ngModel id="" cols="25" rows="10"></textarea>
         <mat-icon [matTooltip]="fnsubTip" >info</mat-icon><br>
         <input type="text" ngModel name="subvalue" placeholder="Subvalue" 
         matTooltip="If you're substituting only template parameters e.g. ${MyVarName}, this field must be left blank." >
