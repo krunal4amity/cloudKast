@@ -77,8 +77,8 @@ export class CommonResourceComponent implements OnInit {
       var tags=[];
       this.tagArray.forEach((i)=>{
       tags.push({
-          "Key":value[`tagKey${i}`]?value[`tagKey${i}`]:undefined,
-          "Value":value[`tagValue${i}`]?value[`tagValue${i}`]:undefined
+          "Key":value[`tagKey${i}`]?this.utility.getProperJson(value[`tagKey${i}`]):undefined,
+          "Value":value[`tagValue${i}`]?this.utility.getProperJson(value[`tagValue${i}`]):undefined
       })
       });
       return tags.length==0?undefined:tags

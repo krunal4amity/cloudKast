@@ -157,7 +157,7 @@ export var RESOURCE_DATA:AWSResource[]=[
             },
             {
                 resourcename:"SubnetRouteTableAssociation",
-                resourcesyntax:"AWS::EC2::SubnetNetworkAclAssociation",
+                resourcesyntax:"AWS::EC2::SubnetRouteTableAssociation",
                 resourcecount:0
             },
             {
