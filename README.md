@@ -1,6 +1,6 @@
 ![CloudKast Logo](src/assets/img/cloudkast-logo.jpg)
 
-**CloudKast** is on online AWS CloudFormation template generator. It is available at [CloudKast](https://krunal4amity.github.io).
+**CloudKast** is on online AWS CloudFormation template generator. It is available at [CloudKast](https://krunal4amity.github.io). Note: The tool still lacks test cases.
 
 ---
 ## How to add a new AWS resource
