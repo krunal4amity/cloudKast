@@ -1328,6 +1328,37 @@ export class ResourceDataService {
         "Subnets" : [ "List of strings." ],
         "VpcId" : "String. The id of the vpc."
       }
+    },
+    "AWS::MSK::Cluster":{
+      "BrokerNodeGroupInfo":{
+        "BrokerAZDistribution" : "String. The distribution of broker nodes across Availability Zones.",
+        "ClientSubnets" : ["*List of strings. The list of subnets to connect to in the client virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets. Client applications use elastic network interfaces to produce and consume data. Client subnets can't be in Availability Zone us-east-1e." ],
+        "InstanceType" : "*String. The type of Amazon EC2 instances to use for Kafka brokers. The following instance types are allowed: kafka.m5.large, kafka.m5.xlarge, kafka.m5.2xlarge, kafka.m5.4xlarge, kafka.m5.12xlarge, and kafka.m5.24xlarge.",
+        "SecurityGroups" : ["List of strings. The AWS security groups to associate with the elastic network interfaces in order to specify who can connect to and communicate with the Amazon MSK cluster. If you don't specify a security group, Amazon MSK uses the default security group associated with the VPC. If you specify security groups that were shared with you, you must ensure that you have permissions to them. Specifically, you need the ec2:DescribeSecurityGroups permission."],
+        "StorageInfo" : {
+          "EBSStorageInfo" : {
+            "VolumeSize" : "Integer. The size in GiB of the EBS volume for the data drive on each broker node."
+          }          
+        }
+      },
+      "ClientAuthentication":{
+        "Tls" : {
+          "CertificateAuthorityArnList" : ["List of strings. List of ACM Certificate Authority ARNs." ]
+        }
+      },
+      "ConfigurationInfo":{
+        "Arn" : "*String. The Amazon Resource Name (ARN) of the MSK configuration to use. For example, arn:aws:kafka:us-east-1:123456789012:configuration/example-configuration-name/abcdabcd-1234-abcd-1234-abcd123e8e8e-1.",
+        "Revision" : "*Integer. The revision of the Amazon MSK configuration to use."
+      },
+      "EncryptionInfo":{
+        "EncryptionAtRest" : {
+          "DataVolumeKMSKeyId" : "*String. The ARN of the AWS KMS key for encrypting data at rest. If you don't specify a KMS key, MSK creates one for you and uses it on your behalf."
+        },
+        "EncryptionInTransit" : {
+          "ClientBroker" : "String.  TLS| TLS_PLAINTEXT| PLAINTEXT ",
+          "InCluster" : "Boolean. When set to true, it indicates that data communication among the broker nodes of the cluster is encrypted. When set to false, the communication happens in plaintext. The default value is true."
+        }        
+      }
     }    
   }    
 

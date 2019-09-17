@@ -736,5 +736,15 @@ export var RESOURCE_DATA:AWSResource[]=[
                 resourcecount:0
             }
         ]
+    },
+    {
+        servicename:"MKS",
+        subresource:[
+            {
+                resourcename:"Cluster",
+                resourcesyntax:"AWS::MKS::Cluster",
+                resourcecount:0
+            }
+        ]
     }
 ]

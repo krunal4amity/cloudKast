@@ -1416,5 +1416,20 @@ elbv2_targetgroup={
         "Username" : "String. The Bitbucket username when the authType is BASIC_AUTH. This parameter is not valid for other types of source providers or connections."
       }
   }
+
+  mks_cluster={
+    "Type" : "AWS::MSK::Cluster",
+    "Properties" : {
+        "BrokerNodeGroupInfo" : {"info": "*Type: BrokerNodeGroupInfo. The setup to be used for brokers in the cluster. ##"},
+        "ClientAuthentication" : {"info": "Type: ClientAuthentication. Includes information related to client authentication. ##"},
+        "ClusterName" : "*Type: String",
+        "ConfigurationInfo" : {"info": "Type: ConfigurationInfo ##"},
+        "EncryptionInfo" :  {"info": "Type: EncryptionInfo ##"},
+        "EnhancedMonitoring" : "String. Specifies the level of monitoring for the MSK cluster. The possible values are DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.",
+        "KafkaVersion" : "*String",
+        "NumberOfBrokerNodes" : "*Integer. The number of broker nodes you want in the Amazon MSK cluster."
+      }
+  }
+  
   
 }

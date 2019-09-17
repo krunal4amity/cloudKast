@@ -31,8 +31,8 @@
                   </div>
                 </div>
               </div>    
-    <button mat-stroked-button color="primary" type="submit">Generate</button>
-    <button mat-stroked-button color="warn" (click)="resname.value=''; onReset()">Reset</button>
+    <button mat-icon-button color="primary" type="submit"> <mat-icon>done</mat-icon> </button>
+    <button mat-icon-button color="warn" (click)="resname.value=''; onReset()">  <mat-icon>clear</mat-icon> </button>
   </form>
   <br>
   <pre >{{myobj|json}}</pre>
