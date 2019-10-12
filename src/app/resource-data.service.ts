@@ -426,7 +426,7 @@ export class ResourceDataService {
         "PasswordResetRequired" : "Boolean. Specifies whether the user is required to set a new password the next time the user logs in to the AWS Management Console."
       }
     },
-    "AWS::IAM::Policy":{
+    "AWS::IAM::Role":{
         "Policies":{
           "PolicyDocument" : "A JSON object. create a policy object using AWS policy generator",
           "PolicyName" : "String"

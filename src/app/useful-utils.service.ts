@@ -81,25 +81,29 @@ export class UsefulUtilsService {
   getSemicolonArray(val){
     try{
       if((val as String).includes("{")){
-        var kk=((val as String).split(";"));
-        var mm =[]
-        kk.forEach((i)=>{
-          if((i as String).includes("{") && !(val as String).includes("{{") ){
-            mm.push(JSON.parse(i));
-          }else if((i as String).includes("{{")){
-            try {
-              mm.push(JSON.parse(JSON.parse(JSON.stringify(i))))
+        if ((val as String).includes("Fn::Split")){
+          return JSON.parse(val);
+        }else{
+          var kk=((val as String).split(";"));
+          var mm =[]
+          kk.forEach((i)=>{
+            if((i as String).includes("{") && !(val as String).includes("{{") ){
+              mm.push(JSON.parse(i));
+            }else if((i as String).includes("{{")){
+              try {
+                mm.push(JSON.parse(JSON.parse(JSON.stringify(i))))
+              }
+              catch (err) {
+                console.log(err)
+                mm.push(i)
+              }
             }
-            catch (err) {
-              console.log(err)
-              mm.push(i)
+            else{
+              mm.push(i);
             }
-          }
-          else{
-            mm.push(i);
-          }
-        })
-        return mm;  
+          })
+          return mm;  
+        }
       }
       else{
         return val.length!=0?((val as String).split(";")):undefined
@@ -120,6 +124,7 @@ export class UsefulUtilsService {
       return val;
     }
   }
+
 
   addCommonProperties(value:ResourceSyntax){
     value["Properties"]["DeletionPolicy"]="With the DeletionPolicy attribute you can preserve or (in some cases) backup a resource when its stack is deleted.Possible values : 'Delete', 'Retain','Snapshot'. Snapshot applies to ec2volume, elasticcache-cachecluster and replication group, rds-dbcluster and dbinstance, redshift-cluster, neptune-dbcluster";

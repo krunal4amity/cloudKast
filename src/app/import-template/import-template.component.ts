@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsefulUtilsService } from '../useful-utils.service';
+import { JsonResultService } from '../json-result.service';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { UsefulUtilsService } from '../useful-utils.service';
 })
 export class ImportTemplateComponent implements OnInit {
 
-  constructor(public util:UsefulUtilsService) { }
+  constructor(public result:JsonResultService,public util:UsefulUtilsService) { }
 
   ngOnInit() {
   }
@@ -43,7 +44,7 @@ export class ImportTemplateComponent implements OnInit {
     var i=0;
     this.getKeys(value).forEach((j)=>{
       if(value[j]!=undefined){
-        i=i+1;
+          i=i+1;
       }
     });
     return i

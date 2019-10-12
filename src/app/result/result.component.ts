@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JsonResultService, CloudFormation } from '../json-result.service';
+import { JsonResultService } from '../json-result.service';
 //import { saveAs } from 'file-saver';
 var AWS = require('aws-sdk');
 //var FileSaver = require('file-saver');

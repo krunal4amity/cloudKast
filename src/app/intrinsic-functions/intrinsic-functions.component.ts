@@ -382,7 +382,7 @@ export class IntrinsicFunctionsComponent implements OnInit {
       case "Fn::Split":
         var splitArr=[];
         splitArr.push(value.split);
-        splitArr.push(value.splitvalue);
+        splitArr.push(this.utility.getProperJson(value.splitvalue));
         this.funcobj={
           "Fn::Split": this.utility.getProperJson(splitArr)
         }

@@ -30,6 +30,9 @@ export class ConditionsComponent implements OnInit {
   }
 
   onDone(value){
+    if (this.result.jsonresult.Conditions==undefined){
+      this.result.jsonresult.Conditions={}
+    }
     this.result.jsonresult.Conditions[value.resourceName]=this.util.getProperJson(value.func);
     this.isCopyReady=true;
   }

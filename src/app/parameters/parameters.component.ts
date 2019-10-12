@@ -66,6 +66,9 @@ export class ParametersComponent implements OnInit {
   }
   
   onDone(value){
+    if (this.result.jsonresult.Parameters==undefined){
+      this.result.jsonresult.Parameters={}
+    }
     console.log(value);
     //this.result.jsonresult.Parameters={};
     this.result.jsonresult.Parameters[value.resourceName]={

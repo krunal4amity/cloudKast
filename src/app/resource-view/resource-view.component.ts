@@ -189,7 +189,7 @@ export class ResourceViewComponent implements OnInit {
   cb_sourcecredential=[]
 
   //mks(kafka)
-  mks_cluster=[]
+  msk_cluster=[]
 
   serviceAddition(subresource:SubResource){
     //console.log(`${subresource.resourcename} ${subresource.resourcecount} ${subresource.resourcesyntax}`);
@@ -382,8 +382,8 @@ export class ResourceViewComponent implements OnInit {
         if(this.resource_detail[2]=="Project") this.cb_project.push(subresource.resourcecount)
         if(this.resource_detail[2]=="SourceCredential") this.cb_sourcecredential.push(subresource.resourcecount)        
 
-      case "MKS":
-        if(this.resource_detail[2]=="Cluster") this.mks_cluster.push(subresource.resourcecount)
+      case "MSK":
+        if(this.resource_detail[2]=="Cluster") this.msk_cluster.push(subresource.resourcecount)
 
       default:
         break;

@@ -651,7 +651,7 @@ iam_policy={
   "Type" : "AWS::IAM::Policy",
   "Properties" : { 
     "Groups" : ["**You must specify at least one of the following properties: Groups, Roles, or Users."],
-    "PolicyDocument" :{"info":"*A policy document that contains permissions to add to the specified users or groups. NOTE: this policy is not available in 'Property Dealer' utility. Please use aws policy generate to do the same##"},
+    "PolicyDocument" :{"info":"*A policy document that contains permissions to add to the specified users or groups. NOTE: this policy is not available in 'Property Dealer' utility. Please use aws policy generate to do the same"},
     "PolicyName" : "*The name of the policy. If you specify multiple policies for an entity, specify unique names. For example, if you specify a list of policies for an IAM role, each policy must have a unique name.",
     "Roles" : ["**Type: List of String values. If a policy has a Ref to a role and if a resource (such as AWS::ECS::Service) also has a Ref to the same role, add a DependsOn attribute to the resource so that the resource depends on the policy. This dependency ensures that the role's policy is available throughout the resource's lifecycle. For example, when you delete a stack with an AWS::ECS::Service resource, the DependsOn attribute ensures that the AWS::ECS::Service resource can complete its deletion before its role's policy is deleted."],
     "Users" : ["**Type: List of String values. You must specify at least one of the following properties: Groups, Roles, or Users. "]
@@ -665,7 +665,7 @@ iam_role={
     "MaxSessionDuration": "The maximum session duration (in seconds) for the specified role. Anyone who uses the AWS CLI or API to assume the role can specify the duration using the optional DurationSeconds API parameter or duration-seconds CLI parameter. Minimum value of 3600. Maximum value of 43200.",
     "Path": "The path associated with this role. For information about IAM paths, see Friendly Names and Paths in IAM User Guide.",
     "PermissionsBoundary": "The ARN of the policy that is used to set the permissions boundary for the role. Minimum length of 20. Maximum length of 2048.",
-    "Policies": ["Type: List of IAM Policies. "],
+    "Policies": ["Type: List of IAM Policies.## "],
     "RoleName": "A name for the IAM role. Warning: Naming an IAM resource can cause an unrecoverable error if you reuse the same template in multiple regions. To prevent this, we recommend using Fn::Join and AWS::Region to create a region-specific name"
   }
 }
@@ -724,7 +724,7 @@ ag_agGroup=
       "TargetGroupARNs" : ["list of string values. A list of Amazon Resource Names (ARN) of target groups to associate with the Auto Scaling group."],
       "TerminationPolicies" : ["list of string values. A policy or a list of policies that are used to select the instances to terminate. The policies are executed in the order that you list them."],
       "VPCZoneIdentifier" : ["**If you don't specify the AvailabilityZones property, you must specify this property. A list of subnet identifiers of Amazon Virtual Private Cloud (Amazon VPCs)."],
-      "Tags":{"info":"Type: List of Amazon EC2 Auto Scaling AutoScalingGroup TagProperty##"},
+      "Tags":["Type: List of Amazon EC2 Auto Scaling AutoScalingGroup TagProperty##"],
       "CreationPolicy":{"info":"Associate the CreationPolicy attribute with a resource to prevent its status from reaching create complete until AWS CloudFormation receives a specified number of success signals or the timeout period is exceeded.Use the CreationPolicy attribute when you want to wait on resource configuration actions before stack creation proceeds. For example, if you install and configure software applications on an EC2 instance, you might want those applications to be running before proceeding. In such cases, you can add a CreationPolicy attribute to the instance, and then send a success signal to the instance after the applications are installed and configured.##"},
       "UpdatePolicy":{"info":"For AWS::AutoScaling::AutoScalingGroup resources, AWS CloudFormation invokes one of three update policies depending on the type of change you make or whether a scheduled action is associated with the Auto Scaling group. The AutoScalingReplacingUpdate and AutoScalingRollingUpdate policies apply only when you do one or more of the following: 1. Change the Auto Scaling group's AWS::AutoScaling::LaunchConfiguration. 2. Change the Auto Scaling group's VPCZoneIdentifier property 3. Change the Auto Scaling group's LaunchTemplate property 4. Update an Auto Scaling group that contains instances that don't match the current LaunchConfiguration. If both the AutoScalingReplacingUpdate and AutoScalingRollingUpdate policies are specified, setting the WillReplace property to true gives AutoScalingReplacingUpdate precedence. The AutoScalingScheduledAction policy applies when you update a stack that includes an Auto Scaling group with an associated scheduled action. ##"}
    }
@@ -1417,7 +1417,7 @@ elbv2_targetgroup={
       }
   }
 
-  mks_cluster={
+  msk_cluster={
     "Type" : "AWS::MSK::Cluster",
     "Properties" : {
         "BrokerNodeGroupInfo" : {"info": "*Type: BrokerNodeGroupInfo. The setup to be used for brokers in the cluster. ##"},

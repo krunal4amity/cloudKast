@@ -738,11 +738,11 @@ export var RESOURCE_DATA:AWSResource[]=[
         ]
     },
     {
-        servicename:"MKS",
+        servicename:"MSK",
         subresource:[
             {
                 resourcename:"Cluster",
-                resourcesyntax:"AWS::MKS::Cluster",
+                resourcesyntax:"AWS::MSK::Cluster",
                 resourcecount:0
             }
         ]

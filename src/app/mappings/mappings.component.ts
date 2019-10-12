@@ -44,6 +44,10 @@ export class MappingsComponent implements OnInit {
 
   onDone(val){
     console.log(val);
+    if (this.result.jsonresult.Mappings==undefined){
+      this.result.jsonresult.Mappings={}
+    }
+
     this.result.jsonresult.Mappings[val.resourceName]={}
     //this.result.jsonresult.Mappings[val.resourceName][val.key]={};
 

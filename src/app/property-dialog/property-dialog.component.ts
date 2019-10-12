@@ -95,29 +95,55 @@ getSelProp(value){
 }
 
 onSubmit(value){
-  //console.log(value);
   this.getLooper(this.selProp,value,this.myobj);
+  this.clearUndefinedObj(this.myobj);
+  this.clearEmptyObj(this.myobj)
   this.isCopyReady=true;
 }
 
 getLooper(loopval,formval,myobj){
   this.getKeys(loopval).forEach((j)=>{
     if(typeof(loopval[j])=="string"){
-      //myobj[j]=formval[j];
-      myobj[j]=this.util.getProperJson(formval[j]);
+        myobj[j]=this.util.getProperJson(formval[j]);
     }
     else{
       if(Array.isArray(loopval[j])){
-        //myobj[j]=(formval[j] as String).split("|");
-        myobj[j]=this.util.getSemicolonArray(formval[j]);
+          myobj[j]=this.util.getSemicolonArray(formval[j]);
       }
       else{
         myobj[j]={}
         this.getLooper(loopval[j],formval,myobj[j])
       }
     }
-
   })
+
+}
+
+clearUndefinedObj(obj){
+    for (let key in obj){
+      if(typeof(obj[key])=='object' && !Array.isArray(obj[key])){
+        this.clearUndefinedObj(obj[key])
+      }
+      else{
+        if (obj[key] == undefined){
+          delete obj[key]
+        }
+      }
+    }    
+}
+
+clearEmptyObj(obj){
+  console.log(obj)
+  for (let key in obj){
+    if(typeof(obj[key])=='object' && !Array.isArray(obj[key]) ){
+      if (Object.entries(obj[key]).length==0){
+        obj[key]=undefined
+      }
+      else{
+        this.clearEmptyObj(obj[key])
+      }      
+    }
+  }
 }
 
 onReset(){

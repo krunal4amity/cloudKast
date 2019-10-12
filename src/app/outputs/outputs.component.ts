@@ -35,6 +35,9 @@ export class OutputsComponent implements OnInit {
 
   onDone(value){
     console.log(value);
+    if (this.result.jsonresult.Outputs==undefined){
+      this.result.jsonresult.Outputs={}
+    }
     this.result.jsonresult.Outputs[value.resourceName]={
       "Description":value.desc,
       "Value":this.util.getProperJson(value.value),
