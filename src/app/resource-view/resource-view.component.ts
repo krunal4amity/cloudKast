@@ -191,6 +191,20 @@ export class ResourceViewComponent implements OnInit {
   //mks(kafka)
   msk_cluster=[]
 
+  //elasticsearch
+  es_domain=[]
+
+  //rds
+  rds_dbcluster=[]
+  rds_dbclusterparametergroup=[]
+  rds_dbinstance=[]
+  rds_dbparametergroup=[]
+  rds_dbsecuritygroup=[]
+  rds_dbsecuritygroupingress=[]
+  rds_dbsubnetgroup=[]
+  rds_eventsubscription=[]
+  rds_optiongroup=[]
+
   serviceAddition(subresource:SubResource){
     //console.log(`${subresource.resourcename} ${subresource.resourcecount} ${subresource.resourcesyntax}`);
     subresource.resourcecount = subresource.resourcecount + 1;
@@ -384,6 +398,21 @@ export class ResourceViewComponent implements OnInit {
 
       case "MSK":
         if(this.resource_detail[2]=="Cluster") this.msk_cluster.push(subresource.resourcecount)
+
+      case "Elasticsearch":
+        if(this.resource_detail[2]=="Domain") this.es_domain.push(subresource.resourcecount)
+
+      case "RDS":
+        if(this.resource_detail[2]=="DBCluster") this.rds_dbcluster.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="DBClusterParameterGroup") this.rds_dbclusterparametergroup.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="DBInstance") this.rds_dbinstance.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="DBParameterGroup") this.rds_dbparametergroup.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="DBSecurityGroup") this.rds_dbsecuritygroup.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="DBSecurityGroupIngress") this.rds_dbsecuritygroupingress.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="DBSubnetGroup") this.rds_dbsubnetgroup.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="EventSubscription") this.rds_eventsubscription.push(subresource.resourcecount)
+        if(this.resource_detail[2]=="OptionGroup") this.rds_optiongroup.push(subresource.resourcecount)
+
 
       default:
         break;

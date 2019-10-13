@@ -34,7 +34,6 @@ export class OutputsComponent implements OnInit {
   }
 
   onDone(value){
-    console.log(value);
     if (this.result.jsonresult.Outputs==undefined){
       this.result.jsonresult.Outputs={}
     }

@@ -414,6 +414,38 @@
             <app-common-resource [myresource]="awsresource.msk_cluster" [isTagged]="true" ></app-common-resource>
       </div>                           
 
+      <div *ngFor="let i of es_domain" >
+            <app-common-resource [myresource]="awsresource.es_domain" [isTagged]="true" ></app-common-resource>
+      </div>                
+      
+      <div *ngFor="let i of rds_dbcluster" >
+            <app-common-resource [myresource]="awsresource.rds_dbcluster" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_dbclusterparametergroup" >
+            <app-common-resource [myresource]="awsresource.rds_dbclusterparametergroup" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_dbinstance" >
+            <app-common-resource [myresource]="awsresource.rds_dbinstance" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_dbparametergroup" >
+            <app-common-resource [myresource]="awsresource.rds_dbclusterparametergroup" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_dbsecuritygroup" >
+            <app-common-resource [myresource]="awsresource.rds_dbsecuritygroup" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_dbsecuritygroupingress" >
+            <app-common-resource [myresource]="awsresource.rds_dbsecuritygroupingress" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_dbsubnetgroup" >
+            <app-common-resource [myresource]="awsresource.rds_dbsubnetgroup" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_eventsubscription" >
+            <app-common-resource [myresource]="awsresource.rds_eventsubscription" [isTagged]="true" ></app-common-resource>
+      </div>                
+      <div *ngFor="let i of rds_optiongroup" >
+            <app-common-resource [myresource]="awsresource.rds_optiongroup" [isTagged]="true" ></app-common-resource>
+      </div>                
+      
     </div>
 </mat-drawer-container>
 </div>

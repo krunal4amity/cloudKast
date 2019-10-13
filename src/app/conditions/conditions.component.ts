@@ -20,8 +20,8 @@ export class ConditionsComponent implements OnInit {
   addCondition(){
     this.tagCount+=1;
     this.tagArray.push(this.tagCount);
-    console.log(this.tagCount);
-    console.log(this.tagArray);
+    //console.log(this.tagCount);
+    //console.log(this.tagArray);
   }
 
   onRemove(value){

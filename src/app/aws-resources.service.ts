@@ -1430,6 +1430,182 @@ elbv2_targetgroup={
         "NumberOfBrokerNodes" : "*Integer. The number of broker nodes you want in the Amazon MSK cluster."
       }
   }
+ 
+  //elasticsearch_domain
+  es_domain={
+    "Type" : "AWS::Elasticsearch::Domain",
+    "Properties" : {
+        "AccessPolicies" : {"info":"Type: JSON object. An AWS Identity and Access Management (IAM) policy document that specifies who can access the Amazon ES domain and their permissions."},
+        "AdvancedOptions" : "Type: Map of string. Additional options to specify for the Amazon ES domain. rest.action.multi.allow_explicit_index= Specifies whether explicit references to indices are allowed inside the body of HTTP requests. Setting this property to false prevents users from bypassing access control for subresources. indices.fielddata.cache.size= Specifies the percentage of Java heap space that is allocated to field data. By default, this setting is unbounded. indices.query.bool.max_clause_count=Specifies the maximum number of clauses allowed in a Lucene Boolean query. The default is 1024. ",
+        "DomainName" : "String. A name for the Amazon ES domain. ",
+        "EBSOptions" : {"info":"The configurations of Amazon Elastic Block Store (Amazon EBS) volumes that are attached to data nodes in the Amazon ES domain.##"},
+        "ElasticsearchClusterConfig" : {"info":"Type: ElasticsearchClusterConfig. ElasticsearchClusterConfig is a property of the AWS::Elasticsearch::Domain resource that configures the cluster of an Amazon Elasticsearch Service (Amazon ES) domain.##"},
+        "ElasticsearchVersion" : "String. The version of Elasticsearch to use, such as 2.3. If not specified, 1.5 is used as the default.",
+        "EncryptionAtRestOptions" : {"info":"Type: EncryptionAtRestOptions. Whether the domain should encrypt data at rest, and if so, the AWS Key Management Service (KMS) key to use. Can only be used to create a new domain, not update an existing one.##"},
+        "NodeToNodeEncryptionOptions" : {"info":"Type: NodeToNodeEncryptionOptions. Specifies whether node-to-node encryption is enabled.##"},
+        "SnapshotOptions" : {"info":"Type: SnapshotOptions. The automated snapshot configuration for the Amazon ES domain indices.##"},
+        "VPCOptions" : {"info":"Type: VPCOptions. The virtual private cloud (VPC) configuration for the Amazon ES domain.##"}
+      }
+  }
   
+  //RDS
+  rds_dbcluster={
+    "Type" : "AWS::RDS::DBCluster",
+    "Properties" : {
+        "AssociatedRoles" : ["List of DBClusterRole. Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services on your behalf.##" ],
+        "AvailabilityZones" : ["List of string. A list of Availability Zones (AZs) where instances in the DB cluster can be created."],
+        "BacktrackWindow" : "Type:Long. The target backtrack window, in seconds. To disable backtracking, set this value to 0. If specified, this value must be set to a number from 0 to 259,200 (72 hours).",
+        "BackupRetentionPeriod" : "Integer. The number of days for which automated backups are retained. Must be a value from 1 to 35",
+        "DatabaseName" : "String. The name of your database. If you don't provide a name, then Amazon RDS won't create a database in this DB cluster.",
+        "DBClusterIdentifier" : "String. The DB cluster identifier. This parameter is stored as a lowercase string.",
+        "DBClusterParameterGroupName" : "String. The name of the DB cluster parameter group to associate with this DB cluster.",
+        "DBSubnetGroupName" : "String. A DB subnet group that you want to associate with this DB cluster.",
+        "DeletionProtection" : "Boolean. A value that indicates whether the DB cluster has deletion protection enabled. The database can't be deleted when deletion protection is enabled. By default, deletion protection is disabled.",
+        "EnableCloudwatchLogsExports" : ["List of string. The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on the DB engine being used. "],
+        "EnableIAMDatabaseAuthentication" : "Boolean. A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled.",
+        "Engine" : "*String. The name of the database engine to be used for this DB cluster. aurora | aurora-mysql | aurora-postgresql",
+        "EngineMode" : "String. provisioned | serverless| parallelquery| global| multimaster.",
+        "EngineVersion" : "String. The version number of the database engine to use. Use this command to get it 'aws rds describe-db-engine-versions --engine aurora --query 'DBEngineVersions[].EngineVersion''",
+        "KmsKeyId" : "String. The Amazon Resource Name (ARN) of the AWS Key Management Service master key that is used to encrypt the database instances in the DB cluster, such as arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef. If you enable the StorageEncrypted property but don't specify this property, the default master key is used. If you specify this property, you must set the StorageEncrypted property to true.",
+        "MasterUsername" : "String. The name of the master user for the DB cluster.",
+        "MasterUserPassword" : "String. The master password for the DB instance.",
+        "Port" : "Integer. The port number on which the instances in the DB cluster accept connections. Default: 3306 if engine is set as aurora or 5432 if set to aurora-postgresql.",
+        "PreferredBackupWindow" : "String. The daily time range during which automated backups are created if automated backups are enabled using the BackupRetentionPeriod parameter. Must be in the format hh24:mi-hh24:mi. Must be in Universal Coordinated Time (UTC). Must not conflict with the preferred maintenance window. Must be at least 30 minutes.",
+        "PreferredMaintenanceWindow" : "String. The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC). Format: ddd:hh24:mi-ddd:hh24:mi. Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun. Constraints: Minimum 30-minute window.",
+        "ReplicationSourceIdentifier" : "String. The Amazon Resource Name (ARN) of the source DB instance or DB cluster if this DB cluster is created as a Read Replica.",
+        "RestoreType" : "String. The type of restore to be performed. You can specify one of the following values: full-copy - The new DB cluster is restored as a full copy of the source DB cluster. copy-on-write - The new DB cluster is restored as a clone of the source DB cluster.",
+        "ScalingConfiguration" : {"info":"Type: ScalingConfiguration. The ScalingConfiguration property type specifies the scaling configuration of an Aurora Serverless DB cluster.##"},
+        "SnapshotIdentifier" : "String. The identifier for the DB snapshot or DB cluster snapshot to restore from. You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can use only the ARN to specify a DB snapshot. After you restore a DB cluster with a SnapshotIdentifier property, you must specify the same SnapshotIdentifier property for any future updates to the DB cluster. When you specify this property for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not changed. However, if you don't specify the SnapshotIdentifier property, an empty DB cluster is created, and the original DB cluster is deleted. If you specify a property that is different from the previous snapshot restore property, the DB cluster is restored from the specified SnapshotIdentifier property, and the original DB cluster is deleted.",
+        "SourceDBClusterIdentifier" : "String. The identifier of the source DB cluster from which to restore. Must match the identifier of an existing DBCluster.",
+        "SourceRegion" : "String. The AWS Region which contains the source DB cluster when replicating a DB cluster. For example, us-east-1.",
+        "StorageEncrypted" : "Boolean. Indicates whether the DB instance is encrypted. ",
+        "UseLatestRestorableTime" : "Boolean. A value that indicates whether to restore the DB cluster to the latest restorable backup time. By default, the DB cluster is not restored to the latest restorable backup time.",
+        "VpcSecurityGroupIds" : ["List of string. A list of EC2 VPC security groups to associate with this DB cluster."]
+      }
+  }
+  
+  rds_dbclusterparametergroup={
+    "Type" : "AWS::RDS::DBClusterParameterGroup",
+    "Properties" : {
+        "Description" : "*String. A friendly description for this DB cluster parameter group.",
+        "Family" : "*String. The DB cluster parameter group family name. A DB cluster parameter group can be associated with one and only one DB cluster parameter group family, and can be applied only to a DB cluster running a DB engine and engine version compatible with that DB cluster parameter group family. Use the command : aws rds describe-db-engine-versions --query 'DBEngineVersions[].DBParameterGroupFamily'",
+        "Parameters" : "*Json. Provides a list of parameters for the DB cluster parameter group.",
+      }
+  }
+  
+  rds_dbinstance={
+    "Type" : "AWS::RDS::DBInstance",
+    "Properties" : {
+        "AllocatedStorage" : "String. The amount of storage (in gigabytes) to be initially allocated for the database instance.",
+        "AllowMajorVersionUpgrade" : "Boolean. A value that indicates whether major version upgrades are allowed. Changing this parameter doesn't result in an outage and the change is asynchronously applied as soon as possible. Constraints: Major version upgrades must be allowed when specifying a value for the EngineVersion parameter that is a different major version than the DB instance's current version.",
+        "AssociatedRoles" : ["Type: List of DBInstanceRole##" ],
+        "AutoMinorVersionUpgrade" : "Boolean. A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the maintenance window. By default, minor engine upgrades are applied automatically.",
+        "AvailabilityZone" : "String. The Availability Zone (AZ) where the database will be created.",
+        "BackupRetentionPeriod" : "Integer. The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups.",
+        "CharacterSetName" : "String. For supported engines, indicates that the DB instance should be associated with the specified CharacterSet.",
+        "CopyTagsToSnapshot" : "Boolean. A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default, tags are not copied.",
+        "DBClusterIdentifier" : "String. The identifier of the DB cluster that the instance will belong to.",
+        "DBInstanceClass" : "*String. The compute and memory capacity of the DB instance, for example, db.m4.large. Not all DB instance classes are available in all AWS Regions, or for all database engines. ",
+        "DBInstanceIdentifier" : "String. A name for the DB instance. If you specify a name, AWS CloudFormation converts it to lowercase. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the DB instance. ",
+        "DBName" : "String. MySQL = The name of the database to create when the DB instance is created. If this parameter is not specified, no database is created in the DB instance. MariaDB= The name of the database to create when the DB instance is created. If this parameter is not specified, no database is created in the DB instance. PostgreSQL=The name of the database to create when the DB instance is created. If this parameter is not specified, the default 'postgres' database is created in the DB instance. Oracle=The Oracle System ID (SID) of the created DB instance. If you specify null, the default value ORCL is used. You can't specify the string NULL, or any other reserved word, for DBName. Default: ORCL. SQL Server=Not applicable. Must be null. Amazon Aurora=The name of the database to create when the primary instance of the DB cluster is created. If this parameter is not specified, no database is created in the DB instance. ",
+        "DBParameterGroupName" : "String. The name of an existing DB parameter group or a reference to an AWS::RDS::DBParameterGroup resource created in the template.",
+        "DBSecurityGroups" : ["List of string. A list of the DB security groups to assign to the DB instance. The list can include both the name of existing DB security groups or references to AWS::RDS::DBSecurityGroup resources created in the template."],
+        "DBSnapshotIdentifier" : "String. The name or Amazon Resource Name (ARN) of the DB snapshot that's used to restore the DB instance. If you're restoring from a shared manual DB snapshot, you must specify the ARN of the snapshot. Some DB instance properties aren't valid when you restore from a snapshot, such as the MasterUsername and MasterUserPassword properties.",
+        "DBSubnetGroupName" : "String. A DB subnet group to associate with the DB instance. If you update this value, the new subnet group must be a subnet group in a new VPC.",
+        "DeleteAutomatedBackups" : "Boolean. A value that indicates whether to remove automated backups immediately after the DB instance is deleted. This parameter isn't case-sensitive. The default is to remove automated backups immediately after the DB instance is deleted.",
+        "DeletionProtection" : "Boolean. A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted when deletion protection is enabled. By default, deletion protection is disabled.",
+        "Domain" : "String. The Active Directory directory ID to create the DB instance in. Currently, only Microsoft SQL Server and Oracle DB instances can be created in an Active Directory Domain.",
+        "DomainIAMRoleName" : "String. Specify the name of the IAM role to be used when making API calls to the Directory Service.",
+        "EnableCloudwatchLogsExports" : ["List of string. The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on the DB engine being used."],
+        "EnableIAMDatabaseAuthentication" : "Boolean. A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled.",
+        "EnablePerformanceInsights" : "Boolean. A value that indicates whether to enable Performance Insights for the DB instance.",
+        "Engine" : "String. The name of the database engine that you want to use for this DB instance.",
+        "EngineVersion" : "String. The version number of the database engine to use.",
+        "Iops" : "Integer. The number of I/O operations per second (IOPS) that the database provisions. The value must be equal to or greater than 1000.",
+        "KmsKeyId" : "String. The ARN of the AWS Key Management Service (AWS KMS) master key that's used to encrypt the DB instance, such as arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef. If you enable the StorageEncrypted property but don't specify this property, AWS CloudFormation uses the default master key. If you specify this property, you must set the StorageEncrypted property to true.",
+        "LicenseModel" : "String. License model information for this DB instance.",
+        "MasterUsername" : "String. The master user name for the DB instance.",
+        "MasterUserPassword" : "String",
+        "MonitoringInterval" : "Integer. The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60",
+        "MonitoringRoleArn" : "String. The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to Amazon CloudWatch Logs. For example, arn:aws:iam:123456789012:role/emaccess. ",
+        "MultiAZ" : "Boolean. Specifies whether the database instance is a multiple Availability Zone deployment. You can't set the AvailabilityZone parameter if the MultiAZ parameter is set to true. Amazon Aurora storage is replicated across all the Availability Zones and doesn't require the MultiAZ option to be set.",
+        "OptionGroupName" : "String. Indicates that the DB instance should be associated with the specified option group.",
+        "PerformanceInsightsKMSKeyId" : "String. The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.",
+        "PerformanceInsightsRetentionPeriod" : "Integer. The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).",
+        "Port" : "String. The port number on which the database accepts connections.",
+        "PreferredBackupWindow" : "String. The daily time range during which automated backups are created if automated backups are enabled, using the BackupRetentionPeriod parameter.",
+        "PreferredMaintenanceWindow" : "String. The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).",
+        "ProcessorFeatures" : [ "List of ProcessFeature. The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.##" ],
+        "PromotionTier" : "Integer. A value that specifies the order in which an Aurora Replica is promoted to the primary instance after a failure of the existing primary instance. Valid Values: 0 - 15",
+        "PubliclyAccessible" : "Boolean. Indicates whether the DB instance is an internet-facing instance. If you specify true, AWS CloudFormation creates an instance with a publicly resolvable DNS name, which resolves to a public IP address. If you specify false, AWS CloudFormation creates an internal instance with a DNS name that resolves to a private IP address.",
+        "SourceDBInstanceIdentifier" : "String. If you want to create a Read Replica DB instance, specify the ID of the source DB instance. Each DB instance can have a limited number of Read Replicas. ",
+        "SourceRegion" : "String. The ID of the region that contains the source DB instance for the Read Replica.",
+        "StorageEncrypted" : "Boolean. A value that indicates whether the DB instance is encrypted. By default, it is not encrypted.",
+        "StorageType" : "String. Valid values: standard | gp2 | io1",
+        "Timezone" : "String. The time zone of the DB instance.",
+        "UseDefaultProcessorFeatures" : "Boolean. A value that indicates whether the DB instance class of the DB instance uses its default processor features.",
+        "VPCSecurityGroups" : ["List of string. A list of the VPC security group IDs to assign to the DB instance. The list can include both the physical IDs of existing VPC security groups and references to AWS::EC2::SecurityGroup resources created in the template."]
+      }
+  }
+
+  rds_dbparametergroup = {
+    "Type" : "AWS::RDS::DBParameterGroup",
+    "Properties" : {
+        "Description" : "*String",
+        "Family" : "*String. The DB parameter group family name. A DB parameter group can be associated with one and only one DB parameter group family, and can be applied only to a DB instance running a DB engine and engine version compatible with that DB parameter group family.",
+        "Parameters" : "Type: Map of string. An array of parameter names, values, and the apply method for the parameter update. At least one parameter name, value, and apply method must be supplied; subsequent arguments are optional",
+      }
+  }
+
+  rds_dbsecuritygroup = {
+    "Type" : "AWS::RDS::DBSecurityGroup",
+    "Properties" : {
+        "DBSecurityGroupIngress" : ["*Type: List of Ingress ##"],
+        "EC2VpcId" : "String. The identifier of an Amazon VPC. This property indicates the VPC that this DB security group belongs to.",
+        "GroupDescription" : "*String. Provides the description of the DB security group.",
+      }
+  }
+
+  rds_dbsecuritygroupingress = {
+    "Type" : "AWS::RDS::DBSecurityGroupIngress",
+    "Properties" : {
+        "CIDRIP" : "String",
+        "DBSecurityGroupName" : "*String",
+        "EC2SecurityGroupId" : "String. Id of the EC2 security group to authorize. For VPC DB security groups, EC2SecurityGroupId must be provided. Otherwise, EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId must be provided.",
+        "EC2SecurityGroupName" : "String. Name of the EC2 security group to authorize. For VPC DB security groups, EC2SecurityGroupId must be provided. Otherwise, EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId must be provided.",
+        "EC2SecurityGroupOwnerId" : "String. AWS account number of the owner of the EC2 security group specified in the EC2SecurityGroupName parameter. The AWS Access Key ID is not an acceptable value. For VPC DB security groups, EC2SecurityGroupId must be provided. Otherwise, EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId must be provided."
+      }
+  }
+
+  rds_dbsubnetgroup = {
+    "Type" : "AWS::RDS::DBSubnetGroup",
+    "Properties" : {
+        "DBSubnetGroupDescription" : "*String",
+        "DBSubnetGroupName" : "String. The name for the DB subnet group. This value is stored as a lowercase string.",
+        "SubnetIds" : ["*List of string. The EC2 Subnet IDs for the DB subnet group."],
+      }
+  }
+  
+  rds_eventsubscription={
+    "Type" : "AWS::RDS::EventSubscription",
+    "Properties" : {
+        "Enabled" : "Boolean. A value that indicates whether to activate the subscription. If the event notification subscription is not activated, the subscription is created but not active.",
+        "EventCategories" : ["List of string. A list of event categories for a SourceType that you want to subscribe to. "],
+        "SnsTopicArn" : "*String. The Amazon Resource Name (ARN) of the SNS topic created for event notification. The ARN is created by Amazon SNS when you create a topic and subscribe to it.",
+        "SourceIds" : ["List of string. The list of identifiers of the event sources for which events are returned. If not specified, then all sources are included in the response. An identifier must begin with a letter and must contain only ASCII letters, digits, and hyphens; it can't end with a hyphen or contain two consecutive hyphens."],
+        "SourceType" : "String. The type of source that is generating the events. For example, if you want to be notified of events generated by a DB instance, you would set this parameter to db-instance. if this value is not specified, all events are returned. Valid values: db-instance | db-cluster | db-parameter-group | db-security-group | db-snapshot | db-cluster-snapshot"
+      }
+  }
+  
+  rds_optiongroup={
+    "Type" : "AWS::RDS::OptionGroup",
+    "Properties" : {
+        "EngineName" : "*String. Specifies the name of the engine that this option group should be associated with.",
+        "MajorEngineVersion" : "*String. Specifies the major version of the engine that this option group should be associated with.",
+        "OptionConfigurations" : ["*Type: List of OptionConfiguration##"],
+        "OptionGroupDescription" : "*String. The description of the option group.",
+      }
+  }
+    
   
 }

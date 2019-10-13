@@ -32,10 +32,6 @@ export class ResultComponent implements OnInit {
     link.setAttribute('href', data);
     link.setAttribute('download',"cloudkast.json")
     link.click();
-    //var blob = new Blob([JSON.stringify(this.jsonresult.jsonresult)], {type: "text/plain;charset=utf-8"});
-    //FileSaver.saveAs(blob, "cloudfurner.json");
-    //var file = new File([JSON.stringify(this.jsonresult.jsonresult)], "hello world.txt", {type: "text/plain;charset=utf-8"});
-    //saveAs(file);
     var data = str + encodeURIComponent(this.yamlTemplate);
     link.setAttribute('href',data);
     link.setAttribute('download',"cloudkast.yaml")

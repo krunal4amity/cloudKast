@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonResultService } from '../json-result.service';
 import { UsefulUtilsService } from '../useful-utils.service';
-import {KeysPipePipe} from '../keys-pipe.pipe'
-//import {ResAttributes} from './ResAttributes'
 
 
 @Component({
@@ -180,7 +178,6 @@ export class IntrinsicFunctionsComponent implements OnInit {
   }
 
   getKeys(val){
-    console.log(Object.keys(val))
     return Object.keys(val);
   }
 
@@ -214,80 +211,13 @@ export class IntrinsicFunctionsComponent implements OnInit {
     this.fnselectCount=0;
     this.fnandArray=[];
     this.fnandCount=0;
-    //this.funcobj={}
-    // switch (value.funcname) {      
-    //   case "Ref":
-    //     value.refvalue=undefined;
-    //     break;
-    //   case "Fn::Base64":
-    //     this.funcobj["Fn::Base64"]=undefined;
-    //     break;
-    //   case "Fn::Cidr":
-    //     value.ipblock=undefined;
-    //     value.count=undefined;
-    //     value.cidrbits=undefined;
-    //     break;
-    //   case "Fn::FindInMap":
-    //     value.maps=undefined;
-    //     value.topkey=undefined;
-    //     value.secondkey=undefined;
-    //     break;
-    //   case "Fn::GetAtt":
-    //     value.resname=undefined;
-    //     value.propname=undefined;
-    //     break;
-    //   case "Fn::GetAZs":
-    //     value.zone=undefined;
-    //     break;
-    //   case "Fn::ImportValue":
-    //     value.importval=undefined;
-    //     break;
-    //   case "Fn::Join":
-    //     value.delim=undefined;
-    //     break;
-    //   case "Fn::Select":
-    //     value.index=undefined;
-    //     break;        
-    //   case "Fn::Split":
-    //     value.split=undefined;
-    //     value.splitvalue=undefined;
-    //     break;    
-    //   case "Fn::Sub":
-    //     value.sub=undefined;
-    //     value.subvalue=undefined;
-    //     break;                
-    //   case "Fn::Transform":
-    //     value.trapara=undefined;
-    //     break;         
-    //   case "Fn::And":
-    //     break;  
-    //   case "Fn::Equals":
-    //     value.equal1=undefined;
-    //     value.equal2=undefined;
-    //     break;    
-    //   case "Fn::If":
-    //     value.ifcon=undefined;
-    //     value.iftrue=undefined;
-    //     value.iffalse=undefined;
-    //     break;      
-    //   case "Fn::Not":
-    //     value.fnnot=undefined;          
-    //     break;
-    //   case "Fn::Or":
-    //     value.fnor=undefined;
-    //     break;
-    //   default:
-    //     break;
-    // }
   }
 
   retResource(){
-    //console.log(Object.keys(this.jsonresult.jsonresult.Resources))
     return (Object.keys(this.jsonresult.jsonresult.Resources).length!=0)?Object.keys(this.jsonresult.jsonresult.Resources):[];
   }
 
   retResProps(rname){
-    //return Object.keys(this.jsonresult.jsonresult.Resources[rname]);
     return (Object.keys(this.jsonresult.jsonresult.Resources[rname]["Properties"]).length!=0)?Object.keys(this.jsonresult.jsonresult.Resources[rname]["Properties"]):[];
   }
 
@@ -303,17 +233,10 @@ export class IntrinsicFunctionsComponent implements OnInit {
     var textArea= document.createElement("textarea");
     textArea.value = JSON.stringify(this.funcobj);
     document.body.appendChild(textArea);
-    //textArea.focus();
     textArea.select();
     document.execCommand("copy");
     document.body.removeChild(textArea);
   }
-
-  // doUnescape(value){
-  //   if((value as String).includes('/\\n')){
-  //     return (value as String).replace('/\\n',"\n");
-  //   }
-  // }
 
   doFunc(value){
     switch (value.funcname) {
@@ -333,8 +256,6 @@ export class IntrinsicFunctionsComponent implements OnInit {
         }
         break;
       case "Fn::FindInMap":
-        //var val2 = (value.topkey as String).includes("::")?JSON.parse(value.topkey):value.topkey;
-        //var val3 = (value.secondkey as String).includes("::")?JSON.parse(value.secondkey):value.secondkey;
         this.funcobj={
           "Fn::FindInMap":[value.maps,this.utility.getProperJson(value.topkey),this.utility.getProperJson(value.secondkey)]
         }
@@ -467,6 +388,4 @@ export class IntrinsicFunctionsComponent implements OnInit {
         break;
     }
   }
-
-
 }

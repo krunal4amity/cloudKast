@@ -14,15 +14,12 @@ export class PropertyDialogComponent implements OnInit {
   reqColor="red";
   conColor="darkorange";
   propSent=false;
-  //prophelp="Properties that include '*' in the tooltip are 'required' properties. Properties that include '**' in the tooltip are 'conditional' properties. Properties that include none of these in the tooltip are optional properties. Tooltips also indicate the type of property e.g. string, boolean, list of strings, list of custom object. Properties that are of type array denoated by 'List of strings' or 'List of <custom type>' in the tooltip. Pleaes click on the 'plus' sign above to populate another 'Property Dealer' widget to generate values of custom objects to be inserted as a value in another property. List of strings are to be entered as is separated by commas. List of custom types are to be enterred within sqaure brackets. Use the function widget below to generate function values."
   prophelp="Tooltip guide: Required properties(starting with *), Conditional properties(starting with **). \n A property of type array should start with 'List of <string|<object>>' \n Enter list of items delimited by semicolon(;) for a property of type array. \nUse the 'plus' icon above to open an additional property dealer widget. Use the function widget below to generate functions. "
   selProp:Object;
   isCopyReady:Boolean=false;
   @Input('curRes') curRes:string;
 
   constructor(public mainObj:ResourceDataService, public util:UsefulUtilsService){
-    //this.resKeys=Object.keys(this.mainObj.comProp);
-    //this.propKeys=Object.keys(Object.values(this.mainObj.comProp)[0])
   }
 
 
@@ -37,15 +34,11 @@ export class PropertyDialogComponent implements OnInit {
 
 
 getKeys(value){
-  //return Object.keys(Object.values(value)[0])
   return (Object.keys(value)).length==0?[]:Object.keys(value);
 }
 
 onDone(value){
-  //this.selProp=(Object.values(this.mainObj.comProp)[0])[value.resname];
   this.selProp=this.getSelProp(value.resname);
-  //console.log(value);
-  //console.log(this.selProp)
   this.propSent=true;
 }
 
@@ -90,7 +83,6 @@ getSelProp(value){
       a2=i[value];
     }
   })
-  //console.log(a2);
   return a2;
 }
 

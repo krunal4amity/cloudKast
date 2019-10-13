@@ -746,5 +746,65 @@ export var RESOURCE_DATA:AWSResource[]=[
                 resourcecount:0
             }
         ]
+    },
+    {
+        servicename:"Elasticsearch",
+        subresource:[
+            {
+                resourcename:"Domain",
+                resourcesyntax:"AWS::Elasticsearch::Domain",
+                resourcecount:0
+            }
+        ]
+    },
+    {
+        servicename:"RDS",
+        subresource:[
+            {
+                resourcename:"DBCluster",
+                resourcesyntax:"AWS::RDS::DBCluster",
+                resourcecount:0
+            },
+            {
+                resourcename:"DBClusterParameterGroup",
+                resourcesyntax:"AWS::RDS::DBClusterParameterGroup",
+                resourcecount:0
+            },
+            {
+                resourcename:"DBInstance",
+                resourcesyntax:"AWS::RDS::DBInstance",
+                resourcecount:0
+            },
+            {
+                resourcename:"DBParameterGroup",
+                resourcesyntax:"AWS::RDS::DBParameterGroup",
+                resourcecount:0
+            },
+            {
+                resourcename:"DBSecurityGroup",
+                resourcesyntax:"AWS::RDS::DBSecurityGroup",
+                resourcecount:0
+            },
+            {
+                resourcename:"DBSecurityGroupIngress",
+                resourcesyntax:"AWS::RDS::DBSecurityGroupIngress",
+                resourcecount:0
+            },
+            {
+                resourcename:"DBSubnetGroup",
+                resourcesyntax:"AWS::RDS::DBSubnetGroup",
+                resourcecount:0
+            },
+            {
+                resourcename:"EventSubscription",
+                resourcesyntax:"AWS::RDS::EventSubscription",
+                resourcecount:0
+            },
+            {
+                resourcename:"OptionGroup",
+                resourcesyntax:"AWS::RDS::OptionGroup",
+                resourcecount:0
+            }
+        ]
     }
 ]

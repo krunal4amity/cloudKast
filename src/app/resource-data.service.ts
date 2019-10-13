@@ -1359,6 +1359,85 @@ export class ResourceDataService {
           "InCluster" : "Boolean. When set to true, it indicates that data communication among the broker nodes of the cluster is encrypted. When set to false, the communication happens in plaintext. The default value is true."
         }        
       }
+    },
+    "AWS::Elasticsearch::Domain":{
+      "EBSOptions":{
+        "EBSEnabled" : "Boolean. Specifies whether Amazon EBS volumes are attached to data nodes in the Amazon ES domain.",
+        "Iops" : "Integer. The number of I/O operations per second (IOPS) that the volume supports. This property applies only to the Provisioned IOPS (SSD) EBS volume type.",
+        "VolumeSize" : "Integer. The size (in GiB) of the EBS volume for each data node. The minimum and maximum size of an EBS volume depends on the EBS volume type and the instance type to which it is attached. ",
+        "VolumeType" : "String. The EBS volume type to use with the Amazon ES domain, such as standard, gp2, io1, st1, or sc1."
+      },
+      "ElasticsearchClusterConfig":{
+        "DedicatedMasterCount" : "Integer. The number of instances to use for the master node. If you specify this property, you must specify true for the DedicatedMasterEnabled property.",
+        "DedicatedMasterEnabled" : "Boolean. Indicates whether to use a dedicated master node for the Amazon ES domain. A dedicated master node is a cluster node that performs cluster management tasks, but doesn't hold data or respond to data upload requests. Dedicated master nodes offload cluster management tasks to increase the stability of your search clusters.",
+        "DedicatedMasterType" : "String. The hardware configuration of the computer that hosts the dedicated master node, such as m3.medium.elasticsearch. If you specify this property, you must specify true for the DedicatedMasterEnabled property.",
+        "InstanceCount" : "Integer. The number of data nodes (instances) to use in the Amazon ES domain.",
+        "InstanceType" : "String. The instance type for your data nodes, such as m3.medium.elasticsearch.",
+        "ZoneAwarenessConfig" : {
+          "AvailabilityZoneCount" : "Integer. If you enabled multiple Availability Zones (AZs), the number of AZs that you want the domain to use. Valid values are 2 and 3. Default is 2."
+        },
+        "ZoneAwarenessEnabled" : "Boolean. Indicates whether to enable zone awareness for the Amazon ES domain. When you enable zone awareness, Amazon ES allocates the nodes and replica index shards that belong to a cluster across two Availability Zones (AZs) in the same region to prevent data loss and minimize downtime in the event of node or data center failure. Don't enable zone awareness if your cluster has no replica index shards or is a single-node cluster."
+      },
+      "EncryptionAtRestOptions":{
+        "Enabled" : "Boolean. Specify true to enable encryption at rest.",
+        "KmsKeyId" : "String. The KMS key ID. Takes the form 1a2a3a4-1a2a-3a4a-5a6a-1a2a3a4a5a6a."
+      },
+      "NodeToNodeEncryptionOptions":{
+        "Enabled" : "Boolean. Specifies whether node-to-node encryption is enabled, as a Boolean."
+      },
+      "SnapshotOptions":{
+        "AutomatedSnapshotStartHour" : "Integer. The hour in UTC during which the service takes an automated daily snapshot of the indices in the Amazon ES domain. For example, if you specify 0, Amazon ES takes an automated snapshot everyday between midnight and 1 am. You can specify a value between 0 and 23."
+      },
+      "VPCOptions":{
+        "SecurityGroupIds" : ["List of string. The list of security group IDs that are associated with the VPC endpoints for the domain. If you don't provide a security group ID, Amazon ES uses the default security group for the VPC. "],
+        "SubnetIds" : ["List of string. Provide one subnet ID for each Availability Zone that your domain uses. For example, you must specify three subnet IDs for a three Availability Zone domain."]
+      }                                    
+    },
+    "AWS::RDS::DBCluster":{
+      "DBClusterRole":{
+        "FeatureName" : "String. The name of the feature associated with the AWS Identity and Access Management (IAM) role.",
+        "RoleArn" : "*String. The Amazon Resource Name (ARN) of the IAM role that is associated with the DB cluster.",
+        "Status" : "String. Describes the state of association between the IAM role and the DB cluster. The Status property returns one of the following values: ACTIVE| PENDING|INVALID"
+      },
+      "ScalingConfiguration":{
+        "AutoPause" : "Boolean. A value that indicates whether to allow or disallow automatic pause for an Aurora DB cluster in serverless DB engine mode. A DB cluster can be paused only when it's idle (it has no connections).",
+        "MaxCapacity" : "Integer. The maximum capacity for an Aurora DB cluster in serverless DB engine mode. Valid capacity values are 1, 2, 4, 8, 16, 32, 64, 128, and 256.",
+        "MinCapacity" : "Integer. The minimum capacity for an Aurora DB cluster in serverless DB engine mode. Valid capacity values are 1, 2, 4, 8, 16, 32, 64, 128, and 256.",
+        "SecondsUntilAutoPause" : "Integer. The time, in seconds, before an Aurora DB cluster in 'serverless' mode is paused."
+      }            
+    },
+    "AWS::RDS::DBInstance":{
+      "DBInstanceRole":{
+        "FeatureName" : "*String. The name of the feature associated with the AWS Identity and Access Management (IAM) role. For the list of supported feature names, see DBEngineVersion.",
+        "RoleArn" : "*String. The Amazon Resource Name (ARN) of the IAM role that is associated with the DB instance.",
+        "Status" : "String. Describes the state of association between the IAM role and the DB instance. The Status property returns one of the following values: ACTIVE|PENDING|INVALID"
+      },
+      "ProcessorFeature":{
+        "Name" : "String. The name of the processor feature. Valid names are coreCount| threadsPerCore.",
+        "Value" : "String. The value of a processor feature name."
+      }            
+    },
+    "AWS::RDS::DBSecurityGroup":{
+      "Ingress":{
+        "CIDRIP" : "String. IP range to authorize.",
+        "EC2SecurityGroupId" : "String. Id of the EC2 security group to authorize. For VPC DB security groups, EC2SecurityGroupId must be provided. Otherwise, EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId must be provided.",
+        "EC2SecurityGroupName" : "String. Name of the EC2 security group to authorize. For VPC DB security groups, EC2SecurityGroupId must be provided. Otherwise, EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId must be provided.",
+        "EC2SecurityGroupOwnerId" : "String. AWS account number of the owner of the EC2 security group specified in the EC2SecurityGroupName parameter. The AWS Access Key ID is not an acceptable value. For VPC DB security groups, EC2SecurityGroupId must be provided. Otherwise, EC2SecurityGroupOwnerId and either EC2SecurityGroupName or EC2SecurityGroupId must be provided."
+      }      
+    },
+    "AWS::RDS::OptionGroup":{
+      "OptionConfiguration":{
+        "DBSecurityGroupMemberships" : ["List of string. A list of DBSecurityGroupMembership name strings used for this option." ],
+        "OptionName" : "*String. The configuration of options to include in a group.",
+        "OptionSettings" : ["List of OptionSetting"],
+        "OptionVersion" : "String",
+        "Port" : "Integer",
+        "VpcSecurityGroupMemberships" : ["List of string. A list of VpcSecurityGroupMembership name strings used for this option." ]
+      },
+      "OptionSetting":{
+        "Name" : "String",
+        "Value" : "String"
+      }            
     }    
   }    
 

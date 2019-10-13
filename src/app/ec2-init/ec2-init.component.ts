@@ -136,21 +136,6 @@ export class EC2InitComponent implements OnInit {
     this.commandsCount+=1; this.commandsArray.push(this.commandsCount);
   }
 
-  // getArray(val){
-  //   try {
-  //     if((val as String).includes("{")){
-  //       //console.log("in array of objects...")
-  //       return JSON.parse(val);
-  //     }
-  //      else{
-  //        //console.log("in array of strings...")
-  //        return val.length!=0?((val as String).split(",")):[];
-  //      } 
-  //   } catch (error) {
-  //       alert("Oops! An error occurred. Please check the input field type");
-  //   }
-  // }
-
   getArray(val){
     try{
       if((val as String).includes("{")){
@@ -233,7 +218,6 @@ export class EC2InitComponent implements OnInit {
 
   //Users
   onUserDone(value){
-    //console.log(value);
     this.myobj["AWS::CloudFormation::Init"]["config"]["users"]={};
     for(var i=1;i<=this.usersArray.length;i++){
       this.myobj["AWS::CloudFormation::Init"]["config"]["users"][value[`user${i}`]]={}
